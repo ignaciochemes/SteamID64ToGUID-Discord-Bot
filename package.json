@@ -1,0 +1,31 @@
+{
+    "name": "oaki",
+    "version": "1.0.0",
+    "description": "oakiBot",
+    "main": "index.js",
+    "scripts": {
+        "test": "-"
+    },
+    "keywords": [
+        "-"
+    ],
+    "author": "siegmund",
+    "license": "ISC",
+    "dependencies": {
+        "ascii-table": "0.0.9",
+        "axios": "^0.19.2",
+        "base-64": "^0.1.0",
+        "common-tags": "^1.8.0",
+        "dateformat": "^3.0.3",
+        "discord.js": "^12.0.2",
+        "dotenv": "^8.2.0",
+        "erela.js": "^1.1.7",
+        "jsdom": "^16.2.1",
+        "node-fetch": "^2.6.0",
+        "node-int64": "^0.4.0",
+        "request": "^2.88.2",
+        "stream": "0.0.2",
+        "xmldom": "^0.3.0",
+        "youtube-dl": "^3.0.2"
+    }
+}
