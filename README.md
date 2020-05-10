@@ -7,9 +7,6 @@ Convert SteamID64 to Battleye GUID (MD5 hash)
 
 > **Note:** If **You Want** can join the support discord.
 
-# ID64ToGuid
-![](https://i.imgur.com/NGQMjSA.jpg)
-
 #### How to instal:
 `npm install`
 
