@@ -9,6 +9,8 @@ Dayz - Arma 3 Discord Bot Convert SteamID64 to Battleye GUID (MD5 hash)
 
 ![Image guid](https://i.imgur.com/Y92BDwk.png)
 
+![Image guid2](https://i.imgur.com/53Pfkj3.png)
+
 
 #### How to install:
 -`npm install`
