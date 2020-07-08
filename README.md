@@ -1,5 +1,5 @@
 # SteamID64ToGUID-Discord-Bot
-Convert SteamID64 to Battleye GUID (MD5 hash)
+Dayz - Arma 3 Discord Bot Convert SteamID64 to Battleye GUID (MD5 hash)
 
 ### Features
 - You can convert steamid64 to Guid very easily and quickly.
