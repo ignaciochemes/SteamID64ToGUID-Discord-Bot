@@ -7,8 +7,10 @@ Dayz - Arma 3 Discord Bot Convert SteamID64 to Battleye GUID (MD5 hash)
 
 > **Note:** If **You Want** can join the support discord.
 
+#### Satisfactory
 ![Image guid](https://i.imgur.com/Y92BDwk.png)
 
+#### Catch Error
 ![Image guid2](https://i.imgur.com/53Pfkj3.png)
 
 
