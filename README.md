@@ -9,6 +9,13 @@ Dayz - Arma 3 Discord Bot Convert SteamID64 to Battleye GUID (MD5 hash)
 
 #### How to instal:
 `npm install`
+`npm install pm2 -g` (In Administration CMD or PowerShell)
+![Image CMD](https://i.imgur.com/Io1ytIu.png)
+
+#### How to Run:
+1-Open the project in cmd or powershell windows
+2-Execute: `pm2 start 64.js`
+![Image PM2](https://i.imgur.com/zsATyCv.png)
 
 [Support Discord](https://discord.gg/M3FvUq8)
 
