@@ -15,6 +15,9 @@ Dayz - Arma 3 Discord Bot Convert SteamID64 to Battleye GUID (MD5 hash)
 
 
 #### How to install:
+#### First Install Node.js in your server
+https://nodejs.org
+
 -`npm install`
 
 -`npm install pm2 -g` (In Administration CMD or PowerShell)
