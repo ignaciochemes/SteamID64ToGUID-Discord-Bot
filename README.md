@@ -18,9 +18,13 @@ Dayz - Arma 3 Discord Bot Convert SteamID64 to Battleye GUID (MD5 hash)
 #### First Install Node.js in your server
 https://nodejs.org
 
--`npm install`
+.Then... Open two CMD or Power Shell windows. One of them in administrator (Desktop) mode and the last one open in this project.
+-Administrator mode for install pm2 tool. (`npm install pm2 -g`)
+-Project powershell windows for install Node packages. (`npm install`)
 
--`npm install pm2 -g` (In Administration CMD or PowerShell)
+-`npm install` (In this project obviously)
+
+-`npm install pm2 -g` (In Administration CMD or PowerShell Desktop)
 
 ![Image CMD](https://i.imgur.com/Io1ytIu.png)
 
