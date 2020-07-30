@@ -12,7 +12,7 @@ module.exports = {
         const discordinfo = new Discord.MessageEmbed()
             .setTitle("Id64ToGUID")
             .setColor("#15f153")
-            .setFooter("Developed by siegmund")
+            .setFooter("Developed by siegmund - oaki")
             .setThumbnail('https://i.imgur.com/mnSJzVk.jpg')
             .addField("Server Name", message.guild.name)
             .addField("Founder", message.guild.owner.user.tag)

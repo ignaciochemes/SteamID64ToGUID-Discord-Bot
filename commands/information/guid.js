@@ -24,7 +24,7 @@ module.exports = {
                     .setThumbnail('https://i.imgur.com/NGQMjSA.jpg');
             } catch(e)
             {
-                 console.log(`Error al convertir GUID`);
+                 console.warn(`Error al convertir GUID - Err `);
                  siEnviarEmbed.setTitle(`Error converting`)
                  .setColor("#A62019")
                  .setDescription(`Are you sure you entered a correct number? \nGo to this page https://steamid.io/ and enter your Steam Link. \nYou have to find your SteamId64 765611 .... and then, use it with the command \`-guid 765611.....\` to return the hash.`)

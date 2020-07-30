@@ -9,6 +9,7 @@ module.exports = {
 	category: "information",
     aliases: ["un"],
 	run: async (client, message, args) => {
+		console.log("Se ejecuto el comando -Online");
 		function duration(ms) {
 		const sec = Math.floor((ms / 1000) % 60).toString()
 		const min = Math.floor((ms / (1000 * 60)) % 60).toString()

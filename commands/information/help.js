@@ -8,6 +8,7 @@ module.exports = {
     description: "Returns all the commands, specifying each one",
     usage: "-help",
     run: async(client, message, args) => {
+        console.log("Se ejecuto el comando -Help");
         if (args[0]) {
             return getCMD(client, message, args[0]);
         } else {

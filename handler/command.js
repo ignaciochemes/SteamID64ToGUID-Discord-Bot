@@ -23,4 +23,5 @@ module.exports = (client) => {
     });
 
     console.log(table.toString());
+    console.log("Comandos Listos!");
 }
