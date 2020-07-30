@@ -22,7 +22,7 @@ config({
 
 client.on("ready", () => {
     console.log(`Estoy online, mi nombre es ${client.user.username}. Develop by oaki.`);
-    client.user.setActivity(`-help`, { type: "LISTENING" });
+    client.user.setActivity(`-help | ${client.guilds.cache.size} Servers`, { type: "LISTENING" });
 
 });
 
