@@ -39,6 +39,7 @@ module.exports = {
         { name: "Memory", value:'```' + `Total: ${Math.round(OS.totalmem()/1000000)} MB \nFree: ${Math.round(OS.freemem()/1000000)} MB \nUsed: ${Math.round(OS.totalmem()-OS.freemem())/1000000} MB` + '```', inline: true },
         { name: "OS", value:'```' + `This bot run in Win ${os.arch()} exact ${os.type()} \nUptime: ${os.uptime()/1000} Hs` + '```', inline: true },
         { name: "Versions", value:'```' + `Node Version: ${process.versions.node} \nv8: ${process.versions.v8}` + '```', inline: true },
+        { name: "Server", value:'```' + `Server is Online! \n Since: ${os.uptime()/1000} Hs \nServer Ubication: Argentina` + '```', inline: true },
         )
       //.setFooter(`2020 © ${client.user.username}.`)
 	  .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | siegmund - oaki`)
