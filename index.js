@@ -9,6 +9,23 @@ const client = new Client({
     disableEveryone: true
 });
 
+//Top.gg - Web data start
+const DBL = require("dblapi.js");
+const dbl = new DBL('Your-top.gg-bot-token', client);
+
+dbl.on('posted', () => {
+    console.log('Server count posted');
+})
+
+dbl.on('error', e => {
+    console.log(`Oops! ${e}`);
+})
+
+//End Top.gg - Web data
+//If you dont have Top.gg bot, you can comment/clear top.gg info
+//Line 12 to 22. (index.js) and Line 43 to 45 (index.js)
+// Line 43 --- setInterval(() => {... to line 45 --- 1800000);
+
 client.commands = new Collection();
 client.aliases = new Collection();
 client.categories = fs.readdirSync("./commands/");
@@ -23,6 +40,9 @@ config({
 client.on("ready", () => {
     console.log(`Estoy online, mi nombre es ${client.user.username}. Develop by oaki.`);
     client.user.setActivity(`-help | ${client.guilds.cache.size} Servers`, { type: "LISTENING" });
+    setInterval(() => {
+        dbl.postStats(client.guilds.size, client.shards.Id, client.shards.total);
+    }, 1800000);
 
 });
 
