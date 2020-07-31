@@ -1,6 +1,6 @@
-const { steamapi } = require('./config.json');
 const { MessageEmbed } = require("discord.js");
 const axios = require('axios');
+const { steamapi } = require('./config.json');
 const { Client, Collection } = require("discord.js");
 const { config } = require("dotenv");
 const fs = require("fs");
@@ -8,6 +8,20 @@ const fs = require("fs");
 const client = new Client({
     disableEveryone: true
 });
+
+// WEB TEMPLATE BE NOT FINISH YET...
+//Express const
+const express = require('express');
+const app = express();
+const puerto = 3000;
+
+//Start Express server
+app.use(express.static('src'));
+
+app.listen(puerto, () => {
+    console.log(`Express listen in port ${puerto}`);
+});
+//End Express server
 
 //Top.gg - Web data start
 // const DBL = require("dblapi.js");
@@ -23,8 +37,8 @@ const client = new Client({
 
 //End Top.gg - Web data.
 //If you dont have Top.gg bot, you can comment/clear top.gg info.
-//If you have top.gg discord information, uncomment lines 13 to 22.
-//Uncomment line 44.
+//If you have top.gg discord information, uncomment lines 27 to 36.
+//Uncomment line 60.
 
 client.commands = new Collection();
 client.aliases = new Collection();
@@ -33,12 +47,14 @@ config({
     path: __dirname + "/.env"
 });
 
+//Handler Commands
 ["command"].forEach(handler => {
     require(`./handler/${handler}`)(client);
 });
 
+//Start bot
 client.on("ready", () => {
-    console.log(`Estoy online, mi nombre es ${client.user.username}. Develop by oaki.`);
+    console.log(`Im Online!, My name is ${client.user.username}. Develop by oaki.`);
     setInterval(() => {
         client.user.setActivity(`-help | ${client.guilds.cache.size} Servers`, { type: "LISTENING" });
     //    dbl.postStats(client.guilds.size, client.shards.Id, client.shards.total);
@@ -46,6 +62,7 @@ client.on("ready", () => {
 
 });
 
+//Message async
 client.on("message", async message => {
     const prefix = "-";
     if (message.author.bot) return;
