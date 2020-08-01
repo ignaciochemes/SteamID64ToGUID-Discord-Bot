@@ -9,7 +9,7 @@ const client = new Client({
     disableEveryone: true
 });
 
-// WEB TEMPLATE BE NOT FINISH YET...
+// WEB TEMPLATE NOT BE FINISHED YET...
 //Express const
 const express = require('express');
 const app = express();
@@ -38,11 +38,13 @@ app.listen(puerto, () => {
 //End Top.gg - Web data.
 //If you dont have Top.gg bot, you can comment/clear top.gg info.
 //If you have top.gg discord information, uncomment lines 27 to 36.
-//Uncomment line 60.
+//Uncomment line 62.
 
 client.commands = new Collection();
 client.aliases = new Collection();
 client.categories = fs.readdirSync("./commands/");
+
+//Config path .env
 config({
     path: __dirname + "/.env"
 });
@@ -52,7 +54,7 @@ config({
     require(`./handler/${handler}`)(client);
 });
 
-//Start bot
+//Start bot iformation
 client.on("ready", () => {
     console.log(`Im Online!, My name is ${client.user.username}. Develop by oaki.`);
     setInterval(() => {
@@ -62,7 +64,7 @@ client.on("ready", () => {
 
 });
 
-//Message async
+//Message listen - Async
 client.on("message", async message => {
     const prefix = "-";
     if (message.author.bot) return;
@@ -83,4 +85,5 @@ client.on("message", async message => {
 
 });
 
+//Bot Login - your discord bot token be there.
 client.login(process.env.TOKEN);
