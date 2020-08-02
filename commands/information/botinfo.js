@@ -3,7 +3,7 @@ const { MessageEmbed } = require("discord.js");
 const moment = require('moment');
 const OS = require('os');
 const os = require('os');
-const { conexionDb } = require('../../database')
+const { conexionDb } = require('../../database');
 var oldCPUTime = 0
 var oldCPUIdle = 0
 moment.locale('America/Argentina/Buenos_Aires');
@@ -29,10 +29,11 @@ module.exports = {
     //Start Mysql Connection
     conexionDb.connect(function insertarData() {
       console.log("Db is conecting");
-      //var sql = "INSERT INTO guilds (`servsize`, `usersize`) VALUES ('"+servsize+"', '"+usersize+"')";
-      var sql = "UPDATE guilds SET servsize = '"+servsize+"' WHERE servsize = servsize";
-      var sql2 = "UPDATE guilds SET usersize = '"+usersize+"' WHERE usersize = usersize";
-      conexionDb.query(sql, sql2, function(err,result) {
+      var sql = "INSERT INTO guilds (`servsize`, `usersize`) VALUES ('"+servsize+"', '"+usersize+"')";
+      //var sql = "UPDATE guilds SET servsize = '"+servsize+"' WHERE servsize = servsize";
+      //var sql2 = "UPDATE guilds SET usersize = '"+usersize+"' WHERE usersize = usersize";
+      //conexionDb.query(sql, sql2, function(err,result) {
+      conexionDb.query(sql, function(err,result) {
         if (err) throw err
         console.log(`Database Update... Whit =>\nServsize ${servsize}.\nUsersize Cache ${usersize}`);
       });

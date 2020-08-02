@@ -22,6 +22,10 @@ Dayz - Arma 3 Discord Bot Convert SteamID64 to Battleye GUID (MD5 hash)
 #### Catch Error
 ![Image guid2](https://i.imgur.com/53Pfkj3.png)
 
+#### WEB Template
+![Image template1](https://i.imgur.com/0qrRh6e.png)
+![Image template2](https://i.imgur.com/cATwhan.png)
+
 
 #### How to install:
 #### First Install Node.js in your server and XAMPP
@@ -50,10 +54,23 @@ https://www.apachefriends.org/es/index.html
 
 ![Image CMD](https://i.imgur.com/Io1ytIu.png)
 
-#### How to Run:
+#### How to Run: WARNING! READ!!
+
 - Open the project in cmd or powershell windows
 
 - Execute: `pm2 start index.js`
+
+- Invite your bot on any discord server
+
+- Execute -botinfo command and TURN OFF THE BOT
+
+- Go to your project ./commands/information/botinfo.js
+Comment line 32. Uncomment lines 33, 34 and 35. AND COMMENT LINE 36.
+![Image botinfo](https://i.imgur.com/pYggZgj.png)
+
+RESULT: ![Image botinfo2](https://i.imgur.com/myKDt5O.png)
+
+- Now, you can turn on your discord bot and enjoy!!
 
 ![Image PM2](https://i.imgur.com/zsATyCv.png)
 
