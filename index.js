@@ -9,22 +9,8 @@ const client = new Client({
     disableEveryone: true
 });
 
-// WEB TEMPLATE NOT BE FINISHED YET...
-// If you don't want the web template, just comment the express lines. 
-// It is still in development. (Lines 17 to 26);
-
-//Express Const
-const express = require('express');
-const app = express();
-const puerto = 3000;
-
-//Start Express server
-app.use(express.static('src'));
-
-app.listen(puerto, () => {
-    console.log(`Express listen in port ${puerto}`);
-});
-//End Express server
+//Start Express Web Server
+const app = require('./src/app');
 
 //Top.gg - Web data start
 // const DBL = require("dblapi.js");
@@ -69,7 +55,7 @@ client.on("ready", () => {
 
 //Message listen - Async
 client.on("message", async message => {
-    const prefix = "-";
+    const prefix = "!!";
     if (message.author.bot) return;
     if (!message.guild) return;
     if (!message.content.startsWith(prefix)) return;

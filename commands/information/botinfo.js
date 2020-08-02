@@ -3,6 +3,7 @@ const { MessageEmbed } = require("discord.js");
 const moment = require('moment');
 const OS = require('os');
 const os = require('os');
+const { conexionDb } = require('../../database')
 var oldCPUTime = 0
 var oldCPUIdle = 0
 moment.locale('America/Argentina/Buenos_Aires');
@@ -25,6 +26,19 @@ module.exports = {
       offline: '`⚫` Offline'
     };
 
+    //Start Mysql Connection
+    conexionDb.connect(function insertarData() {
+      console.log("Db is conecting");
+      //var sql = "INSERT INTO guilds (`servsize`, `usersize`) VALUES ('"+servsize+"', '"+usersize+"')";
+      var sql = "UPDATE guilds SET servsize = '"+servsize+"' WHERE servsize = servsize";
+      var sql2 = "UPDATE guilds SET usersize = '"+usersize+"' WHERE usersize = usersize";
+      conexionDb.query(sql, sql2, function(err,result) {
+        if (err) throw err
+        console.log(`Database Update... Whit =>\nServsize ${servsize}.\nUsersize Cache ${usersize}`);
+      });
+    });
+    //End Mysql Connection
+
     const embed = new Discord.MessageEmbed()
       .setColor("#F8C300")
       .setAuthor(message.author.username, "https://cdn.discordapp.com/avatars/"+message.author.id+"/"+message.author.avatar+".png")
@@ -42,7 +56,7 @@ module.exports = {
         { name: "Server", value:'```' + `Server is Online! \n Since: ${os.uptime()/1000} Hs \nServer Ubication: Argentina` + '```', inline: true },
         )
       //.setFooter(`2020 © ${client.user.username}.`)
-	  .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | siegmund - oaki`)
+	    .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | siegmund - oaki`)
       .setTimestamp()
 
     if (client.user.presence.status) {
@@ -53,12 +67,12 @@ module.exports = {
         true
       )
     }
-
     message.channel.send(embed);
   },
-
+  
   conf: {},
 }
+
 /**
  * Formata a data passada para o padrão do Brasil.
  * @param {string} template

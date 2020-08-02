@@ -10,6 +10,10 @@ Dayz - Arma 3 Discord Bot Convert SteamID64 to Battleye GUID (MD5 hash)
 - You can convert steamid64 to Guid very easily and quickly.
 - It has a command that displays a complete list of all bot commands.
 
+### Prerequisites
+- Have Node.js installed
+- It is necessary to have a MYSQL database. Xampp for example.
+
 > **Note:** If **You Want** can join the support discord.
 
 #### Satisfactory
@@ -20,8 +24,19 @@ Dayz - Arma 3 Discord Bot Convert SteamID64 to Battleye GUID (MD5 hash)
 
 
 #### How to install:
-#### First Install Node.js in your server
+#### First Install Node.js in your server and XAMPP
 https://nodejs.org
+https://www.apachefriends.org/es/index.html
+
+### Xamp configuration
+1- Open and run apache / mysql server
+2- Create a new user account like this and save.
+![Image crearcuenta](https://i.imgur.com/TxXbA1L.png)
+
+3-Create a new database and a new table with two columns. (`servsize` and `usersize`).
+![Image tabla](https://i.imgur.com/dNoLgL4.png)
+![Image tabla2](https://i.imgur.com/ZK24U91.png)
+
 
 .Then... Open two CMD or Power Shell windows. One of them in administrator (Desktop) mode and the last one open in this project.
 -Administrator mode for install pm2 tool. (`npm install pm2 -g`)
