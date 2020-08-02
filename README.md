@@ -66,9 +66,12 @@ https://www.apachefriends.org/es/index.html
 
 - Go to your project ./commands/information/botinfo.js
 Comment line 32. Uncomment lines 33, 34 and 35. AND COMMENT LINE 36.
+
 ![Image botinfo](https://i.imgur.com/pYggZgj.png)
 
-RESULT: ![Image botinfo2](https://i.imgur.com/myKDt5O.png)
+RESULT: 
+
+![Image botinfo2](https://i.imgur.com/myKDt5O.png)
 
 - Now, you can turn on your discord bot and enjoy!!
 
