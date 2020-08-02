@@ -40,8 +40,10 @@ https://www.apachefriends.org/es/index.html
 
 - Create a new database and a new table with two columns. (`servsize` and `usersize`).
 
-![Image tabla](https://i.imgur.com/dNoLgL4.png)
+
 ![Image tabla2](https://i.imgur.com/ZK24U91.png)
+
+![Image tabla](https://i.imgur.com/dNoLgL4.png)
 
 
 - Then... Open two CMD or Power Shell windows. One of them in administrator (Desktop) mode and the last one open in this project.
