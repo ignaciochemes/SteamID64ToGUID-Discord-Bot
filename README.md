@@ -29,22 +29,24 @@ https://nodejs.org
 https://www.apachefriends.org/es/index.html
 
 ### Xamp configuration
-1- Open and run apache / mysql server
-2- Create a new user account like this and save.
+- Open and run apache / mysql server
+- Create a new user account like this and save.
+
 ![Image crearcuenta](https://i.imgur.com/TxXbA1L.png)
 
-3-Create a new database and a new table with two columns. (`servsize` and `usersize`).
+- Create a new database and a new table with two columns. (`servsize` and `usersize`).
+
 ![Image tabla](https://i.imgur.com/dNoLgL4.png)
 ![Image tabla2](https://i.imgur.com/ZK24U91.png)
 
 
-.Then... Open two CMD or Power Shell windows. One of them in administrator (Desktop) mode and the last one open in this project.
--Administrator mode for install pm2 tool. (`npm install pm2 -g`)
--Project powershell windows for install Node packages. (`npm install`)
+- Then... Open two CMD or Power Shell windows. One of them in administrator (Desktop) mode and the last one open in this project.
+- Administrator mode for install pm2 tool. (`npm install pm2 -g`)
+- Project powershell windows for install Node packages. (`npm install`)
 
--`npm install` (In this project obviously)
+- `npm install` (In this project obviously)
 
--`npm install pm2 -g` (In Administration CMD or PowerShell Desktop)
+- `npm install pm2 -g` (In Administration CMD or PowerShell Desktop)
 
 ![Image CMD](https://i.imgur.com/Io1ytIu.png)
 
