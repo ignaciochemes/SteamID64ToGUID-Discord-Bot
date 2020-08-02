@@ -51,9 +51,9 @@ https://www.apachefriends.org/es/index.html
 ![Image CMD](https://i.imgur.com/Io1ytIu.png)
 
 #### How to Run:
--Open the project in cmd or powershell windows
+- Open the project in cmd or powershell windows
 
--Execute: `pm2 start 64.js`
+- Execute: `pm2 start index.js`
 
 ![Image PM2](https://i.imgur.com/zsATyCv.png)
 
