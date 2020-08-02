@@ -23,8 +23,8 @@ Dayz - Arma 3 Discord Bot Convert SteamID64 to Battleye GUID (MD5 hash)
 ![Image guid2](https://i.imgur.com/53Pfkj3.png)
 
 #### WEB Template
-![Image template1](https://i.imgur.com/0qrRh6e.png)
 ![Image template2](https://i.imgur.com/cATwhan.png)
+![Image template1](https://i.imgur.com/0qrRh6e.png)
 
 
 #### How to install:
@@ -40,11 +40,8 @@ https://www.apachefriends.org/es/index.html
 
 - Create a new database and a new table with two columns. (`servsize` and `usersize`).
 
-
-![Image tabla2](https://i.imgur.com/ZK24U91.png)
-
 ![Image tabla](https://i.imgur.com/dNoLgL4.png)
-
+![Image tabla2](https://i.imgur.com/ZK24U91.png)
 
 - Then... Open two CMD or Power Shell windows. One of them in administrator (Desktop) mode and the last one open in this project.
 - Administrator mode for install pm2 tool. (`npm install pm2 -g`)
