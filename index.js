@@ -10,7 +10,10 @@ const client = new Client({
 });
 
 // WEB TEMPLATE NOT BE FINISHED YET...
-//Express const
+// If you don't want the web template, just comment the express lines. 
+// It is still in development. (Lines 17 to 26);
+
+//Express Const
 const express = require('express');
 const app = express();
 const puerto = 3000;
