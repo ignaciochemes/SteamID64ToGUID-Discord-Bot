@@ -7,7 +7,7 @@
 
     <title>NOT DONE YET</title>
     
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
   </head>  
@@ -48,7 +48,7 @@
         <h3 class="card-title">
           [Your bot] fast as a Bunny
         </h3>
-        <img class="card-image" src="/img/rabbit.png" width="200">
+        <img class="card-image" src="./img/rabbit.png" width="200">
         <p class="card-description">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
         </p>
@@ -85,12 +85,13 @@
         <h2>
           USERS CACHE:
         </h2>
-        110000
+        <%= data[0].usersize %>
       </div>
-      <div class="statics-rows">
-        <h2 method="post">
-          GUILDS: 
+      <div id="titofox" class="statics-rows">
+        <h2>
+          GUILDS
         </h2>
+          <%= data[0].servsize %>
       </div>
       <div class="statics-rows">
         <h2>
@@ -124,6 +125,5 @@
     </div>
     <br>
     <script src="./script.js" defer></script>
-    <script src="./database.js" defer></script>
   </body>
 </html>

@@ -10,7 +10,11 @@ const client = new Client({
 });
 
 //Start Express Web Server
-const app = require('./src/app');
+const app = require('./app');
+
+//Database Start
+const database = require('./database')
+
 
 //Top.gg - Web data start
 // const DBL = require("dblapi.js");
