@@ -49,6 +49,7 @@ Dayz - Arma 3 Discord Bot Convert SteamID64 to Battleye GUID (MD5 hash)
 ![Image template2](https://i.imgur.com/cATwhan.png)
 ![Image template1](https://i.imgur.com/0qrRh6e.png)
 
+---
 
 ### How to install:
 #### First Install Node.js in your server and XAMPP
@@ -58,7 +59,7 @@ https://www.apachefriends.org/es/index.html
 
 ---
 
-#### Xamp setup
+#### Xamp setup - Install
 - Open and run apache / mysql server
 - Create a new user account like this and save.
 
@@ -71,7 +72,7 @@ https://www.apachefriends.org/es/index.html
 
 ---
 
-### Node.js Setup
+### Node.js Setup - install
 - Then... Open two CMD or Power Shell windows. One of them in administrator (Desktop) mode and the last one open in this project.
 - Administrator mode for install pm2 tool. (`npm install pm2 -g`)
 - Project powershell windows for install Node packages. (`npm install`)
