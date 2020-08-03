@@ -15,9 +15,9 @@ Dayz - Arma 3 Discord Bot Convert SteamID64 to Battleye GUID (MD5 hash)
 - 🌱 It has a command that displays a complete list of all bot commands 🤣
 - 🔭 Welcome Web template for your bot
 
-<img align="left" alt="siegmund0's Github Stats" src="https://github-readme-stats.vercel.app/api?username=siegmund0&show_icons=true&hide_border=true" />
+---
 
-<br />
+<img align="left" alt="siegmund0's Github Stats" src="https://github-readme-stats.vercel.app/api?username=siegmund0&show_icons=true&hide_border=true" />
 
 ---
 
