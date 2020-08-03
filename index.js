@@ -22,16 +22,16 @@ const database = require('./database');
 
 // dbl.on('posted', () => {
 //     console.log('Server count posted');
-// })
+// });
 
 // dbl.on('error', e => {
 //     console.log(`Oops! ${e}`);
-// })
+// });
 
 //End Top.gg - Web data.
 //If you dont have Top.gg bot, you can comment/clear top.gg info.
-//If you have top.gg discord information, uncomment lines 27 to 36.
-//Uncomment line 62.
+//If you have top.gg discord information, uncomment lines 20 to 29.
+//Uncomment line 55.
 
 client.commands = new Collection();
 client.aliases = new Collection();
