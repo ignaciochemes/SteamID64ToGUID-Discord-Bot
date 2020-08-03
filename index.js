@@ -1,7 +1,6 @@
-const { MessageEmbed } = require("discord.js");
 const axios = require('axios');
 const { steamapi } = require('./config.json');
-const { Client, Collection } = require("discord.js");
+const { Client, Collection, MessageEmbed } = require("discord.js");
 const { config } = require("dotenv");
 const fs = require("fs");
 
@@ -9,18 +8,18 @@ const client = new Client({
     disableEveryone: true
 });
 
-//Start Express Web Server
-//If you don't want the web template, just comment the following line.
-//Also, you have to go to bot info.js and comment on all the lines that are from mysql.
-//Line 6 and from 30 to 40.
-const app = require('./app');
+//START EXPRESS WEB SERVER - app.js
+// 1- If you want the web template, just uncomment the following line.
+// 2- Also, you have to go to botinfo.js and uncomment on all the lines that are from mysql.
+// 3- Line 6 and from 30 to 40.
+//const app = require('./app');
 
-//Database Start
-//If you don't want the web template, just comment the following line.
-const database = require('./database');
+//START DATABASE - database.js
+// 1- If you want the web template, just uncomment the following line.
+//const database = require('./database');
 
 
-//Top.gg - Web data start
+//TOP.GG - START SEND DATA FROM API
 // const DBL = require("dblapi.js");
 // const dbl = new DBL('Your-top.gg-bot-token', client);
 
@@ -32,26 +31,26 @@ const database = require('./database');
 //     console.log(`Oops! ${e}`);
 // });
 
-//End Top.gg - Web data.
-//If you dont have Top.gg bot, you can comment/clear top.gg info.
-//If you have top.gg discord information, uncomment lines 24 to 33.
-//Uncomment line 59.
+//END TOP.GG WEB DATA
+// 1- If you dont have Top.gg bot, you can comment/clear top.gg info.
+// 2- If you have top.gg discord information, uncomment lines 23 to 32.
+// 3- Uncomment line 58.
 
 client.commands = new Collection();
 client.aliases = new Collection();
 client.categories = fs.readdirSync("./commands/");
 
-//Config path .env
+//CONFIG PATH .ENV
 config({
     path: __dirname + "/.env"
 });
 
-//Handler Commands
+//HANDLER COMANDS
 ["command"].forEach(handler => {
     require(`./handler/${handler}`)(client);
 });
 
-//Start bot iformation
+//START BOT INFORMATION
 client.on("ready", () => {
     console.log(`Im Online!, My name is ${client.user.username}. Develop by oaki.`);
     setInterval(() => {
@@ -61,7 +60,7 @@ client.on("ready", () => {
 
 });
 
-//Message listen - Async
+//MESSAGE LISTENER - ASYNC
 client.on("message", async message => {
     const prefix = "!!";
     if (message.author.bot) return;
@@ -82,5 +81,5 @@ client.on("message", async message => {
 
 });
 
-//Bot Login - your discord bot token be there.
+//BOT LOGIN - YOUR DISCORD BOT BE HERE.
 client.login(process.env.TOKEN);
