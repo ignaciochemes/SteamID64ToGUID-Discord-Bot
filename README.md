@@ -21,6 +21,7 @@ Dayz - Arma 3 Discord Bot Convert SteamID64 to Battleye GUID (MD5 hash)
 [<img align="left" alt="Node.js" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/nodejs/nodejs.png" />]
 [<img align="left" alt="MySQL" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/mysql/mysql.png" />]
 
+---
 
 ### Prerequisites
 - Have Node.js installed
@@ -28,23 +29,30 @@ Dayz - Arma 3 Discord Bot Convert SteamID64 to Battleye GUID (MD5 hash)
 
 > **Note:** If **You Want** can join the support discord.
 
+---
+
 #### Satisfactory
 ![Image guid](https://i.imgur.com/Y92BDwk.png)
 
 #### Catch Error
 ![Image guid2](https://i.imgur.com/53Pfkj3.png)
 
+---
+
 #### WEB Template
 ![Image template2](https://i.imgur.com/cATwhan.png)
 ![Image template1](https://i.imgur.com/0qrRh6e.png)
 
 
-#### How to install:
+### How to install:
 #### First Install Node.js in your server and XAMPP
 https://nodejs.org
+
 https://www.apachefriends.org/es/index.html
 
-### Xamp configuration
+---
+
+#### Xamp setup
 - Open and run apache / mysql server
 - Create a new user account like this and save.
 
@@ -55,6 +63,9 @@ https://www.apachefriends.org/es/index.html
 ![Image tabla](https://i.imgur.com/dNoLgL4.png)
 ![Image tabla2](https://i.imgur.com/ZK24U91.png)
 
+---
+
+### Node.js Setup
 - Then... Open two CMD or Power Shell windows. One of them in administrator (Desktop) mode and the last one open in this project.
 - Administrator mode for install pm2 tool. (`npm install pm2 -g`)
 - Project powershell windows for install Node packages. (`npm install`)
@@ -64,6 +75,8 @@ https://www.apachefriends.org/es/index.html
 - `npm install pm2 -g` (In Administration CMD or PowerShell Desktop)
 
 ![Image CMD](https://i.imgur.com/Io1ytIu.png)
+
+---
 
 #### How to Run: WARNING! READ!!
 
