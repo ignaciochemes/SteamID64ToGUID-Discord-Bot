@@ -10,9 +10,13 @@ const client = new Client({
 });
 
 //Start Express Web Server
+//If you don't want the web template, just comment the following line.
+//Also, you have to go to bot info.js and comment on all the lines that are from mysql.
+//Line 6 and from 30 to 40.
 const app = require('./app');
 
 //Database Start
+//If you don't want the web template, just comment the following line.
 const database = require('./database');
 
 
@@ -30,8 +34,8 @@ const database = require('./database');
 
 //End Top.gg - Web data.
 //If you dont have Top.gg bot, you can comment/clear top.gg info.
-//If you have top.gg discord information, uncomment lines 20 to 29.
-//Uncomment line 55.
+//If you have top.gg discord information, uncomment lines 24 to 33.
+//Uncomment line 59.
 
 client.commands = new Collection();
 client.aliases = new Collection();
