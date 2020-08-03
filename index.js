@@ -13,7 +13,7 @@ const client = new Client({
 const app = require('./app');
 
 //Database Start
-const database = require('./database')
+const database = require('./database');
 
 
 //Top.gg - Web data start
