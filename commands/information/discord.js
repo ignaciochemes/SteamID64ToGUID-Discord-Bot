@@ -2,26 +2,21 @@ const { MessageEmbed } = require("discord.js");
 const Discord = require("discord.js");
 
 module.exports = {
-    name: "discorddsadsadasdas",
+    name: "invite",
     aliases: ["dis"],
-    category: "informacion",
-    description: "Return Discord information",
-    usage: "-discord",
+    category: "information",
+    description: "Bot invite link",
+    usage: "-invite",
     run: async(bot, message, args) => {
-        let sicon = message.guild.iconURL;
+		console.log("Se utilizo comando INVITE");
         const discordinfo = new Discord.MessageEmbed()
-            .setTitle("Id64ToGUID")
-            .setColor("#15f153")
+            .setTitle("Hi")
+            .setColor("#F8C300")
             .setFooter("Developed by siegmund - oaki")
-            .setThumbnail('https://i.imgur.com/mnSJzVk.jpg')
-            .addField("Server Name", message.guild.name)
-            .addField("Founder", message.guild.owner.user.tag)
-            .addField("Created in", message.guild.createdAt.toUTCString())
-            .addField("Region", message.guild.region.toUpperCase())
-            .addField("Total Members", `${message.guild.memberCount} Total Members\n ${message.guild.members.filter(m => !m.user.bot).size} User cache\n ${message.guild.members.filter(m => m.user.bot).size} Bot Cache`)
-            .addField("Voice channels", message.guild.channels.filter(channel => channel.type === 'voice').size)
-            .addField("Text channels", message.guild.channels.filter(channel => channel.type === 'text').size)
-            .addField("Server emojis", guildEmojis)
+            .setThumbnail('https://i.imgur.com/NGQMjSA.jpg')
+            .addField("Bot Invite Link", `\n https://discordapp.com/api/oauth2/authorize?client_id=706139732073250860&permissions=523328&scope=bot`)
+			.addField("Support Discord", `\n https://discord.gg/6YtgFUg`)
+			.setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | siegmund - oaki`);
         message.channel.send(discordinfo);
     }
 }
