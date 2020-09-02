@@ -3,29 +3,29 @@
 const Discord = require("discord.js");
 const { MessageEmbed } = require("discord.js");
 const con = require('../../handler/database');
+const { query } = require("../../handler/database");
+//const resultadoMysql = require('../../handler/resultadoMaxId');
 
+let resultado = [];
 module.exports = {
-    usage: "-guid",
-    name: "guid",
+    usage: "!totalguids",
+    name: "totalguids",
     category: "information",
     description: "Returns the Hash request (Steam Id 64 to MD5 hash GUID)",
     run: async(client, message, args) => {
         let siEnviarEmbed = new Discord.MessageEmbed();
-        let sql = `SELECT COUNT(guid) FROM guids`;
-            con.query(sql, function (err, result) {
-                if (err) throw err;
-            console.log("1 record inserted");
+        //let resultadoMysql = [];
+        let sql = `SELECT MAX(id) AS popise FROM guids`;
+        con.query(sql, function resultadoMysql(err, result) {
+            resultadoMysql = result[0].popise;
+                console.log(resultadoMysql);
+            return resultadoMysql;
+            if (err) throw err;
         });
-        try {
-            siEnviarEmbed.setDescription("<@" + message.author.id + ">")
-					.addField('Total Guids converted:', `${sql}`, true)
-					.setColor("#F8C300")
-					.setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | siegmund - oaki`)
-        } catch (e) {
-        console.log(`Error al convertir GUID`);
-                 siEnviarEmbed.setTitle(`Error, cant connect to database`)
-                 .setColor("#A62019")
-                 .setDescription(`Algo paso`);
-        } finally {message.channel.send(siEnviarEmbed)}
+        console.log(resultadoMysql);
+        siEnviarEmbed.setDescription("<@" + message.author.id + ">")
+            .addField('Total Guids converted:', `Total Guids converted ${resultadoMysql}`)
+            .setColor("#F8C300")
+            .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | siegmund - oaki`)
     }
 }

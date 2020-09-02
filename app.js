@@ -22,7 +22,7 @@ app.use(myConnection(mysql, {
     user: 'root',
     password: '',
     port: 3306,
-    database: 'tatin'
+    database: 'guid'
 }, 'single'));
 
 // Routes

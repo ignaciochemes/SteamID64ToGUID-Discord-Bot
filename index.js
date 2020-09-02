@@ -62,7 +62,7 @@ client.on("ready", () => {
 
 //MESSAGE LISTENER - ASYNC
 client.on("message", async message => {
-    const prefix = "!!";
+    const prefix = process.env.PREFIX;
     if (message.author.bot) return;
     if (!message.guild) return;
     if (!message.content.startsWith(prefix)) return;

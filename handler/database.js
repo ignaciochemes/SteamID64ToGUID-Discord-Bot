@@ -5,12 +5,12 @@ let con = mysql.createConnection({
     host: "localhost",
     user: "root",
     database: "guid",
-    password: "password"
+    password: ""
 });
 
 con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
+    if (err) console.log("Database connection = False");
+    console.log("Dabatase connection = True");
 });
 
 module.exports = con;
