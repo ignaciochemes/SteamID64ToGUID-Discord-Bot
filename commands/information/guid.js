@@ -14,7 +14,7 @@ module.exports = {
         let discordServer = message.guild.name;
 		let tmp = message.content.split(" ");
         let siEnviarEmbed = new Discord.MessageEmbed();
-			if(!args[0]) return message.reply(`Insert account guid | -guid <your GUID here> | -guid 765611981... \nIf you dont have your steam id 64 number, please execute the following command\n\`-steam <your-steam-profile-link>\`\nExample -steam https://steamcommunity.com/id/siegmundsensi/`)
+			if(!args[0]) return message.reply(`Insert account id64 | -guid <your id64 here> | -guid 765611981... \nIf you dont have your steam id 64 number, please execute the following command\n\`-steam <your-steam-profile-link>\`\nExample -steam https://steamcommunity.com/id/siegmundsensi/`)
 			.then(msg => {
 			  msg.delete({ timeout: 25000 })
 			});

@@ -10,7 +10,7 @@ let resultado = [];
 module.exports = {
     usage: "!totalguids",
     name: "totalguids",
-    category: "information",
+    category: "informacion",
     description: "Returns the Hash request (Steam Id 64 to MD5 hash GUID)",
     run: async(client, message, args) => {
         let siEnviarEmbed = new Discord.MessageEmbed();
