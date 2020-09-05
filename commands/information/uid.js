@@ -9,7 +9,7 @@ module.exports = {
     category: "information",
     description: "Returns the Hash request (Steam Id 64 to base64 hash UID)",
     run: async(client, message, args) => {
-		let discordUserTag = message.member.user.tag;
+		    let discordUserTag = message.member.user.tag;
         let discordServer = message.guild.name;
         let tmp = message.content.split(" ");
         let pwd = `${args}`;
@@ -21,11 +21,11 @@ module.exports = {
             try {
                 let hash = crypto.createHash('sha256').update(pwd).digest('base64');
 				
-                    //let sql = `INSERT INTO guids (id64, guid, discordserver, usuariotag) VALUES ('${args}', '${guid}', '${discordServer}', '${discordUserTag}')`;
-                    //con.query(sql, function (err, result) {
-                      //if (err) throw err;
-                      //console.log("1 record inserted");
-                    //});
+                    let sql = `INSERT INTO uids (id64, uid, discordserver, usuariotag) VALUES ('${args}', '${hash}', '${discordServer}', '${discordUserTag}')`;
+                    con.query(sql, function (err, result) {
+                      if (err) throw err;
+                      console.log("1 record inserted");
+                    });
 				
                 console.log(`Conversion de Guid exitosa`);
                 siEnviarEmbed.setDescription("<@" + message.author.id + ">")
