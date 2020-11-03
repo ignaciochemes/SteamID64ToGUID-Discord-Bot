@@ -1,5 +1,5 @@
 # DayZ Arma 3 Discord Bot - GUID UID Calculator
-DayZ - Arma 3 Discord Bot Calculator SteamID64 to Battleye GUID (MD5 hash)
+DayZ - Arma 3 Discord Bot Calculator SteamID64 to Battleye GUID or UID
 
 <br />
 <p align="center">
