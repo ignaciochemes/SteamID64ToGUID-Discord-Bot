@@ -52,12 +52,12 @@ config({
 
 //START BOT INFORMATION
 client.on("ready", () => {
-    console.log(`Im Online!, My name is ${client.user.username}. Develop by oaki.`);
-    setInterval(() => {
-        client.user.setActivity(`-help | ${client.guilds.cache.size} Servers`, { type: "LISTENING" });
-    //    dbl.postStats(client.guilds.size, client.shards.Id, client.shards.total);
-    }, 60000);
-
+    console.log(`Estoy online, mi nombre es ${client.user.username}`);
+	let actividades = [ `${client.guilds.cache.size} Servers`, `Bohemia Int.`, `Dayz`, `Arma`], i = 0;
+    setInterval(() => client.user.setActivity(`-help | ${actividades[i++ % actividades.length]}`, { type: "WATCHING"}), 20000);  
+	setInterval(() => {
+        dbl.postStats(client.guilds.size, client.shards.total);
+    }, 1800000);
 });
 
 //MESSAGE LISTENER - ASYNC
