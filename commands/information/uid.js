@@ -31,16 +31,11 @@ module.exports = {
             let tomaHash = hash.replace(mas, guion);
             let reemplazaHash = tomaHash.replace(barra, guionBajo);
 
-            // function replaceAll(string, search, replace) {
-            //     return string.split(search).join(replace);
-            // }
-            // replaceAll(hash, '+', '-');
-
-            let sql = `INSERT INTO uids (id64, uid, discordserver, usuariotag) VALUES ('${args}', '${hash}', '${discordServer}', '${discordUserTag}')`;
-            con.query(sql, function(err, result) {
-                if (err) throw err;
-                console.log("1 record inserted");
-            });
+            // let sql = `INSERT INTO uids (id64, uid, discordserver, usuariotag) VALUES ('${args}', '${hash}', '${discordServer}', '${discordUserTag}')`;
+            // con.query(sql, function(err, result) {
+            //     if (err) throw err;
+            //     console.log("1 record inserted");
+            // });
 
             console.log(`Conversion de Guid exitosa`);
             siEnviarEmbed.setDescription("<@" + message.author.id + ">")
