@@ -2,9 +2,9 @@ const Discord = require("discord.js");
 const { MessageEmbed } = require("discord.js")
 
 module.exports = {
-        name: "serverinfo",
-        description: "Pulls the serverinfo of the guild!",
-        usage: "!serverinfo",
+        name: "discordinfo",
+        description: "Pulls the guild server info!",
+        usage: "-discordinfo",
         category: "information",
 		run: async (client, message, args) => {
 			console.log("Se utilizo comando SERVERINFO");

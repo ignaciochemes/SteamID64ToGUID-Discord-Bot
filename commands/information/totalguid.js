@@ -8,7 +8,7 @@ const { query } = require("../../handler/database");
 
 let resultado = [];
 module.exports = {
-    usage: "!totalguids",
+    usage: "-totalguids",
     name: "totalguids",
     category: "informacion",
     description: "Returns the Hash request (Steam Id 64 to MD5 hash GUID)",

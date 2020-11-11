@@ -1,3 +1,5 @@
+//DEPRECATED
+
 // const con = require('./database');
 
 // let RESULTADOMYSQL = [];
