@@ -30,11 +30,11 @@ module.exports = {
                 let guid = createHash('md5').update(Buffer.from([0x42, 0x45, ...bytes])).digest('hex');
                 bytes = [];
 				
-                    let sql = `INSERT INTO guids (id64, guid, discordserver, usuariotag) VALUES ('${args}', '${guid}', '${discordServer}', '${discordUserTag}')`;
-                    con.query(sql, function (err, result) {
-                      if (err) throw err;
-                      console.log("1 record inserted");
-                    });
+                    //let sql = `INSERT INTO guids (id64, guid, discordserver, usuariotag) VALUES ('${args}', '${guid}', '${discordServer}', '${discordUserTag}')`;
+                    //con.query(sql, function (err, result) {
+                    //  if (err) throw err;
+                    //  console.log("1 record inserted");
+                    //});
 				
                 console.log(`Conversion de Guid exitosa`);
                 siEnviarEmbed.setDescription("<@" + message.author.id + ">")
