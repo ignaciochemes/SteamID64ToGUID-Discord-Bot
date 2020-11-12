@@ -16,7 +16,7 @@ DayZ - Arma 3 Discord Bot Calculator SteamID64 to Battleye GUID or UID
 ---
 
 ### Features
-- ⚡ You can convert steamid64 to Guid very easily and quickly.
+- ⚡ You can convert steamid64 to Guid or UID very easily and quickly (Battleye GUID or Bohemia Interactive UID).
 - 🌱 It has a command that displays a complete list of all bot commands 🤣
 - 🔭 Welcome Web template for your bot
 
@@ -44,14 +44,29 @@ DayZ - Arma 3 Discord Bot Calculator SteamID64 to Battleye GUID or UID
 
 ---
 
-#### Satisfactory
+#### Satisfactory GUID Convertion
 <p align="center">
-    <img src="https://i.imgur.com/Y92BDwk.png"/>
+    <img src="https://i.imgur.com/u3w8h4r.png"/>
 </p>
 
-#### Catch Error
+#### Catch Error GUID
 <p align="center">
-    <img src="https://i.imgur.com/53Pfkj3.png"/>
+    <img src="https://i.imgur.com/tccq516.png"/>
+</p>
+
+#### Satisfactory UID Convertion
+<p align="center">
+    <img src="https://i.imgur.com/27iQKMV.png"/>
+</p>
+
+#### Catch Error UID
+<p align="center">
+    <img src="https://i.imgur.com/0oE7Wts.png"/>
+</p>
+
+#### Steam id Finder
+<p align="center">
+    <img src="https://i.imgur.com/R6Gd7GT.png"/>
 </p>
 
 ---
