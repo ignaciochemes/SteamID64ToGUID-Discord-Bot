@@ -1,10 +1,22 @@
 # DayZ Arma 3 Discord Bot - GUID UID Calculator
 DayZ - Arma 3 Discord Bot Calculator SteamID64 to Battleye GUID or UID
 
+
 <br />
 <p align="center">
     <a href="https://top.gg/bot/706139732073250860" >
         <img src="https://top.gg/api/widget/706139732073250860.svg" alt="Id64ToGuid" />
+    </a>
+</p>
+
+<br />
+
+# RealTime Stats
+
+<br />
+<p align="center">
+    <a href="http://id64toguid.tk/" >
+        <img src="https://i.imgur.com/2mCc7Pz.gif" alt="Id64ToGuid" />
     </a>
 </p>
 
