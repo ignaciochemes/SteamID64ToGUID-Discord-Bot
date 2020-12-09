@@ -12,6 +12,7 @@ DayZ - Arma 3 Discord Bot Calculator SteamID64 to Battleye GUID or UID
 <br />
 
 # RealTime Stats
+https://github.com/GoruAkiba/socketStats
 
 <br />
 <p align="center">
