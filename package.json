@@ -25,13 +25,17 @@
         "express-myconnection": "^1.0.4",
         "gamedig": "^2.0.23",
         "moment": "^2.27.0",
+        "mongoose": "^5.11.6",
         "morgan": "^1.10.0",
         "mysql": "^2.18.1",
         "node-fetch": "^2.6.0",
         "nodemon": "^2.0.4",
         "os": "^0.1.1",
+        "os-utils": "0.0.14",
         "path": "^0.12.7",
         "request": "^2.88.2",
+        "socket.io": "^3.0.4",
+        "socketstats": "^1.0.7",
         "steamapi": "^2.1.1"
     }
 }

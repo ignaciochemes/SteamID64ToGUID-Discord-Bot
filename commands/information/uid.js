@@ -1,7 +1,6 @@
 const Discord = require("discord.js");
 const { MessageEmbed } = require("discord.js");
 const crypto = require("crypto");
-const con = require('../../handler/database');
 
 module.exports = {
     usage: "-uid",
@@ -30,12 +29,6 @@ module.exports = {
             let hash = crypto.createHash('sha256').update(pwd).digest('base64');
             let tomaHash = hash.replace(mas, guion);
             let reemplazaHash = tomaHash.replace(barra, guionBajo);
-
-            // let sql = `INSERT INTO uids (id64, uid, discordserver, usuariotag) VALUES ('${args}', '${hash}', '${discordServer}', '${discordUserTag}')`;
-            // con.query(sql, function(err, result) {
-            //     if (err) throw err;
-            //     console.log("1 record inserted");
-            // });
 
             console.log(`Conversion de Guid exitosa`);
             siEnviarEmbed.setDescription("<@" + message.author.id + ">")

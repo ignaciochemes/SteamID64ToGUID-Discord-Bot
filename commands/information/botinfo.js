@@ -26,20 +26,6 @@ module.exports = {
       offline: '`⚫` Offline'
     };
 
-    //START MYSQL CONNECTION = UNCOMMENT IF YOU WANT WEB TEMPLATE
-    //conexionDb.connect(function insertarData() {
-      //console.log("Db is conecting");
-      //var sql = "INSERT INTO guilds (`servsize`, `usersize`) VALUES ('"+servsize+"', '"+usersize+"')";
-      //var sql = "UPDATE guilds SET servsize = '"+servsize+"' WHERE servsize = servsize";
-      //var sql2 = "UPDATE guilds SET usersize = '"+usersize+"' WHERE usersize = usersize";
-      //conexionDb.query(sql, sql2, function(err,result) {
-      //conexionDb.query(sql, function(err,result) {
-        //if (err) throw err
-        //console.log(`Database Update... Whit =>\nServsize ${servsize}.\nUsersize Cache ${usersize}`);
-      //});
-    //});
-    //END MYSQL CONNECTION
-
     const embed = new Discord.MessageEmbed()
       .setColor("#F8C300")
       .setAuthor(message.author.username, "https://cdn.discordapp.com/avatars/"+message.author.id+"/"+message.author.avatar+".png")
@@ -56,7 +42,6 @@ module.exports = {
         { name: "Versions", value:'```' + `Node Version: ${process.versions.node} \nv8: ${process.versions.v8}` + '```', inline: true },
         { name: "Server", value:'```' + `Server is Online! \n Since: ${os.uptime()/1000} Hs \nServer Ubication: Argentina` + '```', inline: true },
         )
-      //.setFooter(`2020 © ${client.user.username}.`)
 	    .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | siegmund - oaki`)
       .setTimestamp()
 

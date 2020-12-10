@@ -1,23 +1,31 @@
 const axios = require('axios');
 const { steamapi } = require('./config.json');
-const { Client, Collection, MessageEmbed } = require("discord.js");
-const { config } = require("dotenv");
+const { Client, Collection, MessageEmbed, Discord } = require("discord.js");
 const fs = require("fs");
 
 const client = new Client({
     disableEveryone: true
 });
+const { config } = require("dotenv");
 
-//START EXPRESS WEB SERVER - app.js
-// 1- If you want the web template, just uncomment the following line.
-// 2- Also, you have to go to botinfo.js and uncomment on all the lines that are from mysql.
-// 3- Line 6 and from 30 to 40.
-//const app = require('./app');
+const express = require("express");
+const https = require('https');
+const path = require('path');
+const mongoose = require('mongoose');
+const prefix = require('./database/prefix');
 
-//START DATABASE - database.js
-// 1- If you want the web template, just uncomment the following line.
-//const database = require('./database');
+//Conexion a la base de datos MONGODB
+mongoose.connect('mongodb://localhost:27017/id64toguidTest', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 
+const app = express();
+const _PORT = process.env.PORT || 80;
+
+app.get('/', (req, res) => {
+    res.redirect('/gb-status');
+});
 
 //TOP.GG - START SEND DATA FROM API
 // const DBL = require("dblapi.js");
@@ -30,11 +38,6 @@ const client = new Client({
 // dbl.on('error', e => {
 //     console.log(`Oops! ${e}`);
 // });
-
-//END TOP.GG WEB DATA
-// 1- If you dont have Top.gg bot, you can comment/clear top.gg info.
-// 2- If you have top.gg discord information, uncomment lines 23 to 32.
-// 3- Uncomment line 58.
 
 client.commands = new Collection();
 client.aliases = new Collection();
@@ -52,6 +55,11 @@ config({
 
 //START BOT INFORMATION
 client.on("ready", () => {
+    const socketStats = require('socketstats');
+    const server = new socketStats(app, client);
+    server.listen(_PORT, () => {
+        console.log("Listening to port: "+_PORT);
+    });
     console.log(`Estoy online, mi nombre es ${client.user.username}`);
 	let actividades = [ `${client.guilds.cache.size} Servers`, `Bohemia Int.`, `Dayz`, `Arma`], i = 0;
     setInterval(() => client.user.setActivity(`-help | ${actividades[i++ % actividades.length]}`, { type: "WATCHING"}), 20000);  
@@ -62,22 +70,30 @@ client.on("ready", () => {
 
 //MESSAGE LISTENER - ASYNC
 client.on("message", async message => {
-    const prefix = process.env.PREFIX;
     if (message.author.bot) return;
-    if (!message.guild) return;
-    if (!message.content.startsWith(prefix)) return;
-    if (!message.member) message.member = await message.guild.fetchMember(message);
+    //const prefix = process.env.PREFIX;
+    const data = await prefix.findOne({
+        GuildID: message.guild.id
+    });
 
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    const cmd = args.shift().toLowerCase();
+    const messageArray = message.content.split(' ');
+    const cmd = messageArray[0];
+    const args = messageArray.slice(1);
 
-    if (cmd.lenght === 0) return;
+    if(data) {
+        const prefix = data.Prefix;
 
-    let command = client.commands.get(cmd);
-    if (!command) command = client.commands.get(client.aliases.get(cmd));
-
-    if (command)
-        command.run(client, message, args);
+        if (!message.content.startsWith(prefix)) return;
+        const commandfile = client.commands.get(cmd.slice(prefix.length)) || bot.commands.get(bot.aliases.get(cmd.slice(prefix.length)));
+        commandfile.run(client, message, args);
+    } else if (!data) {
+        //set the default prefix here
+        const prefix = "!";
+        
+        if (!message.content.startsWith(prefix)) return;
+        const commandfile = client.commands.get(cmd.slice(prefix.length)) || bot.commands.get(bot.aliases.get(cmd.slice(prefix.length)));
+        commandfile.run(client, message, args);
+    }
 
 });
 

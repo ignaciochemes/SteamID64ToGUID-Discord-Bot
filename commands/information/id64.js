@@ -25,7 +25,6 @@ module.exports = {
                 return id64Resolve;
             });
             let getSummary = steam.getUserSummary(resolve).then(summary => {
-                //console.log(summary);
                 if (summary.gameServerIP, summary.gameServerSteamID, summary.gameExtraInfo, summary.gameID === undefined) {
                     const embed1 = new Discord.MessageEmbed()
                         .setTitle(`Steam Information`)
