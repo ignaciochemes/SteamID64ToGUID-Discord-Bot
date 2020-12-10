@@ -15,7 +15,7 @@ const mongoose = require('mongoose');
 const prefix = require('./database/prefix');
 
 //Conexion a la base de datos MONGODB
-mongoose.connect('mongodb://localhost:27017/id64toguidTest', {
+mongoose.connect('mongodb://localhost:27017/YourDataTable', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
