@@ -51,7 +51,7 @@ https://github.com/GoruAkiba/socketStats
 
 ## Prerequisites
 - Have Node.js installed
-- It is necessary to have a MYSQL database. Xampp for example.
+- It is necessary to have a MongoDb database.
 
 > **Note:** If **You Want** can join the support discord.
 
@@ -94,4 +94,4 @@ https://github.com/GoruAkiba/socketStats
 
 ---
 
-### YOU NEED MYSQL AND NODE.JS
+### YOU NEED MONGODB AND NODE.JS
