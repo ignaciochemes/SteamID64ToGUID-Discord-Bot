@@ -31,7 +31,22 @@ https://github.com/GoruAkiba/socketStats
 ### Features
 - ⚡ You can convert steamid64 to Guid or UID very easily and quickly (Battleye GUID or Bohemia Interactive UID).
 - 🌱 It has a command that displays a complete list of all bot commands 🤣
-- 🔭 Welcome Web template for your bot
+- 🔭 Commands:
+-help
+-botinfo
+-arma3serverinfo
+-dayzserverinfo
+-guid
+-steam
+-invite
+-online
+-ping
+-discordinfo
+-setarma3server
+-setdayzserver
+-setprefix
+-uid
+-user
 
 <br />
 
@@ -45,7 +60,6 @@ https://github.com/GoruAkiba/socketStats
 <img align="left" alt="CSS3" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/css/css.png" />
 <img align="left" alt="JavaScript" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png" />
 <img align="left" alt="Node.js" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/nodejs/nodejs.png" />
-<img align="left" alt="MySQL" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/mysql/mysql.png" />
 
 <br />
 
@@ -84,13 +98,7 @@ https://github.com/GoruAkiba/socketStats
 
 ---
 
-#### WEB Template
-<p align="center">
-    <img src="https://i.imgur.com/cATwhan.png"/>
-</p>
-<p align="center">
-    <img src="https://i.imgur.com/0qrRh6e.png"/>
-</p>
+
 
 ---
 
