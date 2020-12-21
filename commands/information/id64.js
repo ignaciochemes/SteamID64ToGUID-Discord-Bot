@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const SteamAPI = require('steamapi');
-const steam = new SteamAPI('E08AF820767E21FA788EEB609AE23096');
+const steam = new SteamAPI('9FA9188E3EBDF682BF1974024B8469CA');
 
 let id64Resolve = [];
 module.exports = {

@@ -5,13 +5,13 @@ const dateFormat = require("dateformat");
 const fetch = require("node-fetch");
 
 module.exports = { 
-	name: "steam",
+	name: "steam2",
     description: "Returns steam information",
     usage: "-steam <user>",
     category: "information",
 		run: async (client, message, args) => {
             console.log("Se ejecuto el comando -Steam");
-			const token = "YOUR-STEAM-KEY";
+			const token = "9FA9188E3EBDF682BF1974024B8469CA";
 			if(!args[0]) return message.channel.send("Please enter account name!");
 			const url = `http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=${token}&vanityurl=${args.join(" ")}`;
 

@@ -8,36 +8,34 @@ const client = new Client({
 });
 const { config } = require("dotenv");
 
-const express = require("express");
 const https = require('https');
 const path = require('path');
 const mongoose = require('mongoose');
 const prefix = require('./database/prefix');
+const app = require('./src/webserver');
 
 //Conexion a la base de datos MONGODB
-mongoose.connect('mongodb://localhost:27017/YourDataTable', {
+mongoose.connect('mongodb://localhost:27017/id64toguid', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
 
-const app = express();
-const _PORT = process.env.PORT || 80;
+//Inicio de servidor web
+const _PORT = process.env.PORT || 81;
+require('./src/webserver');
 
-app.get('/', (req, res) => {
-    res.redirect('/gb-status');
-});
 
-//TOP.GG - START SEND DATA FROM API
+//Top.gg - Web data start
 // const DBL = require("dblapi.js");
-// const dbl = new DBL('Your-top.gg-bot-token', client);
+// const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwNjEzOTczMjA3MzI1MDg2MCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTk2MjAzODkwfQ.tdblsyR74yQyxo3wet_999ZGSzobNtMicBcqTDfC7xk', client);
 
 // dbl.on('posted', () => {
 //     console.log('Server count posted');
-// });
+// })
 
 // dbl.on('error', e => {
 //     console.log(`Oops! ${e}`);
-// });
+// })
 
 client.commands = new Collection();
 client.aliases = new Collection();
@@ -65,7 +63,7 @@ client.on("ready", () => {
     setInterval(() => client.user.setActivity(`-help | ${actividades[i++ % actividades.length]}`, { type: "WATCHING"}), 20000);  
 	setInterval(() => {
         dbl.postStats(client.guilds.size, client.shards.total);
-    }, 1800000);
+    }, 18000000);
 });
 
 //MESSAGE LISTENER - ASYNC
@@ -88,7 +86,7 @@ client.on("message", async message => {
         commandfile.run(client, message, args);
     } else if (!data) {
         //set the default prefix here
-        const prefix = "!";
+        const prefix = "-";
         
         if (!message.content.startsWith(prefix)) return;
         const commandfile = client.commands.get(cmd.slice(prefix.length)) || bot.commands.get(bot.aliases.get(cmd.slice(prefix.length)));

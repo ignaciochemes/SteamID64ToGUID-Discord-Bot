@@ -1,0 +1,147 @@
+@import url(https://fonts.googleapis.com/css?family=Barlow);
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #23272A;
+  scroll-behavior: smooth;
+}
+*::-webkit-scrollbar {
+  width: 15px;
+}
+*::-webkit-scrollbar-track {
+  background: #2C2F33;
+  border-radius: 5px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #23272A;
+  border-radius: 20px;
+  border: 3px solid #2C2F33;
+}
+body {
+  font-family: "Barlow", sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+  color: #FFFFFF;
+}
+h3 {
+  text-transform: uppercase;
+}
+a {
+  color: #7289DA;
+  text-decoration: none;
+}
+section {
+  min-height: 100vh;
+  max-width: 1000px;
+  padding: 15px 25px;
+  margin: auto;
+}
+.card {
+  border-radius: 15px;
+  padding: 5px 25px;
+  color: #FFFFFF;
+  margin-bottom: 15px;
+}
+.card__grid {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.card__projects {
+  min-width: 150px;
+  max-width: 300px;
+  background: #7289DA;
+  flex: 1 1;
+  margin: 5px;
+}
+.wrapper {
+  display: flex;
+  background-color: #23272A;
+  color: #99AAB5;
+}
+.panel__side {
+  height: 100vh;
+  width: 75px;
+}
+.panel__side .channel {
+  transition: 0.75s;
+  color: #FFFFFF;
+  border-radius: 50px;
+  width: 60px;
+  height: 60px;
+  margin: 7.5px;
+  text-align: center;
+  overflow: hidden;
+}
+.panel__side .channel a {
+  color: #FFFFFF;
+}
+.panel__side .channel i {
+  padding: 11px 12.5px;
+  font-size: 35px;
+}
+.panel__side .channel:hover {
+  transition: 0.75s;
+  border-radius: 20px;
+}
+.panel__main {
+  background-color: #2C2F33;
+  height: 100vh;
+  flex: 1;
+  border-radius: 10px 0px 0px 0px;
+  display: flex;
+  overflow: hidden;
+}
+.panel__main .panel__main-side {
+  background: #2C2F33;
+  height: 100vh;
+  width: 240px;
+}
+.panel__main .panel__main-side .list__links {
+  padding: 7.5px;
+}
+.panel__main .panel__main-side .list__links li {
+  display: block;
+  border-radius: 5px;
+  margin: 5px 1px;
+  padding: 10px 15px;
+}
+.panel__main .panel__main-side .list__links li:hover {
+  background: #34373C;
+}
+.panel__main .panel__main-side .list__links .active {
+  background: 	#36393f;
+}
+.panel__main .panel__main-side .list__links a {
+  color: #99AAB5;
+  text-decoration: none;
+}
+.panel__main .panel__main-content {
+  background: #36393f;
+  color: #99AAB5;
+  flex: 1;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.twitter {
+  background: #1DA1F2;
+}
+.blurple {
+  background: #7289DA;
+}
+.purple {
+  background: linear-gradient(145deg, #6E48AA, #7289DA);
+}
+.blue {
+  background: linear-gradient(145deg, #1DA1F2, cyan);
+}
+.pink {
+  background-image: linear-gradient(145deg, #EF32D9, #FFD200);
+}
+.orange {
+  background-image: linear-gradient(145deg, #F7971E, #FFD200);
+}
+#images {
+  max-width: 1400px;
+  min-width: 1000px
+}
