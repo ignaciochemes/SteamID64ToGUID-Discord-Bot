@@ -27,7 +27,7 @@ require('./src/webserver');
 
 //Top.gg - Web data start
 // const DBL = require("dblapi.js");
-// const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwNjEzOTczMjA3MzI1MDg2MCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTk2MjAzODkwfQ.tdblsyR74yQyxo3wet_999ZGSzobNtMicBcqTDfC7xk', client);
+// const dbl = new DBL('YOUR-DBL-TOKEN-HERE', client);
 
 // dbl.on('posted', () => {
 //     console.log('Server count posted');
