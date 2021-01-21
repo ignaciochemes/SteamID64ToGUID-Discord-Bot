@@ -1,5 +1,3 @@
-const axios = require('axios');
-const { steamapi } = require('./config.json');
 const { Client, Collection, MessageEmbed, Discord } = require("discord.js");
 const fs = require("fs");
 
@@ -8,11 +6,8 @@ const client = new Client({
 });
 const { config } = require("dotenv");
 
-const https = require('https');
-const path = require('path');
 const mongoose = require('mongoose');
 const prefix = require('./database/prefix');
-const app = require('./src/webserver');
 
 //Conexion a la base de datos MONGODB
 mongoose.connect('mongodb://localhost:27017/id64toguid', {
@@ -21,7 +16,6 @@ mongoose.connect('mongodb://localhost:27017/id64toguid', {
 });
 
 //Inicio de servidor web
-const _PORT = process.env.PORT || 81;
 require('./src/webserver');
 
 
@@ -53,13 +47,13 @@ config({
 
 //START BOT INFORMATION
 client.on("ready", () => {
-    const socketStats = require('socketstats');
-    const server = new socketStats(app, client);
-    server.listen(_PORT, () => {
-        console.log("Listening to port: "+_PORT);
-    });
+    module.exports = {
+        username: client.user.username,
+        users: client.users.cache.size,
+        guilds: client.guilds.cache.size
+    };
     console.log(`Estoy online, mi nombre es ${client.user.username}`);
-	let actividades = [ `${client.guilds.cache.size} Servers`, `Bohemia Int.`, `Dayz`, `Arma`], i = 0;
+	let actividades = [`id64toguid.tk`, `Dayz`, `Arma`], i = 0;
     setInterval(() => client.user.setActivity(`-help | ${actividades[i++ % actividades.length]}`, { type: "WATCHING"}), 20000);  
 	setInterval(() => {
         dbl.postStats(client.guilds.size, client.shards.total);
