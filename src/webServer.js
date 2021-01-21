@@ -63,7 +63,6 @@ async function ping() {
     }
     io.emit("ping", data);
 }
-ping();
 
 //Funcion de systema
 setInterval(stats, 1000)
