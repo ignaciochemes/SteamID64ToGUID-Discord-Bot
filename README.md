@@ -17,7 +17,7 @@ https://github.com/GoruAkiba/socketStats
 <br />
 <p align="center">
     <a href="http://id64toguid.tk/" >
-        <img src="https://i.imgur.com/2mCc7Pz.gif" alt="Id64ToGuid" />
+        <img src="https://i.imgur.com/b4EiyTi.gif" alt="Id64ToGuid" />
     </a>
 </p>
 
