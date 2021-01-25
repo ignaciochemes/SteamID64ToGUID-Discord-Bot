@@ -73,7 +73,7 @@ https://github.com/GoruAkiba/socketStats
 
 #### Satisfactory GUID Convertion
 <p align="center">
-    <img src="https://i.imgur.com/u3w8h4r.png"/>
+    <img src="https://i.imgur.com/PhqGzkP.png"/>
 </p>
 
 #### Catch Error GUID
@@ -83,7 +83,7 @@ https://github.com/GoruAkiba/socketStats
 
 #### Satisfactory UID Convertion
 <p align="center">
-    <img src="https://i.imgur.com/27iQKMV.png"/>
+    <img src="https://i.imgur.com/g12Q2Lt.png"/>
 </p>
 
 #### Catch Error UID
@@ -95,6 +95,13 @@ https://github.com/GoruAkiba/socketStats
 <p align="center">
     <img src="https://i.imgur.com/R6Gd7GT.png"/>
 </p>
+
+#### Set dayz server and Arma 3 server
+<p align="center">
+    <img src="https://i.imgur.com/g6Wp9Uv.png"/>
+    <img src="https://i.imgur.com/tRz6Ghr.png"/>
+</p>
+
 
 ---
 
