@@ -93,7 +93,7 @@ https://github.com/GoruAkiba/socketStats
 
 #### Steam id Finder
 <p align="center">
-    <img src="https://i.imgur.com/R6Gd7GT.png"/>
+    <img src="https://i.imgur.com/wEVTOjS.png"/>
 </p>
 
 #### Set dayz server and Arma 3 server
