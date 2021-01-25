@@ -47,7 +47,7 @@ https://github.com/GoruAkiba/socketStats
 -setprefix
 -uid
 -user
-
+https://i.imgur.com/vplyOQE.png
 <br />
 
 <img align="center" alt="siegmund0's Github Stats" src="https://github-readme-stats.vercel.app/api?username=siegmund0&show_icons=true&hide_border=true" />
