@@ -47,7 +47,10 @@ https://github.com/GoruAkiba/socketStats
 -setprefix
 -uid
 -user
-<img align="left" alt="Node.js" width="300px" src="https://i.imgur.com/vplyOQE.png" />
+<br />
+<p align="center">
+    <img src="https://i.imgur.com/vplyOQE.png"/>
+</p>
 <br />
 
 <img align="center" alt="siegmund0's Github Stats" src="https://github-readme-stats.vercel.app/api?username=siegmund0&show_icons=true&hide_border=true" />
