@@ -102,7 +102,7 @@ https://github.com/GoruAkiba/socketStats
 #### Set dayz server and Arma 3 server
 <p align="center">
     <img src="https://i.imgur.com/g6Wp9Uv.png"/>
-    <img src="https://i.imgur.com/tRz6Ghr.png"/>
+    <img src="https://i.imgur.com/jjSwByR.png"/>
     <img src="https://i.imgur.com/YKY7y7E.png"/>
 </p>
 
