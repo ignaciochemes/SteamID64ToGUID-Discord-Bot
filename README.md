@@ -103,6 +103,7 @@ https://github.com/GoruAkiba/socketStats
 <p align="center">
     <img src="https://i.imgur.com/g6Wp9Uv.png"/>
     <img src="https://i.imgur.com/tRz6Ghr.png"/>
+    <img src="https://i.imgur.com/YKY7y7E.png"/>
 </p>
 
 
