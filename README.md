@@ -1,4 +1,4 @@
-# DayZ Arma 3 Discord Bot - GUID UID Calculator
+# DayZ Arma 3 Discord Bot - GUID UID Calculator (Photos below!)
 DayZ - Arma 3 Discord Bot Calculator SteamID64 to Battleye GUID or UID
 
 
@@ -47,7 +47,10 @@ https://github.com/GoruAkiba/socketStats
 -setprefix
 -uid
 -user
-
+<br />
+<p align="center">
+    <img src="https://i.imgur.com/vplyOQE.png"/>
+</p>
 <br />
 
 <img align="center" alt="siegmund0's Github Stats" src="https://github-readme-stats.vercel.app/api?username=siegmund0&show_icons=true&hide_border=true" />
@@ -73,7 +76,7 @@ https://github.com/GoruAkiba/socketStats
 
 #### Satisfactory GUID Convertion
 <p align="center">
-    <img src="https://i.imgur.com/u3w8h4r.png"/>
+    <img src="https://i.imgur.com/PhqGzkP.png"/>
 </p>
 
 #### Catch Error GUID
@@ -83,7 +86,7 @@ https://github.com/GoruAkiba/socketStats
 
 #### Satisfactory UID Convertion
 <p align="center">
-    <img src="https://i.imgur.com/27iQKMV.png"/>
+    <img src="https://i.imgur.com/g12Q2Lt.png"/>
 </p>
 
 #### Catch Error UID
@@ -93,8 +96,16 @@ https://github.com/GoruAkiba/socketStats
 
 #### Steam id Finder
 <p align="center">
-    <img src="https://i.imgur.com/R6Gd7GT.png"/>
+    <img src="https://i.imgur.com/wEVTOjS.png"/>
 </p>
+
+#### Set dayz server and Arma 3 server
+<p align="center">
+    <img src="https://i.imgur.com/g6Wp9Uv.png"/>
+    <img src="https://i.imgur.com/jjSwByR.png"/>
+    <img src="https://i.imgur.com/YKY7y7E.png"/>
+</p>
+
 
 ---
 
