@@ -14,6 +14,6 @@ module.exports = {
         siEnviarEmbed.setDescription("<@" + message.author.id + ">")
             .addField('Total Guids converted:', `Total Guids converted ${resultadoMysql}`)
             .setColor("#F8C300")
-            .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | siegmund - oaki`)
+            .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | Develop by oaki`)
     }
 }

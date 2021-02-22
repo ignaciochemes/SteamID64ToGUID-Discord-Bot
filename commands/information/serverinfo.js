@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const { MessageEmbed } = require("discord.js")
+const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
 
 module.exports = {
         name: "discordinfo",
@@ -7,6 +8,14 @@ module.exports = {
         usage: "-discordinfo",
         category: "information",
 		run: async (client, message, args) => {
+			
+			let newDataGeneral = new generalAlmacenamiento({
+				comando: "discordinfo",
+				user: message.author.id,
+				name: "comandos",
+			});
+			newDataGeneral.save()
+			
 			console.log("Se utilizo comando SERVERINFO");
 			const onlineMembers = message.guild.members.cache.filter(m => m.presence.status !== "offline").size;
 			let sEmbed = new Discord.MessageEmbed()
@@ -21,7 +30,7 @@ module.exports = {
 			.addField("**⌨️ Text:**", `**${message.guild.channels.cache.filter(c => c.type === "text").size}**`, true)
 			.addField("**🔉 Voice:**", `**${message.guild.channels.cache.filter(c => c.type === "voice").size}**`, true)
 			.addField("**📁 Categories:**", `**${message.guild.channels.cache.filter(c => c.type === "category").size}**`, true)
-			.setFooter(`Id64ToGuid | Bohemia Interactive - Battleye | siegmund - oaki`);
+			.setFooter(`Id64ToGuid | Bohemia Interactive - Battleye | Develop by oaki`);
 		message.channel.send(sEmbed);
     }
 }

@@ -1,6 +1,5 @@
-  
 const Discord = require("discord.js")
-
+const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
 
 module.exports = {
 	name: "online",
@@ -9,6 +8,14 @@ module.exports = {
 	category: "information",
     aliases: ["un"],
 	run: async (client, message, args) => {
+		
+		let newDataGeneral = new generalAlmacenamiento({
+            comando: "online",
+            user: message.author.id,
+            name: "comandos",
+        });
+        newDataGeneral.save()
+
 		console.log("Se ejecuto el comando -Online");
 		function duration(ms) {
 		const sec = Math.floor((ms / 1000) % 60).toString()

@@ -5,6 +5,7 @@ const Discord = require('discord.js');
 const { MessageEmbed } = require("discord.js");
 const Gamedig = require('gamedig');
 const dayzIpModel = require('../../database/setdayzserver');
+const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
 
 let puerto = [];
 
@@ -15,6 +16,14 @@ module.exports = {
     description: "Set information from your dayz server",
 	usage: "-setdayzserver",
     run: async(client, message, args) => {
+        
+        let newDataGeneral = new generalAlmacenamiento({
+            comando: "setdayzserver",
+            user: message.author.id,
+            name: "comandos",
+        });
+        newDataGeneral.save()
+        
         const data = await dayzIpModel.findOne({
             GuildID: message.author.id
         });

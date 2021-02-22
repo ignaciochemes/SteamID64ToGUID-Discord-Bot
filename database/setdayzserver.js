@@ -4,6 +4,9 @@ const PrefixSchema = new mongoose.Schema({
     DayzIp: {
         type: String
     },
+	DayzPort: {
+		type: String
+	},
     GuildID: String
 });
 

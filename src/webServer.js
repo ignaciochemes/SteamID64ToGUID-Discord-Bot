@@ -1,7 +1,10 @@
 const path = require('path');
-const exhbs = require('express-handlebars');
-const morgan = require('morgan');
 const express = require('express');
+const session = require('express-session');
+const exhbs = require('express-handlebars');
+const passport = require('./passport');
+const morgan = require('morgan');
+const BotClient = require('../index');
 
 const app = express();
 const socketio = require('socket.io');
@@ -12,21 +15,34 @@ const io = socketio(server);
 
 //Opciones de Express
 app.set('port', process.env.PORT || 80);
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+    secret: "anibalfernandez",
+    resave: false,
+    saveUninitialized: false,
+}));
+//Usamos el cliente de discord
+app.use(passport.initialize());
+app.use(passport.session());
 app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', '.hbs');
 app.engine('.hbs', exhbs({
     defaultLayout: 'main',
     layoutsDir: path.join(app.get('views'), 'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),
     extname: '.hbs'
 }));
-app.set('view engine', '.hbs');
 //Express Middlewares
 app.use(morgan('dev'));
-app.use(express.urlencoded({extended: false}));
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 //Rutas de Express - Donde estan
+app.use((req, res, next) => {
+    req.BotClient = BotClient;
+    next();
+});
 app.use('/', require('./route/routing'));
 //Directorio publico
-app.use(express.static(path.join(__dirname, 'public')));
 
 server.listen(app.get('port'), () => {
     console.log('server on port: ', app.get('port'));
@@ -37,7 +53,7 @@ async function discordStats() {
     const data = require('../index');
     let datainfo = { 
         infousername: data.username,
-        infousers: data.users,
+        infousers: data.users + "k",
         infoguilds: data.guilds
     }
     io.emit("datainfo", datainfo);

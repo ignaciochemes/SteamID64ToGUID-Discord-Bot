@@ -5,6 +5,7 @@ const Discord = require('discord.js');
 const { MessageEmbed } = require("discord.js");
 const Gamedig = require('gamedig');
 const arma3IpModel = require('../../database/setarma3server');
+const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
 
 let puerto = [];
 
@@ -15,6 +16,14 @@ module.exports = {
     description: "Set information from your Arma 3 server",
 	usage: "-setarma3server",
     run: async(client, message, args) => {
+        
+        let newDataGeneral = new generalAlmacenamiento({
+            comando: "setarma3server",
+            user: message.author.id,
+            name: "comandos",
+        });
+        newDataGeneral.save()
+        
         const data = await arma3IpModel.findOne({
             GuildID: message.author.id
         });

@@ -1,6 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const Discord = require("discord.js");
 const prefixModel = require('../../database/prefix');
+const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
 
 module.exports = {
     name: "setprefix",
@@ -10,6 +11,13 @@ module.exports = {
     usage: "-setprefix",
     run: async(client, message, args) => {
         
+        let newDataGeneral = new generalAlmacenamiento({
+            comando: "setprefix",
+            user: message.author.id,
+            name: "comandos",
+        });
+        newDataGeneral.save()
+
         const data = await prefixModel.findOne({
             GuildID: message.guild.id
         });

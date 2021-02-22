@@ -1,5 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const { stripIndents } = require("common-tags");
+const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
 
 module.exports = {
     name: "help",
@@ -8,6 +9,14 @@ module.exports = {
     description: "Returns all the commands, specifying each one",
     usage: "-help",
     run: async(client, message, args) => {
+        
+        let newDataGeneral = new generalAlmacenamiento({
+            comando: "help",
+            user: message.author.id,
+            name: "comandos",
+        });
+        newDataGeneral.save()
+        
         console.log("Se ejecuto el comando -Help");
         if (args[0]) {
             return getCMD(client, message, args[0]);

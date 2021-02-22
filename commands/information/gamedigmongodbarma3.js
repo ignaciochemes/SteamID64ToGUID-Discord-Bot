@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const { MessageEmbed } = require("discord.js");
 const Gamedig = require('gamedig');
 const ARMA3IP = require('../../database/setarma3server');
+const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
 
 module.exports = {
     name: "arma3serverinfo",
@@ -10,6 +11,14 @@ module.exports = {
     description: "Return your Arma 3 server information.",
 	usage: "-arma3serverinfo",
     run: async(client, message, args) => {
+        
+        let newDataGeneral = new generalAlmacenamiento({
+            comando: "gamedigmongodbarma3",
+            user: message.author.id,
+            name: "comandos",
+        });
+        newDataGeneral.save()
+        
         const data = await ARMA3IP.findOne({
             GuildID: message.author.id
         });
@@ -31,9 +40,13 @@ module.exports = {
                 };
                 if (state.raw.secure === 1) {
                     state.raw.secure = "Server Protected by **BattlEye**"
-                } else if (state.raw.secure = 0) {
+				};
+                if (state.raw.secure = 0) {
                     state.raw.secure = "Server not protected"
                 };
+
+                console.log(state);
+
                 const embed = new Discord.MessageEmbed()
                 .setColor("#F8C300")
                 .setAuthor(message.author.username, "https://cdn.discordapp.com/avatars/"+message.author.id+"/"+message.author.avatar+".png")
@@ -44,8 +57,11 @@ module.exports = {
                     { name: "Extra Info", value:'```' + `Version: ${state.raw.version} \nMission: ${state.game} \nBattleye: ${state.raw.secure}` + '```', inline},
                     )
                 //.setFooter(`2020 © ${client.user.username}.`)
-                .setFooter(`2021 © Id64ToGuid - Develop by oaki`)
+                    .setFooter(`2021 © Id64ToGuid - Develop by oaki`)
                 .setTimestamp()
+                state.players.forEach(element => {
+                    embed.addField(`${element.name}`, `Score: \`${element.score}\` | Time: \`${Math.round(element.time)}\` seconds`)
+                })
     
                 message.channel.send(embed);
                 //console.log(state);

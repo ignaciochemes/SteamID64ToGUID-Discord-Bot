@@ -91,3 +91,5 @@ client.on("message", async message => {
 
 //BOT LOGIN - YOUR DISCORD BOT BE HERE.
 client.login(process.env.TOKEN);
+
+module.exports = client;

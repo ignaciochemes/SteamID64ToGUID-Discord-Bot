@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
 const { MessageEmbed } = require("discord.js");
 const { createHash } = require("crypto");
+const guidAlmacenamiento = require('../../database/guidalmacenamiento');
+const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
 
 let bytes = [];
 module.exports = {
@@ -9,6 +11,13 @@ module.exports = {
     category: "information",
     description: "Returns the Hash request (Steam Id 64 to MD5 hash GUID)",
     run: async(client, message, args) => {
+        let newDataGeneral = new generalAlmacenamiento({
+            comando: "guid",
+            user: message.author.id,
+            name: "comandos",
+        });
+        newDataGeneral.save()
+        
         let pwd = `${args}`;
 		let tmp = message.content.split(" ");
         let siEnviarEmbed = new Discord.MessageEmbed();
@@ -26,12 +35,22 @@ module.exports = {
                 }
                 let guid = createHash('md5').update(Buffer.from([0x42, 0x45, ...bytes])).digest('hex');
                 bytes = [];
-				
+                
+                let newData = new guidAlmacenamiento({
+                    guid: guid,
+                    user: message.author.id,
+                    name: "guid",
+                });
+                console.log(newData);
+                newData.save();
+                
+                let pepe = await guidAlmacenamiento.aggregate([{$group:{_id:"$name", Total:{$sum:1}}}]);
+                
                 console.log(`Conversion de Guid exitosa`);
-                siEnviarEmbed.setDescription("<@" + message.author.id + ">")
+                siEnviarEmbed.setDescription("<@" + message.author.id + ">" + "    " + `Global GUID converted: \`${pepe[0].Total}\``)
 					.addField('Your GUID encryption is:', `${guid}`, true)
 					.setColor("#F8C300")
-					.setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | siegmund - oaki`)
+					.setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | Develop by oaki`)
             } catch(e)
             {
                  console.log(`Error al convertir GUID`);

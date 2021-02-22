@@ -1,6 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const { stripIndents } = require("common-tags");
 const { getMember, formatDate } = require("../../functions.js");
+const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
 
 module.exports = {
     name: "user",
@@ -9,6 +10,14 @@ module.exports = {
 	description: "Returns user information",
     usage: "-user | -user <username>",
     run: (client, message, args) => {
+        
+        let newDataGeneral = new generalAlmacenamiento({
+            comando: "user",
+            user: message.author.id,
+            name: "comandos",
+        });
+        newDataGeneral.save()
+        
         const member = getMember(message, args.join(" "));
         console.log("Se ejecuto el comando -Usuario");
         // Member variables

@@ -4,6 +4,9 @@ const PrefixSchema = new mongoose.Schema({
     Arma3Ip: {
         type: String
     },
+	Arma3Port: {
+		type: String
+	},
     GuildID: String
 });
 

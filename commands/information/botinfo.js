@@ -3,6 +3,7 @@ const { MessageEmbed } = require("discord.js");
 const moment = require('moment');
 const OS = require('os');
 const os = require('os');
+const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
 //const { conexionDb } = require('../../database');
 var oldCPUTime = 0
 var oldCPUIdle = 0
@@ -14,6 +15,16 @@ module.exports = {
     description: 'Show Bot information.',
     usage: '-botinfo',
     run: async (client, message, args) => {
+    
+    let newDataGeneral = new generalAlmacenamiento({
+      comando: "botinfo",
+      user: message.author.id,
+      name: "comandos",
+    });
+    newDataGeneral.save()
+
+    let pepe = await generalAlmacenamiento.aggregate([{$group:{_id:"$name", Total:{$sum:1}}}]);
+    
     console.log("Se utilizo comando BOTINFO");	
     const inline = true;
     const botAvatar = 'https://i.imgur.com/NGQMjSA.jpg';
@@ -42,13 +53,13 @@ module.exports = {
         { name: "Versions", value:'```' + `Node Version: ${process.versions.node} \nv8: ${process.versions.v8}` + '```', inline: true },
         { name: "Server", value:'```' + `Server is Online! \n Since: ${os.uptime()/1000} Hs \nServer Ubication: Argentina` + '```', inline: true },
         )
-	    .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | siegmund - oaki`)
+	    .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | Develop by oaki`)
       .setTimestamp()
 
     if (client.user.presence.status) {
       embed.addField(
         '**Status**',
-        `${status[client.user.presence.status]}`,
+        `${status[client.user.presence.status]} \n Total Bot Uses: \`${pepe[0].Total}\``,
         inline,
         true
       )

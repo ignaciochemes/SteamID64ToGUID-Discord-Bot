@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const SteamAPI = require('steamapi');
-const steam = new SteamAPI('9FA9188E3EBDF682BF1974024B8469CA');
+const steam = new SteamAPI('1E96E0C5FCB4F71FC3CAA20968E9E2EF');
+const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
 
 let id64Resolve = [];
 module.exports = {
@@ -10,6 +11,14 @@ module.exports = {
     description: "Returns Steam ID 64",
 	usage: "-steam <Your account URL here>",
     run: async(client, message, args) => {
+        
+        let newDataGeneral = new generalAlmacenamiento({
+            comando: "id64",
+            user: message.author.id,
+            name: "comandos",
+        });
+        newDataGeneral.save()
+        
         if(!args[0]) return message.reply('Insert account url | -steam <your steam account url here> ')
         .then(msg => {
           msg.delete({ timeout: 15000 })
@@ -32,7 +41,7 @@ module.exports = {
                         .addField("General:", `Nickname: \`${summary.nickname}\` \nReal Name: \`${summary.realName}\` \nCountry Code: \`${summary.countryCode}\``)
                         .addField("Extra Information:", `Steam ID: \`${summary.steamID}\``)
                         .setThumbnail(`${summary.avatar.large}`)
-                        .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | siegmund - oaki`);
+                        .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | Develop by oaki`);
                     message.channel.send(embed1);
                 } else {
                     const embed2 = new Discord.MessageEmbed()
@@ -42,7 +51,7 @@ module.exports = {
                         .addField("Extra Information:", `Steam ID: \`${summary.steamID}\``)
                         .addField("Is Playing?", `Game Server IP: \`${summary.gameServerIP}\` \nGame Server ID: \`${summary.gameServerSteamID}\` \nGame Info: \`${summary.gameExtraInfo}\` \nGame AppId: \`${summary.gameID}\`` )
                         .setThumbnail(`${summary.avatar.large}`)
-                        .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | siegmund - oaki`);
+                        .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | Develop by oaki`);
                     message.channel.send(embed2);
                 }
             });

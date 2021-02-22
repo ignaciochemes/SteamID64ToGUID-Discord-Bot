@@ -35,6 +35,8 @@
         "nodemon": "^2.0.7",
         "os": "^0.1.1",
         "os-utils": "0.0.14",
+        "passport": "^0.4.1",
+        "passport-discord": "^0.1.4",
         "path": "^0.12.7",
         "ping": "^0.4.0",
         "request": "^2.88.2",

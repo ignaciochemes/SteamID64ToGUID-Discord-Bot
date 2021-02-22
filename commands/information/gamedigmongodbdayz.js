@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const { MessageEmbed } = require("discord.js");
 const Gamedig = require('gamedig');
 const DAYZIP = require('../../database/setdayzserver');
+const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
 
 module.exports = {
     name: "dayzserverinfo",
@@ -10,6 +11,14 @@ module.exports = {
     description: "Return your Dayz server information.",
 	usage: "-serverinfo",
     run: async(client, message, args) => {
+        
+        let newDataGeneral = new generalAlmacenamiento({
+            comando: "gamedigmongodbdayz",
+            user: message.author.id,
+            name: "comandos",
+        });
+        newDataGeneral.save()
+        
         const data = await DAYZIP.findOne({
             GuildID: message.author.id
         });

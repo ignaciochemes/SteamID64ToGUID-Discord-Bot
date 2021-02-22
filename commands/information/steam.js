@@ -3,13 +3,22 @@ const { cyan } = require("../../colours.json");
 const { stripIndents } = require("common-tags");
 const dateFormat = require("dateformat");
 const fetch = require("node-fetch");
+const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
 
 module.exports = { 
 	name: "steam2",
     description: "Returns steam information",
     usage: "-steam <user>",
-    category: "information",
+    category: "informattion",
 		run: async (client, message, args) => {
+            
+            let newDataGeneral = new generalAlmacenamiento({
+                comando: "steam",
+                user: message.author.id,
+                name: "comandos",
+            });
+            newDataGeneral.save()
+            
             console.log("Se ejecuto el comando -Steam");
 			const token = "9FA9188E3EBDF682BF1974024B8469CA";
 			if(!args[0]) return message.channel.send("Please enter account name!");

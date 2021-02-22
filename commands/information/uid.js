@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
 const { MessageEmbed } = require("discord.js");
 const crypto = require("crypto");
+const uidAlmacenamiento = require('../../database/uidalmacenamiento');
+const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
 
 module.exports = {
     usage: "-uid",
@@ -8,9 +10,15 @@ module.exports = {
     category: "information",
     description: "Returns the Hash request (Steam Id 64 to base64 hash UID)",
     run: async(client, message, args) => {
-        let discordUserTag = message.member.user.tag;
-        let discordServer = message.guild.name;
-        let tmp = message.content.split(" ");
+        
+        let newDataGeneral = new generalAlmacenamiento({
+            comando: "uid",
+            user: message.author.id,
+            name: "comandos",
+        });
+        newDataGeneral.save()
+        
+
         let pwd = `${args}`;
         let siEnviarEmbed = new Discord.MessageEmbed();
         if (!args[0]) return message.reply(`Insert account id64 | -uid <your id64 here> | -uid 765611981... \nIf you dont have your steam id 64 number, please execute the following command\n\`-steam <your-steam-profile-link>\`\nExample -steam https://steamcommunity.com/id/siegmundsensi/`)
@@ -30,11 +38,20 @@ module.exports = {
             let tomaHash = hash.replace(mas, guion);
             let reemplazaHash = tomaHash.replace(barra, guionBajo);
 
+            let newData = new uidAlmacenamiento({
+                uid: reemplazaHash,
+                user: message.author.id,
+                name: "uid",
+            });
+            console.log(newData);
+            newData.save();
+            let pepe = await uidAlmacenamiento.aggregate([{$group:{_id:"$name", Total:{$sum:1}}}]);
+
             console.log(`Conversion de Guid exitosa`);
-            siEnviarEmbed.setDescription("<@" + message.author.id + ">")
+            siEnviarEmbed.setDescription("<@" + message.author.id + ">" + "    " + `Global UIDS converted: \`${pepe[0].Total}\``)
                 .addField('Your UID encryption is:', `✅ Works: \`${reemplazaHash}\` \n\n⁉️ Test: \`${hash}\``, true)
                 .setColor("#F8C300")
-                .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | siegmund - oaki`)
+                .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | Develop by oaki`)
         } catch (e) {
             console.log(`Error al convertir UID ${e}`);
             siEnviarEmbed.setTitle(`Error converting`)
