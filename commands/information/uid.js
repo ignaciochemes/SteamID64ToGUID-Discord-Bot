@@ -44,7 +44,7 @@ module.exports = {
                 uid: reemplazaHash,
                 user: message.author.id,
                 name: "uid",
-                numero: pepe[0].Total + 1,
+                numero: pepe[0].Total,
             });
             console.log(newData);
             newData.save();
