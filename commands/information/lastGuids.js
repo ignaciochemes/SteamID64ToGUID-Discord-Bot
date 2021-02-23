@@ -22,7 +22,7 @@ module.exports = {
                 .setColor("#F8C300")
                 .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | Develop by oaki`)
                 res.forEach(element => {
-                    enviarEmbed.addField(`Number: ${element.numero}`, `UID: \`${element.guid}\``)
+                    enviarEmbed.addField(`Number: ${element.numero}`, `GUID: \`${element.guid}\``)
                 });
                 message.channel.send(enviarEmbed);
             }
