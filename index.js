@@ -73,7 +73,8 @@ client.on("message", async message => {
     const args = messageArray.slice(1);
 
     if(data) {
-        const prefix = data.Prefix;
+        //const prefix = data.Prefix;
+        const prefix = '!';
 
         if (!message.content.startsWith(prefix)) return;
         const commandfile = client.commands.get(cmd.slice(prefix.length)) || bot.commands.get(bot.aliases.get(cmd.slice(prefix.length)));

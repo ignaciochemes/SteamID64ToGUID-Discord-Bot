@@ -10,7 +10,9 @@ module.exports = {
     category: "information",
     description: "Returns the Hash request (Steam Id 64 to base64 hash UID)",
     run: async(client, message, args) => {
-        
+
+        let pepe = await uidAlmacenamiento.aggregate([{$group:{_id:"$name", Total:{$sum:1}}}]);
+
         let newDataGeneral = new generalAlmacenamiento({
             comando: "uid",
             user: message.author.id,
@@ -42,10 +44,10 @@ module.exports = {
                 uid: reemplazaHash,
                 user: message.author.id,
                 name: "uid",
+                numero: pepe[0].Total + 1,
             });
             console.log(newData);
             newData.save();
-            let pepe = await uidAlmacenamiento.aggregate([{$group:{_id:"$name", Total:{$sum:1}}}]);
 
             console.log(`Conversion de Guid exitosa`);
             siEnviarEmbed.setDescription("<@" + message.author.id + ">" + "    " + `Global UIDS converted: \`${pepe[0].Total}\``)

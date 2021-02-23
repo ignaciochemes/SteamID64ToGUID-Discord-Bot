@@ -11,6 +11,9 @@ module.exports = {
     category: "information",
     description: "Returns the Hash request (Steam Id 64 to MD5 hash GUID)",
     run: async(client, message, args) => {
+        
+        let pepe = await guidAlmacenamiento.aggregate([{$group:{_id:"$name", Total:{$sum:1}}}]);
+
         let newDataGeneral = new generalAlmacenamiento({
             comando: "guid",
             user: message.author.id,
@@ -40,11 +43,10 @@ module.exports = {
                     guid: guid,
                     user: message.author.id,
                     name: "guid",
+                    numero: pepe[0].Total,
                 });
                 console.log(newData);
                 newData.save();
-                
-                let pepe = await guidAlmacenamiento.aggregate([{$group:{_id:"$name", Total:{$sum:1}}}]);
                 
                 console.log(`Conversion de Guid exitosa`);
                 siEnviarEmbed.setDescription("<@" + message.author.id + ">" + "    " + `Global GUID converted: \`${pepe[0].Total}\``)

@@ -10,6 +10,9 @@ const PrefixSchema = new mongoose.Schema({
     name: {
         type: String
     },
+    numero: {
+        type: Number
+    },
 });
 
 const uidAlmacenamiento = module.exports = mongoose.model('uidAlmacenamiento', PrefixSchema);

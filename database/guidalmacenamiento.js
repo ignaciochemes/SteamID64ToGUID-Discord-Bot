@@ -10,6 +10,9 @@ const PrefixSchema = new mongoose.Schema({
     name: {
         type: String
     },
+    numero: {
+        type: Number
+    }
 });
 
 const guidAlmacenamiento = module.exports = mongoose.model('guidAlmacenamiento', PrefixSchema);
