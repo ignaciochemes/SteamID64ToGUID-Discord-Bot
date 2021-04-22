@@ -107,7 +107,14 @@ https://github.com/GoruAkiba/socketStats
     <img src="https://i.imgur.com/YKY7y7E.png"/>
 </p>
 
-
+## Api GUID
+<p align="center">
+    <img src="https://i.imgur.com/BBP6pkP.png"/>
+</p>
+## Api UID
+<p align="center">
+    <img src="https://i.imgur.com/gQSZXJ7.png"/>
+</p>
 ---
 
 
