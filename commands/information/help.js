@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const { stripIndents } = require("common-tags");
-const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
+const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
 
 module.exports = {
     name: "help",

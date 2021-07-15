@@ -1,7 +1,5 @@
-const { MessageEmbed } = require("discord.js");
-const Discord = require("discord.js");
-const prefixModel = require('../../database/prefix');
-const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
+const prefixModel = require('../../src/database/models/prefix');
+const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
 
 module.exports = {
     name: "setprefix",

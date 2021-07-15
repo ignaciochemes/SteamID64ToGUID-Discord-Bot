@@ -1,23 +1,18 @@
-const { Client, Collection, MessageEmbed, Discord } = require("discord.js");
 const fs = require("fs");
+const configjson = require('./config.json');
+const { Client, Collection } = require("discord.js");
+const prefix = require('./src/database/models/prefix');
+const { DatabaseConnection } = require('./src/database/dbConnection');
 
 const client = new Client({
     disableEveryone: true
 });
-const { config } = require("dotenv");
-
-const mongoose = require('mongoose');
-const prefix = require('./database/prefix');
 
 //Conexion a la base de datos MONGODB
-mongoose.connect('mongodb://localhost:27017/id64toguid', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
+DatabaseConnection.getInstance();
 
 //Inicio de servidor web
 require('./src/webserver');
-
 
 //Top.gg - Web data start
 // const DBL = require("dblapi.js");
@@ -34,11 +29,6 @@ require('./src/webserver');
 client.commands = new Collection();
 client.aliases = new Collection();
 client.categories = fs.readdirSync("./commands/");
-
-//CONFIG PATH .ENV
-config({
-    path: __dirname + "/.env"
-});
 
 //HANDLER COMANDS
 ["command"].forEach(handler => {
@@ -72,16 +62,16 @@ client.on("message", async message => {
     const cmd = messageArray[0];
     const args = messageArray.slice(1);
 
+    console.log(data);
     if(data) {
-        //const prefix = data.Prefix;
-        const prefix = '!';
+        const prefix = data.Prefix;
+        //const prefix = '!';
 
         if (!message.content.startsWith(prefix)) return;
         const commandfile = client.commands.get(cmd.slice(prefix.length)) || bot.commands.get(bot.aliases.get(cmd.slice(prefix.length)));
         commandfile.run(client, message, args);
     } else if (!data) {
-        //set the default prefix here
-        const prefix = "-";
+        const prefix = configjson.PREFIX;
         
         if (!message.content.startsWith(prefix)) return;
         const commandfile = client.commands.get(cmd.slice(prefix.length)) || bot.commands.get(bot.aliases.get(cmd.slice(prefix.length)));
@@ -91,6 +81,6 @@ client.on("message", async message => {
 });
 
 //BOT LOGIN - YOUR DISCORD BOT BE HERE.
-client.login(process.env.TOKEN);
+client.login(configjson.TOKEN);
 
 module.exports = client;

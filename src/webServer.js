@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const exhbs = require('express-handlebars');
-const passport = require('./passport');
+//const passport = require('./passport');
 const morgan = require('morgan');
 const BotClient = require('../index');
 
@@ -22,8 +22,8 @@ app.use(session({
     saveUninitialized: false,
 }));
 //Usamos el cliente de discord
-app.use(passport.initialize());
-app.use(passport.session());
+//app.use(passport.initialize());
+//app.use(passport.session());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', '.hbs');
 app.engine('.hbs', exhbs({

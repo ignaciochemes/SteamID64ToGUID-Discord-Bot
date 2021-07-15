@@ -1,8 +1,7 @@
-const Discord = require('discord.js');
-const { MessageEmbed } = require("discord.js");
 const Gamedig = require('gamedig');
-const ARMA3IP = require('../../database/setarma3server');
-const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
+const { MessageEmbed } = require("discord.js");
+const ARMA3IP = require('../../src/database/models/setarma3server');
+const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
 
 module.exports = {
     name: "arma3serverinfo",
@@ -47,7 +46,7 @@ module.exports = {
 
                 console.log(state);
 
-                const embed = new Discord.MessageEmbed()
+                const embed = new MessageEmbed()
                 .setColor("#F8C300")
                 .setAuthor(message.author.username, "https://cdn.discordapp.com/avatars/"+message.author.id+"/"+message.author.avatar+".png")
                 .addFields(
@@ -56,7 +55,6 @@ module.exports = {
                     { name: 'Ping', value:'```' + `Ping to Argentina Server: ${state.ping}` + '```', inline},
                     { name: "Extra Info", value:'```' + `Version: ${state.raw.version} \nMission: ${state.game} \nBattleye: ${state.raw.secure}` + '```', inline},
                     )
-                //.setFooter(`2020 © ${client.user.username}.`)
                     .setFooter(`2021 © Id64ToGuid - Develop by oaki`)
                 .setTimestamp()
                 state.players.forEach(element => {

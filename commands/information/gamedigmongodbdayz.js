@@ -1,8 +1,7 @@
-const Discord = require('discord.js');
-const { MessageEmbed } = require("discord.js");
 const Gamedig = require('gamedig');
-const DAYZIP = require('../../database/setdayzserver');
-const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
+const { MessageEmbed } = require("discord.js");
+const DAYZIP = require('../../src/database/models/setdayzserver');
+const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
 
 module.exports = {
     name: "dayzserverinfo",
@@ -45,7 +44,7 @@ module.exports = {
                 } else if (state.raw.secure = 0) {
                     state.raw.secure = "Server not protected"
                 };
-                const embed = new Discord.MessageEmbed()
+                const embed = new MessageEmbed()
                 .setColor("#F8C300")
                 .setAuthor(message.author.username, "https://cdn.discordapp.com/avatars/"+message.author.id+"/"+message.author.avatar+".png")
                 .addFields(

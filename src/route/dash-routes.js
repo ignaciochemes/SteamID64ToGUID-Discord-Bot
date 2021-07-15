@@ -1,6 +1,6 @@
 const express = require('express');
 const { auth } = require('../auth');
-const PrefixSchema = require('../../database/prefix');
+//const PrefixSchema = require('../../database/prefix');
 const { route } = require('./routing');
 const router = express.Router();
 

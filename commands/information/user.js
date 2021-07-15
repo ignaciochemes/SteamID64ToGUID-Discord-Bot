@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const { stripIndents } = require("common-tags");
 const { getMember, formatDate } = require("../../functions.js");
-const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
+const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
 
 module.exports = {
     name: "user",

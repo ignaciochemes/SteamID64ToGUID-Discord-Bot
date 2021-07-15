@@ -1,5 +1,5 @@
-const Discord = require('discord.js');
-const uidAlmacenamiento = require('../../database/uidalmacenamiento');
+const { MessageEmbed } = require('discord.js');
+const uidAlmacenamiento = require('../../src/database/models/uidalmacenamiento');
 
 module.exports = {
     name: "last10uid",
@@ -8,7 +8,7 @@ module.exports = {
     description: "Show last 10 global uids convertion",
     usage: "-last10uid",
     run: async(client, message, args) => {
-        let enviarEmbed = new Discord.MessageEmbed();
+        let enviarEmbed = new MessageEmbed();
         
         await uidAlmacenamiento.find({
             name: "uid"

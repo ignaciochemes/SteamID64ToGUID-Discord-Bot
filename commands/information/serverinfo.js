@@ -1,6 +1,5 @@
-const Discord = require("discord.js");
 const { MessageEmbed } = require("discord.js")
-const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
+const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
 
 module.exports = {
         name: "discordinfo",
@@ -18,7 +17,7 @@ module.exports = {
 			
 			console.log("Se utilizo comando SERVERINFO");
 			const onlineMembers = message.guild.members.cache.filter(m => m.presence.status !== "offline").size;
-			let sEmbed = new Discord.MessageEmbed()
+			let sEmbed = new MessageEmbed()
 			.setColor("#F8C300")
 			.setTitle("Server Info")
 			.setThumbnail('https://i.imgur.com/NGQMjSA.jpg')
