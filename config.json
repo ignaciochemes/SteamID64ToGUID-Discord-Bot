@@ -1,0 +1,6 @@
+{
+	"TOKEN": "NzYzMzI4NDI4ODAyOTY1NTE0.X32G_w.MIrXV6EYiqk7phihupE8ixnWca8",
+	"STEAM_API": "YOUR-STEAM-API-KEY-HERE",
+	"PREFIX": "!",
+	"DB_URI": "mongodb://localhost:27017/id64toguid"
+}
