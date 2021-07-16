@@ -1,10 +1,10 @@
 const generalAlmacenamiento = require('../database/models/generalAlmacenamiento');
 
-const generalAlmacenamientoDao = async(message) => {
+const generalAlmacenamientoDao = async(message, comando, name) => {
     let newDataGeneral = new generalAlmacenamiento({
-        comando: "botinfo",
+        comando: comando,
         user: message.author.id,
-        name: "comandos"
+        name: name
     });
     await newDataGeneral.save();
     let count = await generalAlmacenamiento.aggregate([{ $group: { _id: "$name", Total: { $sum:1 } } }]);

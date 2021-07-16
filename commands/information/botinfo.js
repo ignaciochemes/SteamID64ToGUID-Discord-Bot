@@ -15,7 +15,7 @@ module.exports = {
     description: 'Show Bot information.',
     usage: '-botinfo',
     run: async (client, message, args) => {
-    let res = await generalAlmacenamientoDao(message);
+    let res = await generalAlmacenamientoDao(message, "botinfo", "comandos");
     console.log("Se utilizo comando BOTINFO");	
     const inline = true;
     const userName = client.user.username;
