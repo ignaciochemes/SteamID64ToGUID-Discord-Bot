@@ -2,12 +2,13 @@ const OS = require('os');
 const os = require('os');
 const moment = require('moment');
 const { MessageEmbed } = require("discord.js");
-const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
+const { generalAlmacenamientoDao } = require('../../src/daos/commands.dao');
+const { GeneralConstantes } = require('../../src/constants/generalConstants');
 
 moment.locale('America/Argentina/Buenos_Aires');
 
-const oldCPUTime = 0
-const oldCPUIdle = 0
+let oldCPUTime = 0
+let oldCPUIdle = 0
 
 module.exports = {
     name: 'botinfo',
@@ -15,30 +16,19 @@ module.exports = {
     description: 'Show Bot information.',
     usage: '-botinfo',
     run: async (client, message, args) => {
-    
-    let newDataGeneral = new generalAlmacenamiento({
-      comando: "botinfo",
-      user: message.author.id,
-      name: "comandos",
-    });
-    newDataGeneral.save()
-
-    let pepe = await generalAlmacenamiento.aggregate([{ $group: { _id: "$name", Total: { $sum:1 } } }]);
-    
+    let res = await generalAlmacenamientoDao(message, "botinfo", "comandos");
     console.log("Se utilizo comando BOTINFO");	
     const inline = true;
-    const botAvatar = 'https://i.imgur.com/NGQMjSA.jpg';
-    const date = client.user.createdAt;
     const userName = client.user.username;
     const servsize = client.guilds.cache.size;
-    const usersize = client.users.cache.size;
+    const usersize = client.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
     const status = {
       online: '`🟢` Online',
       offline: '`⚫` Offline'
     };
 
     const embed = new MessageEmbed()
-      .setColor("#F8C300")
+      .setColor(GeneralConstantes.DEFAULT_COLOR)
       .setAuthor(message.author.username, "https://cdn.discordapp.com/avatars/"+message.author.id+"/"+message.author.avatar+".png")
       .addField('**Name**', userName)
       .addField('**My ID**', client.user.id, inline)
@@ -53,13 +43,13 @@ module.exports = {
         { name: "Versions", value:'```' + `Node Version: ${process.versions.node} \nv8: ${process.versions.v8}` + '```', inline: true },
         { name: "Server", value:'```' + `Server is Online! \n Since: ${os.uptime()/1000} Hs \nServer Ubication: Argentina` + '```', inline: true },
         )
-	    .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | Develop by oaki`)
+	    .setFooter(GeneralConstantes.DEFAULT_FOOTER)
       .setTimestamp()
 
     if (client.user.presence.status) {
       embed.addField(
         '**Status**',
-        `${status[client.user.presence.status]} \n Total Bot Uses: \`${pepe[0].Total}\``,
+        `${status[client.user.presence.status]} \n Total Bot Uses: \`${res[0].Total}\``,
         inline,
         true
       )
@@ -83,12 +73,12 @@ function formatDate (template, date) {
   }, template)
 }
 function getLoad(){
-    var cpus = OS.cpus()
-    var totalTime = -oldCPUTime
-    var totalIdle = -oldCPUIdle
-    for(var i = 0; i < cpus.length; i++) {
-        var cpu = cpus[i]
-        for(var type in cpu.times) {
+    let cpus = OS.cpus()
+    let totalTime = -oldCPUTime
+    let totalIdle = -oldCPUIdle
+    for(let i = 0; i < cpus.length; i++) {
+        let cpu = cpus[i]
+        for(let type in cpu.times) {
             totalTime += cpu.times[type];
             if(type == "idle"){
                 totalIdle += cpu.times[type];
@@ -96,12 +86,12 @@ function getLoad(){
         }
     }
 
-    var CPUload = 100 - Math.round(totalIdle/totalTime*100)
+    let CPUload = 100 - Math.round(totalIdle/totalTime*100)
+    
     oldCPUTime = totalTime
     oldCPUIdle = totalIdle
-
     return {
-        CPU:CPUload,
-        mem:100 - Math.round(OS.freemem()/OS.totalmem()*100)
+        CPU: CPUload,
+        mem: 100 - Math.round(OS.freemem()/OS.totalmem()*100)
     }       
 }

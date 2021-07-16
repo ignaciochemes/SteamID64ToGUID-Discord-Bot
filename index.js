@@ -12,7 +12,7 @@ const client = new Client({
 DatabaseConnection.getInstance();
 
 //Inicio de servidor web
-require('./src/webserver');
+require('./src/webServer');
 
 //Top.gg - Web data start
 // const DBL = require("dblapi.js");
