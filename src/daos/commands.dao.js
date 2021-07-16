@@ -1,3 +1,4 @@
+const uidAlmacenamiento = require('../database/models/uidalmacenamiento');
 const generalAlmacenamiento = require('../database/models/generalAlmacenamiento');
 
 const generalAlmacenamientoDao = async(message, comando, name) => {
@@ -11,6 +12,17 @@ const generalAlmacenamientoDao = async(message, comando, name) => {
     return count;
 }
 
+const uidAlmacenamientoDao = async(uid, message, numero) => {
+    let newData = new uidAlmacenamiento({
+        uid: uid,
+        user: message.author.id,
+        name: "uid",
+        numero: numero,
+    });
+    await newData.save();
+}
+
 module.exports = {
-    generalAlmacenamientoDao
+    generalAlmacenamientoDao,
+    uidAlmacenamientoDao
 }

@@ -3,6 +3,7 @@ const os = require('os');
 const moment = require('moment');
 const { MessageEmbed } = require("discord.js");
 const { generalAlmacenamientoDao } = require('../../src/daos/commands.dao');
+const { GeneralConstantes } = require('../../src/constants/generalConstants');
 
 moment.locale('America/Argentina/Buenos_Aires');
 
@@ -27,7 +28,7 @@ module.exports = {
     };
 
     const embed = new MessageEmbed()
-      .setColor("#F8C300")
+      .setColor(GeneralConstantes.DEFAULT_COLOR)
       .setAuthor(message.author.username, "https://cdn.discordapp.com/avatars/"+message.author.id+"/"+message.author.avatar+".png")
       .addField('**Name**', userName)
       .addField('**My ID**', client.user.id, inline)
@@ -42,7 +43,7 @@ module.exports = {
         { name: "Versions", value:'```' + `Node Version: ${process.versions.node} \nv8: ${process.versions.v8}` + '```', inline: true },
         { name: "Server", value:'```' + `Server is Online! \n Since: ${os.uptime()/1000} Hs \nServer Ubication: Argentina` + '```', inline: true },
         )
-	    .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | Develop by oaki`)
+	    .setFooter(GeneralConstantes.DEFAULT_FOOTER)
       .setTimestamp()
 
     if (client.user.presence.status) {

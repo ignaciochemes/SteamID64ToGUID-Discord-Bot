@@ -1,7 +1,8 @@
 const { MessageEmbed } = require("discord.js");
 const { stripIndents } = require("common-tags");
 const { getMember, formatDate } = require("../../functions.js");
-const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
+const { generalAlmacenamientoDao } = require('../../src/daos/commands.dao');
+const { GeneralConstantes } = require('../../src/constants/generalConstants');
 
 module.exports = {
     name: "user",
@@ -10,29 +11,19 @@ module.exports = {
 	description: "Returns user information",
     usage: "-user | -user <username>",
     run: (client, message, args) => {
-        
-        let newDataGeneral = new generalAlmacenamiento({
-            comando: "user",
-            user: message.author.id,
-            name: "comandos",
-        });
-        newDataGeneral.save()
-        
-        const member = getMember(message, args.join(" "));
-        console.log("Se ejecuto el comando -Usuario");
-        // Member variables
-        const joined = formatDate(member.joinedAt);
-        const roles = member.roles.cache
+        await generalAlmacenamientoDao(message, "user", GeneralConstantes.COMANDOS);
+        let member = getMember(message, args.join(" "));
+        let joined = formatDate(member.joinedAt);
+        let roles = member.roles.cache
             .filter(r => r.id !== message.guild.id)
             .map(r => r).join(", ") || 'none';
-
-        // User variables
-        const created = formatDate(member.user.createdAt);
+        let created = formatDate(member.user.createdAt);
 
         const embed = new MessageEmbed()
             .setFooter(member.displayName, member.user.displayAvatarURL)
-            .setThumbnail('https://i.imgur.com/mnSJzVk.jpg')
-            .setColor(member.displayHexColor === '#000000' ? '#ffffff' : member.displayHexColor)
+            .setThumbnail(GeneralConstantes.THUMBNAIL)
+            .setColor(member.displayHexColor === GeneralConstantes.DISPLAY_COLOR_1 ? 
+                GeneralConstantes.DISPLAY_COLOR_2 : member.displayHexColor)
 
         .addField('Information:', stripIndents `**- Name:** ${member.displayName}
             **- Join in:** ${joined}
