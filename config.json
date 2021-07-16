@@ -1,6 +1,0 @@
-{
-	"TOKEN": "NzYzMzI4NDI4ODAyOTY1NTE0.X32G_w.t_FZ3yFPUR9L97yAlXduvyYrxAI",
-	"STEAM_API": "FEFD9370B2C0A89E9FC362A922AEFED7",
-	"PREFIX": "!",
-	"DB_URI": "mongodb://localhost:27017/id64toguid"
-}
