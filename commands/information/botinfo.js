@@ -20,7 +20,7 @@ module.exports = {
     const inline = true;
     const userName = client.user.username;
     const servsize = client.guilds.cache.size;
-    const usersize = client.users.cache.size;
+    const usersize = client.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
     const status = {
       online: '`🟢` Online',
       offline: '`⚫` Offline'
