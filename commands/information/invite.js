@@ -1,6 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const Discord = require("discord.js");
-const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
+const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
 
 module.exports = {
     name: "invite",
@@ -18,7 +17,7 @@ module.exports = {
         newDataGeneral.save()
         
         console.log("Se utilizo comando INVITE");
-        const discordinfo = new Discord.MessageEmbed()
+        const discordinfo = new MessageEmbed()
             .setTitle("Hi, im open source!")
             .setColor("#F8C300")
             .setFooter("Developed by Develop by oaki")

@@ -1,8 +1,9 @@
-const Discord = require('discord.js');
 const SteamAPI = require('steamapi');
-const steam = new SteamAPI('1E96E0C5FCB4F71FC3CAA20968E9E2EF');
-const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
+const { MessageEmbed } = require('discord.js');
+const configjson = require('../../config.json');
+const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
 
+const steam = new SteamAPI(configjson.STEAM_API);
 let id64Resolve = [];
 module.exports = {
     name: "steam",
@@ -35,7 +36,7 @@ module.exports = {
             });
             let getSummary = steam.getUserSummary(resolve).then(summary => {
                 if (summary.gameServerIP, summary.gameServerSteamID, summary.gameExtraInfo, summary.gameID === undefined) {
-                    const embed1 = new Discord.MessageEmbed()
+                    const embed1 = new MessageEmbed()
                         .setTitle(`Steam Information`)
                         .setColor("#F8C300")
                         .addField("General:", `Nickname: \`${summary.nickname}\` \nReal Name: \`${summary.realName}\` \nCountry Code: \`${summary.countryCode}\``)
@@ -44,7 +45,7 @@ module.exports = {
                         .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | Develop by oaki`);
                     message.channel.send(embed1);
                 } else {
-                    const embed2 = new Discord.MessageEmbed()
+                    const embed2 = new MessageEmbed()
                         .setTitle(`Steam Information`)
                         .setColor("#F8C300")
                         .addField("General:", `Nickname: \`${summary.nickname}\` \nReal Name: \`${summary.realName}\` \nCountry Code: \`${summary.countryCode}\``)

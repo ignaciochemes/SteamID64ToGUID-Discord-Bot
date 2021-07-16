@@ -1,8 +1,7 @@
-const Discord = require("discord.js");
-const { MessageEmbed } = require("discord.js");
 const { createHash } = require("crypto");
-const guidAlmacenamiento = require('../../database/guidalmacenamiento');
-const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
+const { MessageEmbed } = require("discord.js");
+const guidAlmacenamiento = require('../../src/database/models/guidalmacenamiento');
+const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
 
 let bytes = [];
 module.exports = {
@@ -23,7 +22,7 @@ module.exports = {
         
         let pwd = `${args}`;
 		let tmp = message.content.split(" ");
-        let siEnviarEmbed = new Discord.MessageEmbed();
+        let siEnviarEmbed = new MessageEmbed();
 			if(!args[0]) return message.reply(`Insert account id64 | -guid <your id64 here> | -guid 765611981... \nIf you dont have your steam id 64 number, please execute the following command\n\`-steam <your-steam-profile-link>\`\nExample -steam https://steamcommunity.com/id/siegmundsensi/`)
 			    .then(msg => {
 			    msg.delete({ timeout: 25000 })

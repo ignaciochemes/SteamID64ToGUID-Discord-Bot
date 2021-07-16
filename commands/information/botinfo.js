@@ -1,13 +1,13 @@
-const Discord = require('discord.js');
-const { MessageEmbed } = require("discord.js");
-const moment = require('moment');
 const OS = require('os');
 const os = require('os');
-const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
-//const { conexionDb } = require('../../database');
-var oldCPUTime = 0
-var oldCPUIdle = 0
+const moment = require('moment');
+const { MessageEmbed } = require("discord.js");
+const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
+
 moment.locale('America/Argentina/Buenos_Aires');
+
+const oldCPUTime = 0
+const oldCPUIdle = 0
 
 module.exports = {
     name: 'botinfo',
@@ -23,7 +23,7 @@ module.exports = {
     });
     newDataGeneral.save()
 
-    let pepe = await generalAlmacenamiento.aggregate([{$group:{_id:"$name", Total:{$sum:1}}}]);
+    let pepe = await generalAlmacenamiento.aggregate([{ $group: { _id: "$name", Total: { $sum:1 } } }]);
     
     console.log("Se utilizo comando BOTINFO");	
     const inline = true;
@@ -37,7 +37,7 @@ module.exports = {
       offline: '`⚫` Offline'
     };
 
-    const embed = new Discord.MessageEmbed()
+    const embed = new MessageEmbed()
       .setColor("#F8C300")
       .setAuthor(message.author.username, "https://cdn.discordapp.com/avatars/"+message.author.id+"/"+message.author.avatar+".png")
       .addField('**Name**', userName)

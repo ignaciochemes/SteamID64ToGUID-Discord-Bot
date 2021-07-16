@@ -1,11 +1,8 @@
 //CONFIGURE IT FOR USAGE
 //THIS COMMAND RETURNS ESPECIFIC SERVER DATA
 
-const Discord = require('discord.js');
-const { MessageEmbed } = require("discord.js");
-const Gamedig = require('gamedig');
-const arma3IpModel = require('../../database/setarma3server');
-const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
+const arma3IpModel = require('../../src/database/models/setarma3server');
+const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
 
 let puerto = [];
 

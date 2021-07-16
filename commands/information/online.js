@@ -1,5 +1,5 @@
-const Discord = require("discord.js")
-const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
+const { MessageEmbed } = require("discord.js")
+const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
 
 module.exports = {
 	name: "online",
@@ -25,7 +25,7 @@ module.exports = {
 		return `${days.padStart(1, '0')} days, ${hrs.padStart(2, '0')} hours, ${min.padStart(2, '0')} min, ${sec.padStart(2, '0')} seconds, `
 		}
 
-		let uptime = new Discord.MessageEmbed()
+		let uptime = new MessageEmbed()
             .setTitle(`I'm online since: ${duration(client.uptime)}`)
             .setColor("RANDOM")
 		message.channel.send(uptime);

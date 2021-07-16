@@ -1,5 +1,4 @@
 const { MessageEmbed } = require("discord.js");
-const Discord = require("discord.js");
 
 module.exports = {
     name: "botinfoguilds",
@@ -8,9 +7,8 @@ module.exports = {
     description: "Return Discord guilds information",
     usage: "-botinfoguilds",
     run: async(client, message, args) => {
-        let sicon = message.guild.iconURL;
         let guilds = client.guilds.cache.map(guild => guild.name)
-        const botinfoguilds = new Discord.MessageEmbed()
+        const botinfoguilds = new MessageEmbed()
             .setTitle("Id64ToGUID")
             .setColor("#15f153")
             .setFooter("Developed by siegmund")

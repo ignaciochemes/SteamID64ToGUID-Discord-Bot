@@ -1,4 +1,4 @@
-const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
+const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
 
 module.exports = {
     name: "ping",

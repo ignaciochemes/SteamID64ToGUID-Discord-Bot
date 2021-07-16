@@ -1,6 +1,4 @@
 //NOT FINISH YET
-
-const Discord = require("discord.js");
 const { MessageEmbed } = require("discord.js");
 
 let resultado = [];
@@ -10,7 +8,7 @@ module.exports = {
     category: "informacion",
     description: "Returns the Hash request (Steam Id 64 to MD5 hash GUID)",
     run: async(client, message, args) => {
-        let siEnviarEmbed = new Discord.MessageEmbed();
+        let siEnviarEmbed = new MessageEmbed();
         siEnviarEmbed.setDescription("<@" + message.author.id + ">")
             .addField('Total Guids converted:', `Total Guids converted ${resultadoMysql}`)
             .setColor("#F8C300")

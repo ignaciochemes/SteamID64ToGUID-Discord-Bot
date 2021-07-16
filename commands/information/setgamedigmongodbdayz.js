@@ -1,11 +1,8 @@
 //CONFIGURE IT FOR USAGE
 //THIS COMMAND RETURNS ESPECIFIC SERVER DATA
 
-const Discord = require('discord.js');
-const { MessageEmbed } = require("discord.js");
-const Gamedig = require('gamedig');
-const dayzIpModel = require('../../database/setdayzserver');
-const generalAlmacenamiento = require('../../database/generalAlmacenamiento');
+const dayzIpModel = require('../../src/database/models/setdayzserver');
+const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
 
 let puerto = [];
 
