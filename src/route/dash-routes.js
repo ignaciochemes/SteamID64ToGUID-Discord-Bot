@@ -48,7 +48,6 @@ router.post('/dash/:id/prefix', (req, res) => {
     });
 
     nuevoPrefix.save((error, dato) => {
-        console.log(dato);
     });
     res.redirect(`/dash/${req.params.id}`)
 });
@@ -56,7 +55,6 @@ router.post('/dash/:id/prefix', (req, res) => {
 router.get("/dash/:id", auth, async (req, res) => {
     
     let prefix = await PrefixSchema.findOne({GuildID: req.params.id});
-    console.log(prefix);
     
     res.render('partials/formulario', {
         id: req.params.id

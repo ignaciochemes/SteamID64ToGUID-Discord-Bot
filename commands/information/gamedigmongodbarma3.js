@@ -14,7 +14,6 @@ module.exports = {
     run: async(client, message, args) => {
         await GeneralDao.generalAlmacenamientoDao(message, 'armaServerInfo', GeneralConstantes.COMANDOS);
         let data = await ArmaDao.getArmaDao(message);
-        console.log(data);
         if(data) {
             let host = data.Arma3Ip;
             let port = data.ArmaPort;
