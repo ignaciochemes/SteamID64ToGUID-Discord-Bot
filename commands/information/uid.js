@@ -4,6 +4,7 @@ const { GeneralDao } = require('../../src/daos/commands.dao');
 const { TextConstants } = require('../../src/constants/textConstants');
 const { GeneralConstantes } = require('../../src/constants/generalConstants');
 const uidAlmacenamiento = require('../../src/database/models/uidAlmacenamiento');
+const { MessageEventService } = require("../../src/services/messageEvent.services");
 
 module.exports = {
     usage: "-uid",
@@ -11,10 +12,11 @@ module.exports = {
     category: "information",
     description: "Returns the Hash request (Steam Id 64 to base64 hash UID)",
     run: async(client, message, args) => {
+        await MessageEventService.enviarLogsChannel(client, message, 'uid');
+        await GeneralDao.generalAlmacenamientoDao(message, "uid", GeneralConstantes.COMANDOS)
         let pwd = `${args}`;
         let res = await uidAlmacenamiento.aggregate([{ $group: { _id: "$name", Total: {$sum: 1} } }]);
         res[0] ? res = res[0].Total : res = 1;
-        await GeneralDao.generalAlmacenamientoDao(message, "uid", GeneralConstantes.COMANDOS)
         let siEnviarEmbed = new MessageEmbed();
         if (!args[0]) return message.reply(TextConstants.UID_NO_ARGS)
             .then(msg => { msg.delete({ timeout: GeneralConstantes.GENERAL_TIMEOUT }) });

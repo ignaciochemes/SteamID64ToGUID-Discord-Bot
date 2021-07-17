@@ -13,8 +13,8 @@ module.exports = {
     description: "Return your Arma 3 server information.",
 	usage: "-arma3serverinfo",
     run: async(client, message, args) => {
-        await GeneralDao.generalAlmacenamientoDao(message, 'armaServerInfo', GeneralConstantes.COMANDOS);
         await MessageEventService.enviarLogsChannel(client, message, 'armaServerInfo');
+        await GeneralDao.generalAlmacenamientoDao(message, 'armaServerInfo', GeneralConstantes.COMANDOS);
         let data = await ArmaDao.getArmaDao(message);
         if(data) {
             let host = data.Arma3Ip;

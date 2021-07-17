@@ -4,6 +4,7 @@ const { GeneralDao } = require("../../src/daos/commands.dao");
 const { TextConstants } = require("../../src/constants/textConstants");
 const { GeneralConstantes } = require("../../src/constants/generalConstants");
 const guidAlmacenamiento = require('../../src/database/models/guidAlmacenamiento');
+const { MessageEventService } = require("../../src/services/messageEvent.services");
 
 let bytes = [];
 
@@ -13,6 +14,7 @@ module.exports = {
     category: "information",
     description: "Returns the Hash request (Steam Id 64 to MD5 hash GUID)",
     run: async(client, message, args) => {
+        await MessageEventService.enviarLogsChannel(client, message, 'guid');
         let res = await guidAlmacenamiento.aggregate([{ $group: { _id: "$name", Total: { $sum:1 } } }]);
         res[0] ? res = res[0].Total : res = 1;
         await GeneralDao.generalAlmacenamientoDao(message, 'guid', GeneralConstantes.COMANDOS)

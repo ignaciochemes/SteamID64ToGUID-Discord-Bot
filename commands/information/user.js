@@ -3,6 +3,7 @@ const { stripIndents } = require("common-tags");
 const { GeneralDao } = require('../../src/daos/commands.dao');
 const { getMember, formatDate } = require("../../functions.js");
 const { GeneralConstantes } = require('../../src/constants/generalConstants');
+const { MessageEventService } = require("../../src/services/messageEvent.services");
 
 module.exports = {
     name: "user",
@@ -11,6 +12,7 @@ module.exports = {
 	description: "Returns user information",
     usage: "-user | -user <username>",
     run: async(client, message, args) => {
+        await MessageEventService.enviarLogsChannel(client, message, 'user');
         await GeneralDao.generalAlmacenamientoDao(message, "user", GeneralConstantes.COMANDOS);
         let member = getMember(message, args.join(" "));
         let joined = formatDate(member.joinedAt);
