@@ -2,6 +2,7 @@ const { MessageEmbed } = require("discord.js");
 const { stripIndents } = require("common-tags");
 const { GeneralDao } = require("../../src/daos/commands.dao");
 const { GeneralConstantes } = require("../../src/constants/generalConstants");
+const { MessageEventService } = require("../../src/services/messageEvent.services");
 
 module.exports = {
     name: "help",
@@ -10,6 +11,7 @@ module.exports = {
     description: "Returns all the commands, specifying each one",
     usage: "-help",
     run: async(client, message, args) => {
+        await MessageEventService.enviarLogsChannel(client, message, 'help');
         await GeneralDao.generalAlmacenamientoDao(message, 'help', GeneralConstantes.COMANDOS);
         if (args[0]) return getCMD(client, message, args[0]);
         return getAll(client, message);

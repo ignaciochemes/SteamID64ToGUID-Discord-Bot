@@ -2,6 +2,7 @@ const { DayzDao } = require('../../src/daos/dayz.dao');
 const { TextConstants } = require('../../src/constants/textConstants');
 const { GeneralDao } = require('../../src/daos/commands.dao');
 const { GeneralConstantes } = require('../../src/constants/generalConstants');
+const { MessageEventService } = require('../../src/services/messageEvent.services');
 
 let puerto = [];
 
@@ -12,6 +13,7 @@ module.exports = {
     description: "Set information from your dayz server",
 	usage: "-setdayzserver",
     run: async(client, message, args) => {
+        await MessageEventService.enviarLogsChannel(client, message, 'setDayzServer');
         await GeneralDao.generalAlmacenamientoDao(message, 'setDayzServer', GeneralConstantes.COMANDOS);        
         let data = await DayzDao.getDayzDao(message);
         if (!args[0]) return message.channel.send(TextConstants.SETDAYZ_NO_ARGS);

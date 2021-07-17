@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const { guidController, uidController } = require('../controllers/api.controller')
+const { ApiController } = require('../controllers/api.controller')
 
 const router = express.Router();
 //const passport = require('../passport');
@@ -16,22 +16,22 @@ router.get("/", async (req, res) => {
 
 router.use("/", require('./dash-routes'));
 
-module.exports = router;
-
-
 router.get('/', async (req, res) => {
     res.render('partials/dashboard');
 });
+
 router.get('/api', (req, res) => {
     res.render('partials/api')
 });
 
 router.get('/api/guid', async(req, res) => {
-    return await guidController(req, res);
+    let respuesta = await ApiController.guidController(req, res);
+    return res.send(respuesta);
 });
 
 router.get('/api/uid', async (req, res) => {
-    return await uidController(req, res);
+    let respuesta = await ApiController.uidController(req, res);
+    return res.send(respuesta);
 });
 
 

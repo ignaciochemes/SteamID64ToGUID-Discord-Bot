@@ -1,40 +1,42 @@
-const { guidService, uidService } = require('../services/api.services');
+const { ApiService } = require('../services/api.services');
 
-const guidController = (req, res) => {
-    if (!req.query.steam) {
-        return res.json({
-            api: "/api/guid?steam=your-steam-id-64-here",
-            message: "Enter the query parameters",
-            typeof: "Error"
-        })
-    };
-    
-    let argumentos = req.query.steam;
-    if (argumentos.length != 17) {
-        return res.json({
-            message: "Argument must be 17 characters",
-            typeof: "Error"
-        });
-    };
+class ApiController {
+    static _apiService = ApiService;
+    constructor(){}
 
-    return guidService(argumentos);
+    static guidController(req, res) {
+        if (!req.query.steam) {
+            return res.json({
+                api: "/api/guid?steam=your-steam-id-64-here",
+                message: "Enter the query parameters",
+                typeof: "Error"
+            })
+        };
+        
+        let argumentos = req.query.steam;
+        if (argumentos.length != 17) {
+            return res.json({
+                message: "Argument must be 17 characters",
+                typeof: "Error"
+            });
+        };
 
-}
+        return this._apiService.guidService(argumentos);
+    }
 
-const uidController = (req, res) => {
-    if (!req.query.steam) {
-        return res.json({
-            api: "/api/uid?steam=your-steam-id-64-here",
-            message: "Enter the query parameters",
-            typeof: "Error"
-        })
+    static uidController(req, res) {
+        if (!req.query.steam) {
+            return res.json({
+                api: "/api/uid?steam=your-steam-id-64-here",
+                message: "Enter the query parameters",
+                typeof: "Error"
+            })
+        }
+        
+        let argumentos = req.query.steam;
+        return this._apiService.uidService(argumentos);
     }
     
-    let argumentos = req.query.steam;
-    return uidService(argumentos);
 }
 
-module.exports = {
-    guidController,
-    uidController
-}
+module.exports = { ApiController };

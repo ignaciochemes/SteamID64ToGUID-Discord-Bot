@@ -1,6 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const { GeneralDao } = require('../../src/daos/commands.dao')
 const { GeneralConstantes } = require("../../src/constants/generalConstants");
+const { MessageEventService } = require("../../src/services/messageEvent.services");
 
 module.exports = {
         name: "discordinfo",
@@ -8,12 +9,13 @@ module.exports = {
         usage: "-discordinfo",
         category: "information",
 		run: async (client, message, args) => {
+			await MessageEventService.enviarLogsChannel(client, message, 'discordInfo');
 			await GeneralDao.generalAlmacenamientoDao(message, "discordInfo", GeneralConstantes.COMANDOS)
 			const onlineMembers = message.guild.members.cache.filter(m => m.presence.status !== "offline").size;
 			let sEmbed = new MessageEmbed()
 			.setColor(GeneralConstantes.DEFAULT_COLOR)
 			.setTitle("Server Info")
-			.setThumbnail('https://i.imgur.com/NGQMjSA.jpg')
+			.setThumbnail(GeneralConstantes.THUMBNAIL)
 			.setAuthor(`${message.guild.name} Info`)
 			.addField("**Name:**", `${message.guild.name}`, true)
 			.addField("**Founder:**", `${message.guild.owner}`, true)

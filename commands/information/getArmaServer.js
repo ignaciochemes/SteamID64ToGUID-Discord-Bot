@@ -4,6 +4,7 @@ const { ArmaDao } = require('../../src/daos/arma.dao');
 const { GeneralDao } = require('../../src/daos/commands.dao');
 const { TextConstants } = require('../../src/constants/textConstants');
 const { GeneralConstantes } = require('../../src/constants/generalConstants');
+const { MessageEventService } = require('../../src/services/messageEvent.services');
 
 module.exports = {
     name: "arma3serverinfo",
@@ -12,6 +13,7 @@ module.exports = {
     description: "Return your Arma 3 server information.",
 	usage: "-arma3serverinfo",
     run: async(client, message, args) => {
+        await MessageEventService.enviarLogsChannel(client, message, 'armaServerInfo');
         await GeneralDao.generalAlmacenamientoDao(message, 'armaServerInfo', GeneralConstantes.COMANDOS);
         let data = await ArmaDao.getArmaDao(message);
         if(data) {
