@@ -62,7 +62,6 @@ client.on("message", async message => {
     const cmd = messageArray[0];
     const args = messageArray.slice(1);
 
-    console.log(data);
     if(data) {
         const prefix = data.Prefix;
         //const prefix = '!';

@@ -1,5 +1,8 @@
 const { MessageEmbed } = require('discord.js');
-const guidAlmacenamiento = require('../../src/database/models/guidalmacenamiento');
+const { GeneralDao } = require('../../src/daos/commands.dao');
+const { TextConstants } = require('../../src/constants/textConstants');
+const { GeneralConstantes } = require('../../src/constants/generalConstants');
+const guidAlmacenamiento = require('../../src/database/models/guidAlmacenamiento');
 
 module.exports = {
     name: "last10guid",
@@ -8,23 +11,18 @@ module.exports = {
     description: "Show last 10 global guids convertion",
     usage: "-last10guid",
     run: async(client, message, args) => {
+        await GeneralDao.generalAlmacenamientoDao(message, 'last10guid', GeneralConstantes.COMANDOS)
         let enviarEmbed = new MessageEmbed();
-        
-        await guidAlmacenamiento.find({
-            name: "guid"
-        }).sort({numero: -1}).limit(10).exec(
+        await guidAlmacenamiento.find({ name: "guid" }).sort({ numero: -1 }).limit(10).exec(
             function(err, res) {
-                if (err) {
-                    console.log(err);
-                }
-                console.log(res);
+                if (err) throw new Error(TextConstants.DB_SORT_ERROR)
                 enviarEmbed.setDescription("<@" + message.author.id + ">")
-                .setColor("#F8C300")
-                .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | Develop by oaki`)
+                .setColor(GeneralConstantes.DEFAULT_COLOR)
+                .setFooter(GeneralConstantes.DEFAULT_FOOTER)
                 res.forEach(element => {
                     enviarEmbed.addField(`Number: ${element.numero}`, `GUID: \`${element.guid}\``)
                 });
-                message.channel.send(enviarEmbed);
+                return message.channel.send(enviarEmbed);
             }
         )
     }
