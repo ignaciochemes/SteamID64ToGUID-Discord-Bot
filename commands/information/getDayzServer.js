@@ -10,7 +10,7 @@ module.exports = {
     aliases: ["conect"],
 	category: "information",
     description: "Return your Dayz server information.",
-	usage: "-serverinfo",
+	usage: "-dayzserverinfo",
     run: async(client, message, args) => {
         await GeneralDao.generalAlmacenamientoDao(message, 'dayzServerInfo', GeneralConstantes.COMANDOS);
         let data = await DayzDao.getDayzDao(message);
