@@ -30,7 +30,6 @@ module.exports = {
                 .setColor(GeneralConstantes.DEFAULT_COLOR)
                 .setFooter(GeneralConstantes.DEFAULT_FOOTER)
         } catch (e) {
-            console.log(e);
             siEnviarEmbed.setTitle(`Error converting`)
                 .setColor("#A62019")
                 .setDescription(`Are you sure you entered a correct number? \nExecute -steam and enter your Steam Link.\nYou have to find your SteamId64 765611 .... and then, use it with the command \`-uid 765611.....\` to return the hash.`)

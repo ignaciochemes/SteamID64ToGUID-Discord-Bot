@@ -4,9 +4,7 @@ const { Client, Collection } = require("discord.js");
 const prefix = require('./src/database/models/prefix');
 const { DatabaseConnection } = require('./src/database/dbConnection');
 
-const client = new Client({
-    disableEveryone: true
-});
+const client = new Client({ disableEveryone: true });
 
 //Conexion a la base de datos MONGODB
 DatabaseConnection.getInstance();
