@@ -4,6 +4,7 @@ const configjson = require('../../config.json');
 const { GeneralDao } = require('../../src/daos/commands.dao');
 const { TextConstants } = require('../../src/constants/textConstants');
 const { GeneralConstantes } = require('../../src/constants/generalConstants');
+const { MessageEventService } = require('../../src/services/messageEvent.services');
 
 const steam = new SteamAPI(configjson.STEAM_API);
 let id64Resolve = [];
@@ -15,6 +16,7 @@ module.exports = {
     description: "Returns Steam ID 64",
 	usage: "-steam <Your account URL here>",
     run: async(client, message, args) => {
+        await MessageEventService.enviarLogsChannel(client, message, 'steam');
         await GeneralDao.generalAlmacenamientoDao(message, 'steam', GeneralConstantes.COMANDOS);
         if(!args[0]) return message.reply(TextConstants.ID64_NO_ARGS)
             .then(msg => { msg.delete({ timeout: GeneralConstantes.GENERAL_TIMEOUT }) })

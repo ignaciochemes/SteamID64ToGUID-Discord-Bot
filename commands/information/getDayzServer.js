@@ -4,14 +4,16 @@ const { DayzDao } = require('../../src/daos/dayz.dao');
 const { GeneralDao } = require('../../src/daos/commands.dao');
 const { TextConstants } = require('../../src/constants/textConstants');
 const { GeneralConstantes } = require('../../src/constants/generalConstants');
+const { MessageEventService } = require('../../src/services/messageEvent.services');
 
 module.exports = {
     name: "dayzserverinfo",
     aliases: ["conect"],
 	category: "information",
     description: "Return your Dayz server information.",
-	usage: "-serverinfo",
+	usage: "-dayzserverinfo",
     run: async(client, message, args) => {
+        await MessageEventService.enviarLogsChannel(client, message, 'dayzServerInfo');
         await GeneralDao.generalAlmacenamientoDao(message, 'dayzServerInfo', GeneralConstantes.COMANDOS);
         let data = await DayzDao.getDayzDao(message);
         if(data) {

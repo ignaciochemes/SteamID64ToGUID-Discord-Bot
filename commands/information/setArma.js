@@ -2,6 +2,7 @@ const { ArmaDao } = require('../../src/daos/arma.dao');
 const { TextConstants } = require('../../src/constants/textConstants');
 const { GeneralDao } = require('../../src/daos/commands.dao');
 const { GeneralConstantes } = require('../../src/constants/generalConstants');
+const { MessageEventService } = require('../../src/services/messageEvent.services');
 
 let puerto = [];
 
@@ -12,6 +13,7 @@ module.exports = {
     description: "Set information from your Arma 3 server",
 	usage: "-setarma3server",
     run: async(client, message, args) => {
+        await MessageEventService.enviarLogsChannel(client, message, 'setArmaServer');
         await GeneralDao.generalAlmacenamientoDao(message, 'setArmaServer', GeneralConstantes.COMANDOS);
         let data = await ArmaDao.getArmaDao(message);
         if (!args[0]) return message.channel.send(TextConstants.SETARMA_NO_ARGS);

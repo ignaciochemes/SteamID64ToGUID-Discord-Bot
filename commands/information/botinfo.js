@@ -4,6 +4,7 @@ const moment = require('moment');
 const { MessageEmbed } = require("discord.js");
 const { GeneralDao } = require('../../src/daos/commands.dao');
 const { GeneralConstantes } = require('../../src/constants/generalConstants');
+const { MessageEventService } = require('../../src/services/messageEvent.services');
 
 moment.locale('America/Argentina/Buenos_Aires');
 
@@ -16,7 +17,8 @@ module.exports = {
     description: 'Show Bot information.',
     usage: '-botinfo',
     run: async (client, message, args) => {
-    let res = await GeneralDao.generalAlmacenamientoDao(message, "botinfo", GeneralConstantes.COMANDOS);
+    await MessageEventService.enviarLogsChannel(client, message, 'botInfo');
+    let res = await GeneralDao.generalAlmacenamientoDao(message, "botInfo", GeneralConstantes.COMANDOS);
     res[0] ? res = res[0].Total : res = 1;
     const inline = true;
     const userName = client.user.username;

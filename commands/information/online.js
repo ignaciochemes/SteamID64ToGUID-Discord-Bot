@@ -1,6 +1,7 @@
 const { MessageEmbed } = require("discord.js")
 const { GeneralDao } = require('../../src/daos/commands.dao');
 const { GeneralConstantes } = require('../../src/constants/generalConstants');
+const { MessageEventService } = require("../../src/services/messageEvent.services");
 
 module.exports = {
 	name: "online",
@@ -9,6 +10,7 @@ module.exports = {
 	category: "information",
     aliases: ["un"],
 	run: async (client, message, args) => {
+		await MessageEventService.enviarLogsChannel(client, message, 'online');
 		await GeneralDao.generalAlmacenamientoDao(message, 'online', GeneralConstantes.COMANDOS)
 		function duration(ms) {
 			const sec = Math.floor((ms / 1000) % 60).toString()

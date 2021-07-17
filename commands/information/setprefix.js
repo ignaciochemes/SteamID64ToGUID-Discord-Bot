@@ -2,6 +2,7 @@ const { PrefixDao } = require('../../src/daos/prefix.dao')
 const { GeneralDao } = require('../../src/daos/commands.dao');
 const { TextConstants } = require('../../src/constants/textConstants');
 const { GeneralConstantes } = require('../../src/constants/generalConstants');
+const { MessageEventService } = require('../../src/services/messageEvent.services');
 
 module.exports = {
     name: "setprefix",
@@ -10,6 +11,7 @@ module.exports = {
     description: "Change bot prefix in your discord server",
     usage: "-setprefix",
     run: async(client, message, args) => {
+        await MessageEventService.enviarLogsChannel(client, message, 'setPrefix');
         await GeneralDao.generalAlmacenamientoDao(message, 'setPrefix', GeneralConstantes.COMANDOS)
         let data = await PrefixDao.getPrefixDao(message);
         if (!args[0]) return message.channel.send(TextConstants.SETPREFIX_NO_ARGS);

@@ -1,6 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const { GeneralDao } = require("../../src/daos/commands.dao");
 const { GeneralConstantes } = require("../../src/constants/generalConstants");
+const { MessageEventService } = require("../../src/services/messageEvent.services");
 
 module.exports = {
     name: "invite",
@@ -9,6 +10,7 @@ module.exports = {
     description: "Bot invite link",
     usage: "-invite",
     run: async(bot, message, args) => {
+        await MessageEventService.enviarLogsChannel(client, message, 'invite');
 		await GeneralDao.generalAlmacenamientoDao(message, 'invite', GeneralConstantes.COMANDOS)
         const discordinfo = new MessageEmbed()
             .setTitle("Hi, im open source!")
