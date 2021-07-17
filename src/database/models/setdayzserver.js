@@ -6,4 +6,4 @@ const dayzSchema = new Schema({
     GuildID: {type: String}
 });
 
-module.exports = model('dayzIp', dayzSchema);
+module.exports = model('dayzip', dayzSchema);

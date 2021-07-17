@@ -1,5 +1,7 @@
-const prefixModel = require('../../src/database/models/prefix');
-const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
+const { PrefixDao } = require('../../src/daos/prefix.dao')
+const { GeneralDao } = require('../../src/daos/commands.dao');
+const { TextConstants } = require('../../src/constants/textConstants');
+const { GeneralConstantes } = require('../../src/constants/generalConstants');
 
 module.exports = {
     name: "setprefix",
@@ -8,42 +10,17 @@ module.exports = {
     description: "Change bot prefix in your discord server",
     usage: "-setprefix",
     run: async(client, message, args) => {
-        
-        let newDataGeneral = new generalAlmacenamiento({
-            comando: "setprefix",
-            user: message.author.id,
-            name: "comandos",
-        });
-        newDataGeneral.save()
-
-        const data = await prefixModel.findOne({
-            GuildID: message.guild.id
-        });
-    
-        if (!args[0]) return message.channel.send('You must provide a **new prefix**!');
-    
-        if (args[0].length > 5) return message.channel.send('Your new prefix must be under \`5\` characters!')
-    
+        await GeneralDao.generalAlmacenamientoDao(message, 'setPrefix', GeneralConstantes.COMANDOS)
+        let data = await PrefixDao.getPrefixDao(message);
+        if (!args[0]) return message.channel.send(TextConstants.SETPREFIX_NO_ARGS);
+        if (args[0].length > 5) return message.channel.send(TextConstants.SETPREFIX_MAYOR_ARGS)
         if (data) {
-            await prefixModel.findOneAndRemove({
-                GuildID: message.guild.id
-            })
-            
-            message.channel.send(`The new prefix is now **\`${args[0]}\`**`);
-    
-            let newData = new prefixModel({
-                Prefix: args[0],
-                GuildID: message.guild.id
-            })
-            newData.save();
+            await PrefixDao.setPrefixDao(message);
+            await PrefixDao.prefixDao(args[0], message);
+            return message.channel.send(`The new prefix is now **\`${args[0]}\`**`);
         } else if (!data) {
-            message.channel.send(`The new prefix is now **\`${args[0]}\`**`);
-    
-            let newData = new prefixModel({
-                Prefix: args[0],
-                GuildID: message.guild.id
-            })
-            newData.save();
+            await PrefixDao.prefixDao(args[0], message);
+            return message.channel.send(`The new prefix is now **\`${args[0]}\`**`);
         }
     
     }

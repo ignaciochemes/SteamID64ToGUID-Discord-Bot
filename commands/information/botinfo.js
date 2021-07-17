@@ -2,7 +2,8 @@ const OS = require('os');
 const os = require('os');
 const moment = require('moment');
 const { MessageEmbed } = require("discord.js");
-const { generalAlmacenamientoDao } = require('../../src/daos/commands.dao');
+const { GeneralDao } = require('../../src/daos/commands.dao');
+const { GeneralConstantes } = require('../../src/constants/generalConstants');
 
 moment.locale('America/Argentina/Buenos_Aires');
 
@@ -15,19 +16,19 @@ module.exports = {
     description: 'Show Bot information.',
     usage: '-botinfo',
     run: async (client, message, args) => {
-    let res = await generalAlmacenamientoDao(message, "botinfo", "comandos");
-    console.log("Se utilizo comando BOTINFO");	
+    let res = await GeneralDao.generalAlmacenamientoDao(message, "botinfo", GeneralConstantes.COMANDOS);
+    res[0] ? res = res[0].Total : res = 1;
     const inline = true;
     const userName = client.user.username;
     const servsize = client.guilds.cache.size;
-    const usersize = client.users.cache.size;
+    const usersize = client.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
     const status = {
       online: '`🟢` Online',
       offline: '`⚫` Offline'
     };
 
     const embed = new MessageEmbed()
-      .setColor("#F8C300")
+      .setColor(GeneralConstantes.DEFAULT_COLOR)
       .setAuthor(message.author.username, "https://cdn.discordapp.com/avatars/"+message.author.id+"/"+message.author.avatar+".png")
       .addField('**Name**', userName)
       .addField('**My ID**', client.user.id, inline)
@@ -42,13 +43,13 @@ module.exports = {
         { name: "Versions", value:'```' + `Node Version: ${process.versions.node} \nv8: ${process.versions.v8}` + '```', inline: true },
         { name: "Server", value:'```' + `Server is Online! \n Since: ${os.uptime()/1000} Hs \nServer Ubication: Argentina` + '```', inline: true },
         )
-	    .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | Develop by oaki`)
+	    .setFooter(GeneralConstantes.DEFAULT_FOOTER)
       .setTimestamp()
 
     if (client.user.presence.status) {
       embed.addField(
         '**Status**',
-        `${status[client.user.presence.status]} \n Total Bot Uses: \`${res[0].Total}\``,
+        `${status[client.user.presence.status]} \n Total Bot Uses: \`${res}\``,
         inline,
         true
       )

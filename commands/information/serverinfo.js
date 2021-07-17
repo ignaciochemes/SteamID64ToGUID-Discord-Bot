@@ -1,5 +1,6 @@
-const { MessageEmbed } = require("discord.js")
-const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
+const { MessageEmbed } = require("discord.js");
+const { GeneralDao } = require('../../src/daos/commands.dao')
+const { GeneralConstantes } = require("../../src/constants/generalConstants");
 
 module.exports = {
         name: "discordinfo",
@@ -7,18 +8,10 @@ module.exports = {
         usage: "-discordinfo",
         category: "information",
 		run: async (client, message, args) => {
-			
-			let newDataGeneral = new generalAlmacenamiento({
-				comando: "discordinfo",
-				user: message.author.id,
-				name: "comandos",
-			});
-			newDataGeneral.save()
-			
-			console.log("Se utilizo comando SERVERINFO");
+			await GeneralDao.generalAlmacenamientoDao(message, "discordInfo", GeneralConstantes.COMANDOS)
 			const onlineMembers = message.guild.members.cache.filter(m => m.presence.status !== "offline").size;
 			let sEmbed = new MessageEmbed()
-			.setColor("#F8C300")
+			.setColor(GeneralConstantes.DEFAULT_COLOR)
 			.setTitle("Server Info")
 			.setThumbnail('https://i.imgur.com/NGQMjSA.jpg')
 			.setAuthor(`${message.guild.name} Info`)
@@ -29,7 +22,7 @@ module.exports = {
 			.addField("**⌨️ Text:**", `**${message.guild.channels.cache.filter(c => c.type === "text").size}**`, true)
 			.addField("**🔉 Voice:**", `**${message.guild.channels.cache.filter(c => c.type === "voice").size}**`, true)
 			.addField("**📁 Categories:**", `**${message.guild.channels.cache.filter(c => c.type === "category").size}**`, true)
-			.setFooter(`Id64ToGuid | Bohemia Interactive - Battleye | Develop by oaki`);
+			.setFooter(GeneralConstantes.DEFAULT_FOOTER);
 		message.channel.send(sEmbed);
     }
 }

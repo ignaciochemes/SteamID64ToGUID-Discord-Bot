@@ -1,7 +1,9 @@
-const crypto = require("crypto");
+const { createHash } = require("crypto");
 const { MessageEmbed } = require("discord.js");
-const uidAlmacenamiento = require('../../src/database/models/uidalmacenamiento');
-const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
+const { GeneralDao } = require('../../src/daos/commands.dao');
+const { TextConstants } = require('../../src/constants/textConstants');
+const { GeneralConstantes } = require('../../src/constants/generalConstants');
+const uidAlmacenamiento = require('../../src/database/models/uidAlmacenamiento');
 
 module.exports = {
     usage: "-uid",
@@ -9,52 +11,26 @@ module.exports = {
     category: "information",
     description: "Returns the Hash request (Steam Id 64 to base64 hash UID)",
     run: async(client, message, args) => {
-
-        let pepe = await uidAlmacenamiento.aggregate([{$group:{_id:"$name", Total:{$sum:1}}}]);
-
-        let newDataGeneral = new generalAlmacenamiento({
-            comando: "uid",
-            user: message.author.id,
-            name: "comandos",
-        });
-        newDataGeneral.save()
-        
-
         let pwd = `${args}`;
+        let res = await uidAlmacenamiento.aggregate([{ $group: { _id: "$name", Total: {$sum: 1} } }]);
+        res[0] ? res = res[0].Total : res = 1;
+        await GeneralDao.generalAlmacenamientoDao(message, "uid", GeneralConstantes.COMANDOS)
         let siEnviarEmbed = new MessageEmbed();
-        if (!args[0]) return message.reply(`Insert account id64 | -uid <your id64 here> | -uid 765611981... \nIf you dont have your steam id 64 number, please execute the following command\n\`-steam <your-steam-profile-link>\`\nExample -steam https://steamcommunity.com/id/siegmundsensi/`)
-            .then(msg => {
-                msg.delete({ timeout: 25000 })
-            });
-        if (`${pwd.length}` != 17) return message.reply(`The entered arguments are wrong or not complete. Please check the data. \nIf you have any questions, just enter the uid comman. | -uid <your id64 here> | -uid 765611981... \nIf you dont have your steam id 64 number, please execute the following command\n\`-steam <your-steam-profile-link>\`\nExample -steam https://steamcommunity.com/id/siegmundsensi/`)
-            .then(msg => {
-                msg.delete({ timeout: 25000 })
-            });
+        if (!args[0]) return message.reply(TextConstants.UID_NO_ARGS)
+            .then(msg => { msg.delete({ timeout: GeneralConstantes.GENERAL_TIMEOUT }) });
+        if (`${pwd.length}` != 17) return message.reply(TextConstants.UID_MENOR_ARGS)
+            .then(msg => { msg.delete({ timeout: GeneralConstantes.GENERAL_TIMEOUT }) });
         try {
-            const mas = /\+/g;
-            const guion = '-';
-            const barra = /\//g;
-            const guionBajo = '_';
-            let hash = crypto.createHash('sha256').update(pwd).digest('base64');
-            let tomaHash = hash.replace(mas, guion);
-            let reemplazaHash = tomaHash.replace(barra, guionBajo);
-
-            let newData = new uidAlmacenamiento({
-                uid: reemplazaHash,
-                user: message.author.id,
-                name: "uid",
-                numero: pepe[0].Total,
-            });
-            console.log(newData);
-            newData.save();
-
-            console.log(`Conversion de Guid exitosa`);
-            siEnviarEmbed.setDescription("<@" + message.author.id + ">" + "    " + `Global UIDS converted: \`${pepe[0].Total}\``)
+            let hash = createHash('sha256').update(pwd).digest('base64');
+            let tomaHash = hash.replace(GeneralConstantes.MAS_REGEX, GeneralConstantes.GUION);
+            let reemplazaHash = tomaHash.replace(GeneralConstantes.BARRA_REGEX, GeneralConstantes.GUION_BAJOionBajo);
+            await GeneralDao.uidAlmacenamientoDao(reemplazaHash, message, res)
+            siEnviarEmbed.setDescription("<@" + message.author.id + ">" + "    " + `Global UIDS converted: \`${res}\``)
                 .addField('Your UID encryption is:', `✅ Works: \`${reemplazaHash}\` \n\n⁉️ Test: \`${hash}\``, true)
-                .setColor("#F8C300")
-                .setFooter(`2020 © Id64ToGuid | Bohemia Interactive - Battleye | Develop by oaki`)
+                .setColor(GeneralConstantes.DEFAULT_COLOR)
+                .setFooter(GeneralConstantes.DEFAULT_FOOTER)
         } catch (e) {
-            console.log(`Error al convertir UID ${e}`);
+            console.log(e);
             siEnviarEmbed.setTitle(`Error converting`)
                 .setColor("#A62019")
                 .setDescription(`Are you sure you entered a correct number? \nExecute -steam and enter your Steam Link.\nYou have to find your SteamId64 765611 .... and then, use it with the command \`-uid 765611.....\` to return the hash.`)

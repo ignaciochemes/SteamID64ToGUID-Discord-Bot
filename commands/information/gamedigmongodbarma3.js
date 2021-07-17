@@ -1,7 +1,9 @@
 const Gamedig = require('gamedig');
 const { MessageEmbed } = require("discord.js");
-const ARMA3IP = require('../../src/database/models/setarma3server');
-const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
+const { ArmaDao } = require('../../src/daos/arma.dao');
+const { GeneralDao } = require('../../src/daos/commands.dao');
+const { TextConstants } = require('../../src/constants/textConstants');
+const { GeneralConstantes } = require('../../src/constants/generalConstants');
 
 module.exports = {
     name: "arma3serverinfo",
@@ -10,44 +12,24 @@ module.exports = {
     description: "Return your Arma 3 server information.",
 	usage: "-arma3serverinfo",
     run: async(client, message, args) => {
-        
-        let newDataGeneral = new generalAlmacenamiento({
-            comando: "gamedigmongodbarma3",
-            user: message.author.id,
-            name: "comandos",
-        });
-        newDataGeneral.save()
-        
-        const data = await ARMA3IP.findOne({
-            GuildID: message.author.id
-        });
+        await GeneralDao.generalAlmacenamientoDao(message, 'armaServerInfo', GeneralConstantes.COMANDOS);
+        let data = await ArmaDao.getArmaDao(message);
+        console.log(data);
         if(data) {
-            const host = data.Arma3Ip;
-            const port = data.Arma3Port;
-    
-            let resolve = await Gamedig.query({
+            let host = data.Arma3Ip;
+            let port = data.ArmaPort;
+            await Gamedig.query({
                 type: 'arma3',
                 host: host,
                 port: port
             }).then((state) => {
                 const inline = true;
-                if (state.password === false) {
-                    state.password = "No"
-                };
-                if (state.password === true) {
-                    state.password = "Yes"
-                };
-                if (state.raw.secure === 1) {
-                    state.raw.secure = "Server Protected by **BattlEye**"
-				};
-                if (state.raw.secure = 0) {
-                    state.raw.secure = "Server not protected"
-                };
-
-                console.log(state);
-
+                if(state.password === false) state.password = "No";
+                if(state.password === true) state.password = "Yes";
+                if(state.raw.secure === 1) state.raw.secure = "Server Protected by **BattlEye**";
+                if(state.raw.secure = 0) state.raw.secure = "Server not protected";
                 const embed = new MessageEmbed()
-                .setColor("#F8C300")
+                .setColor(GeneralConstantes.DEFAULT_COLOR)
                 .setAuthor(message.author.username, "https://cdn.discordapp.com/avatars/"+message.author.id+"/"+message.author.avatar+".png")
                 .addFields(
                     { name: "Server Info", value:'```' + `Name: ${state.name} \nMap: ${state.map} \nPassword: ${state.password}` + '```', inline},
@@ -55,27 +37,24 @@ module.exports = {
                     { name: 'Ping', value:'```' + `Ping to Argentina Server: ${state.ping}` + '```', inline},
                     { name: "Extra Info", value:'```' + `Version: ${state.raw.version} \nMission: ${state.game} \nBattleye: ${state.raw.secure}` + '```', inline},
                     )
-                    .setFooter(`2021 © Id64ToGuid - Develop by oaki`)
+                    .setFooter(GeneralConstantes.DEFAULT_FOOTER)
                 .setTimestamp()
                 state.players.forEach(element => {
                     embed.addField(`${element.name}`, `Score: \`${element.score}\` | Time: \`${Math.round(element.time)}\` seconds`)
                 })
-    
-                message.channel.send(embed);
-                //console.log(state);
-            }).catch((error) => {
-                console.log(error);
+                return message.channel.send(embed);
+            }).catch(() => {
                 message.reply(`An error was found with your ip address: ${host}\n
                 Error: Failed all 2 attempts
                 Attempt #1 - Port=27016 Retry=0:
                 Error: UDP - Timed out after 2000ms
                 Attempt #2 - Port=${port} Retry=0:
                 Error: UDP - Timed out after 2000ms`)
-                .then(m => m.delete({timeout: 40000}));
+                .then(m => m.delete({timeout: GeneralConstantes.GENERAL_TIMEOUT}));
             });
-        } else if (!data) {
-            return message.reply(`No ip related to your discord profile.id was found. Please enter the following command to configure one. \`-setarma3server\`.`)
-            .then(m => m.delete({timeout: 30000}));
+        } else {
+            return message.reply(TextConstants.ARMA_NO_USER_IP)
+            .then(m => m.delete({timeout: GeneralConstantes.GENERAL_TIMEOUT}));
         }
     }
 }
