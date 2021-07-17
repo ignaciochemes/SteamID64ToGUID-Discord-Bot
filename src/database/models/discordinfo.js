@@ -6,4 +6,4 @@ const discordInfoSchema = new Schema({
     Channels: { type: String }
 });
 
-module.exports = model('discordInfo', discordInfoSchema);
+module.exports = model('discordinfo', discordInfoSchema);

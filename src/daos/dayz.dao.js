@@ -5,9 +5,9 @@ class DayzDao {
     
     static async dayzDao(message, ip, puerto) {
         let newData = new dayzSchema({
-            dayzIp: ip,
-            dayzPort: puerto,
-            guildId: message.author.id,
+            DayzIp: ip,
+            DayzPort: puerto,
+            GuildID: message.author.id,
         })
         await newData.save();
     };
@@ -17,7 +17,8 @@ class DayzDao {
     };
 
     static async getDayzDao(message) {
-        await dayzSchema.findOne({ GuildID: message.author.id });
+        let res = await dayzSchema.findOne({ GuildID: message.author.id });
+        return res;
     }
 }
 

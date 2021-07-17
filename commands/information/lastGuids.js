@@ -13,7 +13,7 @@ module.exports = {
     run: async(client, message, args) => {
         await GeneralDao.generalAlmacenamientoDao(message, 'last10guid', GeneralConstantes.COMANDOS)
         let enviarEmbed = new MessageEmbed();
-        await guidAlmacenamiento.find({ name: "guid" }).sort({numero: -1}).limit(10).exec(
+        await guidAlmacenamiento.find({ name: "guid" }).sort({ numero: -1 }).limit(10).exec(
             function(err, res) {
                 if (err) throw new Error(TextConstants.DB_SORT_ERROR)
                 enviarEmbed.setDescription("<@" + message.author.id + ">")

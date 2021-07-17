@@ -16,7 +16,8 @@ class PrefixDao {
     }
     
     static async getPrefixDao(message) {
-        await prefixModel.findOne({ GuildID: message.guild.id });
+        let res = await prefixModel.findOne({ GuildID: message.guild.id });
+        return res;
     }
 }
 

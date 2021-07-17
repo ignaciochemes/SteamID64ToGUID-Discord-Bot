@@ -12,7 +12,7 @@ module.exports = {
     description: "Return your Dayz server information.",
 	usage: "-serverinfo",
     run: async(client, message, args) => {
-        await GeneralDao.guidAlmacenamientoDao(message, 'dayzServerInfo', GeneralConstantes.COMANDOS);
+        await GeneralDao.generalAlmacenamientoDao(message, 'dayzServerInfo', GeneralConstantes.COMANDOS);
         let data = await DayzDao.getDayzDao(message);
         if(data) {
             const host = data.DayzIp;
@@ -41,7 +41,7 @@ module.exports = {
                 .setTimestamp()
                 return message.channel.send(embed);
 
-            }).catch((error) => {
+            }).catch(() => {
                 message.reply(`An error was found with your ip address: ${host}\n
                 Error: Failed all 2 attempts
                 Attempt #1 - Port=27016 Retry=0:

@@ -12,11 +12,12 @@ module.exports = {
     description: "Return your Arma 3 server information.",
 	usage: "-arma3serverinfo",
     run: async(client, message, args) => {
-        await GeneralDao.guidAlmacenamientoDao(message, 'armaServerInfo', GeneralConstantes.COMANDOS);
+        await GeneralDao.generalAlmacenamientoDao(message, 'armaServerInfo', GeneralConstantes.COMANDOS);
         let data = await ArmaDao.getArmaDao(message);
+        console.log(data);
         if(data) {
-            let host = data.armaIp;
-            let port = data.armaPort;
+            let host = data.Arma3Ip;
+            let port = data.ArmaPort;
             await Gamedig.query({
                 type: 'arma3',
                 host: host,
@@ -42,7 +43,7 @@ module.exports = {
                     embed.addField(`${element.name}`, `Score: \`${element.score}\` | Time: \`${Math.round(element.time)}\` seconds`)
                 })
                 return message.channel.send(embed);
-            }).catch((error) => {
+            }).catch(() => {
                 message.reply(`An error was found with your ip address: ${host}\n
                 Error: Failed all 2 attempts
                 Attempt #1 - Port=27016 Retry=0:
@@ -51,7 +52,7 @@ module.exports = {
                 Error: UDP - Timed out after 2000ms`)
                 .then(m => m.delete({timeout: GeneralConstantes.GENERAL_TIMEOUT}));
             });
-        } else if (!data) {
+        } else {
             return message.reply(TextConstants.ARMA_NO_USER_IP)
             .then(m => m.delete({timeout: GeneralConstantes.GENERAL_TIMEOUT}));
         }

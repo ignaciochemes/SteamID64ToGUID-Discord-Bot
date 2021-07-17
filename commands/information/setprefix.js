@@ -16,10 +16,10 @@ module.exports = {
         if (args[0].length > 5) return message.channel.send(TextConstants.SETPREFIX_MAYOR_ARGS)
         if (data) {
             await PrefixDao.setPrefixDao(message);
-            await PrefixDao.prefixModelDao(args[0], message);
+            await PrefixDao.prefixDao(args[0], message);
             return message.channel.send(`The new prefix is now **\`${args[0]}\`**`);
         } else if (!data) {
-            await PrefixDao.prefixModelDao(args[0], message);
+            await PrefixDao.prefixDao(args[0], message);
             return message.channel.send(`The new prefix is now **\`${args[0]}\`**`);
         }
     

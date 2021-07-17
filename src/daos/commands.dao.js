@@ -28,7 +28,7 @@ class GeneralDao {
 
     static async guidAlmacenamientoDao(guid, message, res) {
         let newData = new guidAlmacenamientoSchema({
-            uid: guid,
+            guid: guid,
             user: message.author.id,
             name: "guid",
             numero: res,
