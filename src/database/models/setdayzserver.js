@@ -1,9 +1,9 @@
 const { model, Schema } = require('mongoose');
 
 const dayzSchema = new Schema({
-    DayzIp: { type: String },
-	DayzPort: { type: String },
-    GuildID: {type: String}
+    dayzIp: { type: String },
+	dayzPort: { type: String },
+    guildId: {type: String}
 });
 
-module.exports = model('dayzIp', dayzSchema);
+module.exports = model('dayz', dayzSchema);

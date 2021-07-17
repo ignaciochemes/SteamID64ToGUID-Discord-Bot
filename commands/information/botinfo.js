@@ -16,8 +16,8 @@ module.exports = {
     description: 'Show Bot information.',
     usage: '-botinfo',
     run: async (client, message, args) => {
-    let res = await generalAlmacenamientoDao(message, "botinfo", "comandos");
-    console.log("Se utilizo comando BOTINFO");	
+    let res = await generalAlmacenamientoDao(message, "botinfo", GeneralConstantes.COMANDOS);
+    res[0] ? res = res[0].Total : res = 1;
     const inline = true;
     const userName = client.user.username;
     const servsize = client.guilds.cache.size;
@@ -49,7 +49,7 @@ module.exports = {
     if (client.user.presence.status) {
       embed.addField(
         '**Status**',
-        `${status[client.user.presence.status]} \n Total Bot Uses: \`${res[0].Total}\``,
+        `${status[client.user.presence.status]} \n Total Bot Uses: \`${res}\``,
         inline,
         true
       )

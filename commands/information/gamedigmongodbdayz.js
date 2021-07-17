@@ -1,7 +1,9 @@
 const Gamedig = require('gamedig');
 const { MessageEmbed } = require("discord.js");
-const DAYZIP = require('../../src/database/models/setdayzserver');
-const generalAlmacenamiento = require('../../src/database/models/generalAlmacenamiento');
+const { DayzDao } = require('../../src/daos/dayz.dao');
+const { GeneralDao } = require('../../src/daos/commands.dao');
+const { TextConstants } = require('../../src/constants/textConstants');
+const { GeneralConstantes } = require('../../src/constants/generalConstants');
 
 module.exports = {
     name: "dayzserverinfo",
@@ -10,42 +12,24 @@ module.exports = {
     description: "Return your Dayz server information.",
 	usage: "-serverinfo",
     run: async(client, message, args) => {
-        
-        let newDataGeneral = new generalAlmacenamiento({
-            comando: "gamedigmongodbdayz",
-            user: message.author.id,
-            name: "comandos",
-        });
-        newDataGeneral.save()
-        
-        const data = await DAYZIP.findOne({
-            GuildID: message.author.id
-        });
+        await GeneralDao.guidAlmacenamientoDao(message, 'dayzServerInfo', GeneralConstantes.COMANDOS);
+        let data = await DayzDao.getDayzDao(message);
         if(data) {
             const host = data.DayzIp;
             const port = data.DayzPort;
-    
-            let resolve = await Gamedig.query({
+            await Gamedig.query({
                 type: 'dayz',
                 host: host,
                 port: port
             }).then((state) => {
                 const inline = true;
-                if (state.password === false) {
-                    state.password = "No"
-                };
-                if (state.raw.rules.dedicated === '1') {
-                    state.raw.rules.dedicated = "Its Dedicated Server"
-                } else if (state.raw.rules.dedicated === '0') {
-                    state.raw.rules.dedicated = "Its not a Dedicated Server"
-                };
-                if (state.raw.secure === 1) {
-                    state.raw.secure = "Server Protected by **BattlEye**"
-                } else if (state.raw.secure = 0) {
-                    state.raw.secure = "Server not protected"
-                };
+                if (state.password === false) state.password = "No";
+                if (state.raw.rules.dedicated === '1') state.raw.rules.dedicated = "Its Dedicated Server";
+                if (state.raw.rules.dedicated === '0') state.raw.rules.dedicated = "Its not a Dedicated Server";
+                if (state.raw.secure === 1) state.raw.secure = "Server Protected by **BattlEye**";
+                if (state.raw.secure = 0) state.raw.secure = "Server not protected";
                 const embed = new MessageEmbed()
-                .setColor("#F8C300")
+                .setColor(GeneralConstantes.DEFAULT_COLOR)
                 .setAuthor(message.author.username, "https://cdn.discordapp.com/avatars/"+message.author.id+"/"+message.author.avatar+".png")
                 .addFields(
                     { name: "Server Info", value:'```' + `Name: ${state.name} \nMap: ${state.map} \nPassword: ${state.password}` + '```', inline},
@@ -53,24 +37,22 @@ module.exports = {
                     { name: 'Ping', value:'```' + `Ping to Argentina Server: ${state.ping}` + '```', inline},
                     { name: "Extra Info", value:'```' + `Version: ${state.raw.version} \nDedicated Server?: ${state.raw.rules.dedicated} \nBattleye: ${state.raw.secure}` + '```', inline},
                     )
-                .setFooter(`2021 © Id64ToGuid - Develop by oaki`)
+                .setFooter(GeneralConstantes.DEFAULT_FOOTER)
                 .setTimestamp()
-    
-                message.channel.send(embed);
-                //console.log(state);
+                return message.channel.send(embed);
+
             }).catch((error) => {
-                console.log(error);
                 message.reply(`An error was found with your ip address: ${host}\n
                 Error: Failed all 2 attempts
                 Attempt #1 - Port=27016 Retry=0:
                 Error: UDP - Timed out after 2000ms
                 Attempt #2 - Port=${port} Retry=0:
                 Error: UDP - Timed out after 2000ms`)
-                .then(m => m.delete({timeout: 40000}));
+                .then(m => m.delete({timeout: GeneralConstantes.GENERAL_TIMEOUT}));
             });
         } else if (!data) {
-            return message.reply(`No ip related to your discord profile.id was found. Please enter the following command to configure one. \`-setdayzserver\`.`)
-            .then(m => m.delete({timeout: 30000}));
+            return message.reply(TextConstants.DAYZ_NO_USER_IP)
+            .then(m => m.delete({timeout: GeneralConstantes.GENERAL_TIMEOUT}));
         }
     }
 }
