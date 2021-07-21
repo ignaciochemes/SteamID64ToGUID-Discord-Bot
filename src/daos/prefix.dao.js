@@ -6,17 +6,17 @@ class PrefixDao {
     static async prefixDao(prefix, message) {
         let newData = new prefixModel({
             Prefix: prefix,
-            GuildID: message.guild.id
+            GuildID: message.guildId
         })
         await newData.save();
     };
     
     static async setPrefixDao(message) {
-        await prefixModel.findOneAndRemove({ GuildID: message.guild.id });
+        await prefixModel.findOneAndRemove({ GuildID: message.guildId });
     }
     
     static async getPrefixDao(message) {
-        let res = await prefixModel.findOne({ GuildID: message.guild.id });
+        let res = await prefixModel.findOne({ GuildID: message.guildId });
         return res;
     }
 }
