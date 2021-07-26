@@ -1,110 +1,90 @@
 const path = require('path');
+const http = require('http');
+const morgan = require('morgan');
 const express = require('express');
+const BotClient = require('../index');
+const { Server } = require('socket.io');
+//const passport = require('./passport');
 const session = require('express-session');
 const exhbs = require('express-handlebars');
-//const passport = require('./passport');
-const morgan = require('morgan');
-const BotClient = require('../index');
+const { DatabaseConnection } = require('./database/dbConnection');
 
 const app = express();
-const socketio = require('socket.io');
+const server = http.createServer(app);
+const io = new Server(server);
+const SocketIoFunctions = require('./utils/socketIoFunctions')(io);
 
-//Comienza la configuracion de express + SocketIo
-const server = require('http').Server(app);
-const io = socketio(server);
-
-//Opciones de Express
-app.set('port', process.env.PORT || 80);
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({
-    secret: "anibalfernandez",
-    resave: false,
-    saveUninitialized: false,
-}));
-//Usamos el cliente de discord
-//app.use(passport.initialize());
-//app.use(passport.session());
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', '.hbs');
-app.engine('.hbs', exhbs({
-    defaultLayout: 'main',
-    layoutsDir: path.join(app.get('views'), 'layouts'),
-    partialsDir: path.join(app.get('views'), 'partials'),
-    extname: '.hbs'
-}));
-//Express Middlewares
-app.use(morgan('dev'));
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-//Rutas de Express - Donde estan
-app.use((req, res, next) => {
-    req.BotClient = BotClient;
-    next();
-});
-app.use('/', require('./route/routing'));
-//Directorio publico
-
-server.listen(app.get('port'), () => {
-    console.log('server on port: ', app.get('port'));
-});
-
-setInterval(discordStats, 5000);
-async function discordStats() {
-    const data = require('../index');
-    let datainfo = { 
-        infousername: data.username,
-        infousers: data.users + "k",
-        infoguilds: data.guilds
+class ServerExpress {
+    static _instancia;
+    constructor() {
+        this.app = express();
+        this.server = http.createServer(this.app);
+        this.io = new Server(this.server);
+        this.connectarDb();
+        this.port = process.env.PORT || 80;
+        this.middlewares();
+        this.static();
+        this.routes();
+        this.run();
+        //this.socketIo();
     }
-    io.emit("datainfo", datainfo);
-};
-
-setInterval(ping, 5000)
-//Funcion de ping
-async function ping() {
-    const ping = require('ping');
-    let res1 = await ping.promise.probe('cloudflare.com', {
-        timeout: 2,
-    });
-    let res2 = await ping.promise.probe('89.255.2.229', {
-        timeout: 2,
-    });
-    let res3 = await ping.promise.probe('165.87.201.244', {
-        timeout: 2,
-    });
-    var data = {
-        latam: Math.floor(res1.avg),
-        eu: Math.floor(res2.avg),
-        usa: Math.floor(res3.avg)
+    
+    static getInstancia() {
+        if(!ServerExpress._instancia) {
+            ServerExpress._instancia = new ServerExpress();
+        }
+        return ServerExpress._instancia;
     }
-    io.emit("ping", data);
+    
+    async connectarDb() {
+        await DatabaseConnection.getInstance();
+    }
+    
+    middlewares() {
+        this.app.use(express.static(path.join(__dirname, 'public')));
+        this.app.use(session({
+            secret: "anibalfernandez",
+            resave: false,
+            saveUninitialized: false
+        }));
+        this.app.use(morgan('dev'));
+        this.app.use(express.json());
+        this.app.use(express.urlencoded({ extended: false }));
+        this.app.use((req, res, next) => { req.BotClient = BotClient; next(); });
+        //this.app.use(passport.initialize());
+        //this.app.use(passport.session());
+    }
+    
+    static socketIo() {
+        // setInterval(() => {
+        //     SocketIoFunctions.discordStats(this.io)
+        //     SocketIoFunctions.ping(this.io)
+        // }, 5000);
+        SocketIoFunctions.stats();
+    };
+
+    static() {
+        this.app.set('views', path.join(__dirname, 'views'));
+        this.app.set('view engine', '.hbs');
+        this.app.engine('.hbs', exhbs({
+            defaultLayout: 'main',
+            layoutsDir: path.join(this.app.get('views'), 'layouts'),
+            partialsDir: path.join(this.app.get('views'), 'partials'),
+            extname: '.hbs'
+        }));
+    }
+
+
+    routes() {
+        this.app.use('/', require('./route/routing'));
+    }
+
+    run() {
+        this.app.listen(this.port, (err) => {
+            if(err) console.log(err);
+            console.log(`Servidor corriendo en http://localhost:${this.port}`);
+        });
+    }
 }
 
-//Funcion de systema
-setInterval(stats, 1000)
-function stats(){  
-    const os = require("os"),
-        osur = require("os-utils");
-    
-    osur.cpuUsage(function(v){
-      let ut_sec = os.uptime(); 
-      let ut_min = ut_sec/60; 
-      let ut_hour = ut_min/60; 
-        
-      ut_sec = Math.floor(ut_sec); 
-      ut_min = Math.floor(ut_min); 
-      ut_hour = Math.floor(ut_hour); 
-        
-      ut_hour = ut_hour%60; 
-      ut_min = ut_min%60; 
-      ut_sec = ut_sec%60;
-        var data =  {
-            status:"ok",
-            sysUptime : `${ut_hour}:${ut_min}:${ut_sec} hs`,
-            cpuUsage : Math.round(v*1000)/10+"%",
-            memUsage: Math.floor((os.totalmem() - os.freemem())/os.totalmem()*1000)/10+"%"
-        }
-        io.emit("srv-stats",data);
-    });
-};
-module.exports = {app: app, server: server};
+module.exports = { ServerExpress };
