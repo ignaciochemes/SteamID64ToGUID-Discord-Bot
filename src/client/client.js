@@ -45,8 +45,11 @@ class BotClient {
             let data = { guildId: message.guild.id }
             const prefixData = await PrefixController.getPrefix(data);
             let prefix;
-            if(prefixData == undefined || prefixData == null) prefix = process.env.PREFIX;
-            prefix = prefixData;
+            if(prefixData == undefined || prefixData == null) {
+                prefix = process.env.PREFIX;
+            } else {
+                prefix = prefixData;
+            }
             if(message.author.bot) return;
             const messageArray = message.content.split(' ');
             const cmd = messageArray[0];
