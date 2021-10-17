@@ -56,7 +56,7 @@ class BotClient {
             const args = messageArray.slice(1);
             if(!message.content.startsWith(prefix)) return;
             const commandfile = client.commands.get(cmd.slice(prefix.length)) || client.commands.get(client.aliases.get(cmd.slice(prefix.length)));
-            commandfile.run(client, message, args);
+            await commandfile.run(client, message, args);
         });
 
         client.login(process.env.TOKEN);
