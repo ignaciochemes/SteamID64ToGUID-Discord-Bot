@@ -1,5 +1,5 @@
 const { connect } = require('mongoose');
-const configjson = require('../../config.json');
+//const configjson = require('../../config.json');
 
 class DatabaseConnection {
     static _instancia;
@@ -14,7 +14,7 @@ class DatabaseConnection {
     }
 
     async dbConnection() {
-        await connect(configjson.DB_URI, {
+        await connect(`${process.env.DB_URI}`, {
             useCreateIndex: true,
             useNewUrlParser: true,
             useUnifiedTopology: true,

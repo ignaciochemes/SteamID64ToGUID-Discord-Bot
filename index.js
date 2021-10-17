@@ -1,7 +1,11 @@
 const { BotClient } = require("./src/client/client");
-const { ServerExpress } = require("./src/webServer");
+const { getEnvironment } = require("./src/configs/environment");
+const { DatabaseConnection } = require("./src/database/dbConnection");
+//const { ServerExpress } = require("./src/webServer");
 
+getEnvironment();
 let client = BotClient.getInstance();
-ServerExpress.getInstancia();
+DatabaseConnection.getInstance();
+//ServerExpress.getInstancia();
 
 module.exports = client;
