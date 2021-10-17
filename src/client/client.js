@@ -1,6 +1,6 @@
 const { join } = require('path');
 const { readdirSync } = require('fs');
-const configJson = require("../../config.json");
+//const configJson = require("../../config.json");
 const { Client, Collection } = require("discord.js");
 const { PrefixController } = require("../controllers/prefix.controller");
 
@@ -19,7 +19,7 @@ class BotClient {
 
     getTopGg() {
         const DBL = require('dblapi.js');
-        const dbl = new DBL('YOUR-DBL-TOKEN-HERE', client);
+        const dbl = new DBL(process.env.DBL_TOKEN, client);
         dbl.on('posted', () => { console.log('Posted') })
         dbl.on('error', (err) => { console.log(err) })
     }
@@ -36,7 +36,7 @@ class BotClient {
         client.on('ready', () => {
             module.exports = { username: client.user.username, users: client.users.cache.size, guilds: client.guilds.cache.size };
             console.log('Bot prendido correctamente con el nombre', client.user.username)
-            let actividades = ['id64toguid.tk', 'Dayz', 'Arma'], i = 0;
+            let actividades = ['Dayz', 'Arma'], i = 0;
             setInterval(() => { client.user.setActivity(`-help | ${actividades[i++ % actividades.length]}`, { type: 'WATCHING' }) }, 30000);
             setInterval(() => { dbl.postStats(client.guilds.size, client.shards.total)}, 18000000);
         });
@@ -45,7 +45,11 @@ class BotClient {
             let data = { guildId: message.guild.id }
             const prefixData = await PrefixController.getPrefix(data);
             let prefix;
-            prefixData.Prefix ? prefix = prefixData.Prefix : prefix = configJson.PREFIX;
+            if(prefixData == undefined || prefixData == null) {
+                prefix = process.env.PREFIX;
+            } else {
+                prefix = prefixData;
+            }
             if(message.author.bot) return;
             const messageArray = message.content.split(' ');
             const cmd = messageArray[0];
@@ -55,7 +59,7 @@ class BotClient {
             commandfile.run(client, message, args);
         });
 
-        client.login(configJson.TOKEN);
+        client.login(process.env.TOKEN);
     }
 }
 

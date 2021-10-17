@@ -1,12 +1,12 @@
 const SteamAPI = require('steamapi');
 const { MessageEmbed } = require('discord.js');
-const configjson = require('../../config.json');
+//const configjson = require('../../config.json');
 const { GeneralDao } = require('../../src/daos/commands.dao');
 const { TextConstants } = require('../../src/constants/textConstants');
 const { GeneralConstantes } = require('../../src/constants/generalConstants');
 const { MessageEventService } = require('../../src/services/messageEvent.services');
 
-const steam = new SteamAPI(configjson.STEAM_API);
+const steam = new SteamAPI(process.env.STEAM_API);
 let id64Resolve = [];
 
 module.exports = {

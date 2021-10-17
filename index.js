@@ -1,11 +1,11 @@
-const { DatabaseConnection } = require('./src/database/dbConnection');
 const { BotClient } = require("./src/client/client");
+const { getEnvironment } = require("./src/configs/environment");
+const { DatabaseConnection } = require("./src/database/dbConnection");
+//const { ServerExpress } = require("./src/webServer");
 
-//Conexion a la base de datos MONGODB
-DatabaseConnection.getInstance();
+getEnvironment();
 let client = BotClient.getInstance();
-//Inicio de servidor web
-require('./src/webServer');
-
+DatabaseConnection.getInstance();
+//ServerExpress.getInstancia();
 
 module.exports = client;
