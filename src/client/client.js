@@ -1,8 +1,8 @@
 const { join } = require('path');
 const { readdirSync } = require('fs');
-//const configJson = require("../../config.json");
 const { Client, Collection } = require("discord.js");
 const { PrefixController } = require("../controllers/prefix.controller");
+const { AutoPoster } = require('topgg-autoposter');
 
 class BotClient {
     static _instancia;
@@ -18,8 +18,7 @@ class BotClient {
     }
 
     getTopGg() {
-        const DBL = require('dblapi.js');
-        const dbl = new DBL(process.env.DBL_TOKEN, client);
+        const dbl = AutoPoster(process.env.DBL_TOKEN, client);
         dbl.on('posted', () => { console.log('Posted') })
         dbl.on('error', (err) => { console.log(err) })
     }
