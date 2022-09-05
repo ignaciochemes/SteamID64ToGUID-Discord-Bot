@@ -29,12 +29,13 @@ module.exports = {
             embed.setDescription("<@" + interaction.user.id + ">" + "    " + `Global UIDS converted: \`${aggregate}\``);
             embed.addFields(
                 { name: 'SteamId64', value: `\`${pwd}\``, inline: true },
-                { name: '✅ Works UID', value: `\`${pwdFinally}\``, inline: true },
-                { name: '❌ Test UID', value: `\`${pwdToBase64}\``, inline: true }
+                { name: '✅ Works UID', value: `\`${pwdFinally}\`` },
+                { name: '❌ Test UID', value: `\`${pwdToBase64}\`` }
             );
             embed.setColor(GeneralConstants.DEFAULT_COLOR);
             embed.setFooter({ text: GeneralConstants.DEFAULT_FOOTER });
         } catch (error) {
+            console.log(error);
             embed.setTitle('Error converting');
             embed.setDescription(`Are you sure you entered a correct number? \nExecute /steam and enter your Steam Link. Like this: \`/steam 765611....\` \nYou have to find your SteamId64 765611 .... and then, use it with the command \`/uid 765611.....\` to return the hash.`)
             embed.setColor("#A62019");
