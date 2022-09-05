@@ -1,42 +1,18 @@
-const { ApiService } = require('../services/api.services');
+const { FormaterResponse } = require("../Models/Response/FormaterResponse");
+const { ApiService } = require("../services/ApiService");
 
 class ApiController {
-    static _apiService = ApiService;
-    constructor(){}
 
-    static guidController(req, res) {
-        if (!req.query.steam) {
-            return res.json({
-                api: "/api/guid?steam=your-steam-id-64-here",
-                message: "Enter the query parameters",
-                typeof: "Error"
-            })
-        };
-        
-        let argumentos = req.query.steam;
-        if (argumentos.length != 17) {
-            return res.json({
-                message: "Argument must be 17 characters",
-                typeof: "Error"
-            });
-        };
-
-        return this._apiService.guidService(argumentos);
+    static async guidController(req, res) {
+        const response = await ApiService.obtainGuid(req);
+        return res.json(new FormaterResponse(response));
     }
 
     static uidController(req, res) {
-        if (!req.query.steam) {
-            return res.json({
-                api: "/api/uid?steam=your-steam-id-64-here",
-                message: "Enter the query parameters",
-                typeof: "Error"
-            })
-        }
-        
-        let argumentos = req.query.steam;
-        return this._apiService.uidService(argumentos);
+        const response = ApiService.uidService(req);
+        return res.json(new FormaterResponse(response));
     }
-    
+
 }
 
 module.exports = { ApiController };

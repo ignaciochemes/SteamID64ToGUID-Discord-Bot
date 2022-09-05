@@ -3,9 +3,11 @@ const path = require('node:path');
 const { Client, GatewayIntentBits, REST, Collection, Routes, ActivityType } = require("discord.js");
 const { getEnvironment } = require("./src/Configs/EnvironmentSelector");
 const { DatabaseConnection } = require("./src/Database/DbConnection");
+const { WebServer } = require('./src/WebServer');
 
 getEnvironment();
 DatabaseConnection.getInstance();
+new WebServer().listen();
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
 client.commands = new Collection();
