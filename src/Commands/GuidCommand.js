@@ -16,12 +16,6 @@ module.exports = {
                 .setRequired(true)
         ),
     async execute(interaction) {
-        //channel = 
-        //USER = interaction.user
-        //message author = interaction.user.username + '#' + interaction.user.discriminator
-        //message channel = interaction.channelId
-        //message guild = interaction.guildId
-        //console.log(interaction.options);
         let aggregate = await UidDao.agregate();
         aggregate[0] ? aggregate = aggregate[0].Total : aggregate = 1;
         await GeneralDao.generalAlmacenamientoDao(interaction.commandName, interaction.user.id, GeneralConstants.COMANDOS);
