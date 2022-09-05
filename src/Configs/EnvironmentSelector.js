@@ -17,7 +17,6 @@ const getEnvironment = () => {
         case DEV:
             envData = dotenv.config({ path: path.resolve(__dirname, '../../.env.dev') }).parsed;
             console.log('Environment: Development');
-            console.log(process.env.CLIENT_ID)
             break
         case LOCAL:
             envData = dotenv.config({ path: path.resolve(__dirname, '../../.env.local') }).parsed;
