@@ -15,7 +15,6 @@ module.exports = {
                 .setRequired(true)
         ),
     async execute(interaction) {
-        console.log(interaction)
         let aggregate = await UidDao.agregate();
         aggregate[0] ? aggregate = aggregate[0].Total : aggregate = 1;
         await GeneralDao.generalAlmacenamientoDao(interaction.commandName, interaction.user.id, GeneralConstants.COMANDOS);
@@ -30,8 +29,8 @@ module.exports = {
             embed.setDescription("<@" + interaction.user.id + ">" + "    " + `Global UIDS converted: \`${aggregate}\``);
             embed.addFields(
                 { name: 'SteamId64', value: `\`${pwd}\``, inline: true },
-                { name: '✅ Works UID', value: `\`${pwdFinally}\``, inline: true },
-                { name: '❌ Test UID', value: `\`${pwdToBase64}\``, inline: true }
+                { name: '✅ Works UID', value: `\`${pwdFinally}\`` },
+                { name: '❌ Test UID', value: `\`${pwdToBase64}\`` }
             );
             embed.setColor(GeneralConstants.DEFAULT_COLOR);
             embed.setFooter({ text: GeneralConstants.DEFAULT_FOOTER });
