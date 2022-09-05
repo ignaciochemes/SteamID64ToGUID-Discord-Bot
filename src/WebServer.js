@@ -1,5 +1,6 @@
 const bodyParser = require('body-parser');
 const express = require('express');
+const logger = require('./Middlewares/LoggerMiddleware');
 
 class WebServer {
     constructor() {
@@ -13,6 +14,7 @@ class WebServer {
     middlewares() {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
+        this.app.use(logger);
     }
 
     routes() {
