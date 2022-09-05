@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, GatewayIntentBits, REST, Collection, Routes } = require("discord.js");
+const { Client, GatewayIntentBits, REST, Collection, Routes, ActivityType } = require("discord.js");
 const { getEnvironment } = require("./src/Configs/EnvironmentSelector");
 const { DatabaseConnection } = require("./src/Database/DbConnection");
 
@@ -37,8 +37,8 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 
 client.on('ready', () => {
     console.log(`Logeado como ${client.user.tag}`);
-    let actividades = ['Dayz', 'Arma'], i = 0;
-    setInterval(() => { client.user.setActivity(`-help | ${actividades[i++ % actividades.length]}`, { type: 'WATCHING' }) }, 30000);
+    let actividades = ['Arma', 'Dayz'], i = 0;
+    setInterval(() => { client.user.setActivity(`/help | ${actividades[i++ % actividades.length]}`, { type: ActivityType.Watching }) }, 30000);
 });
 
 client.on('interactionCreate', async interaction => {
