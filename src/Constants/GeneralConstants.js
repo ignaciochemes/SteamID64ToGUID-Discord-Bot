@@ -15,6 +15,7 @@ class GeneralConstants {
     static SUPORT_DISCORD = '\n https://discord.gg/6YtgFUg';
     static LOGS2_CHANNEL = '841775829066317844';
     static LOGS_CHANNEL = '792023635203457025';
+    static DEVELOPER_ID = '257668549051547649';
 }
 
 module.exports = { GeneralConstants }
