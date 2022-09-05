@@ -1,8 +1,8 @@
-const uidalmacenamiento = require("../Database/models/uidalmacenamiento");
+const guidalmacenamiento = require("../Database/models/guidalmacenamiento");
 
-class UidDao {
+class GuidDao {
     static async agregate() {
-        return await uidalmacenamiento.aggregate([
+        return await guidalmacenamiento.aggregate([
             {
                 $group: {
                     _id: "$name",
@@ -13,4 +13,4 @@ class UidDao {
     }
 }
 
-module.exports = { UidDao };
+module.exports = { GuidDao };
