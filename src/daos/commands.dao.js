@@ -1,18 +1,18 @@
-const uidAlmacenamientoSchema = require('../database/models/uidAlmacenamiento');
-const guidAlmacenamientoSchema = require('../database/models/guidAlmacenamiento');
-const generalAlmacenamientoSchema = require('../database/models/generalAlmacenamiento');
+const uidAlmacenamientoSchema = require('../Database/models/uidalmacenamiento')
+const guidAlmacenamientoSchema = require('../Database/models/guidalmacenamiento');
+const generalAlmacenamientoSchema = require('../Database/models/generalAlmacenamiento');
 
 class GeneralDao {
-    constructor(){}
+    constructor() { }
 
-    static async generalAlmacenamientoDao(message, comando, name) {
+    static async generalAlmacenamientoDao(commandName, userId, commandType) {
         let newDataGeneral = new generalAlmacenamientoSchema({
-            comando: comando,
-            user: message.author.id,
-            name: name
+            comando: commandName,
+            user: userId,
+            name: commandType
         });
         await newDataGeneral.save();
-        let count = await generalAlmacenamientoSchema.aggregate([{ $group: { _id: "$name", Total: { $sum:1 } } }]);
+        let count = await generalAlmacenamientoSchema.aggregate([{ $group: { _id: "$name", Total: { $sum: 1 } } }]);
         return count;
     };
 
@@ -26,12 +26,12 @@ class GeneralDao {
         await newData.save();
     }
 
-    static async guidAlmacenamientoDao(guid, message, res) {
+    static async guidAlmacenamientoDao(guid, userId, aggregate) {
         let newData = new guidAlmacenamientoSchema({
             guid: guid,
-            user: message.author.id,
+            user: userId,
             name: "guid",
-            numero: res,
+            numero: aggregate,
         });
         await newData.save();
     }
