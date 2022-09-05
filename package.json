@@ -4,7 +4,7 @@
     "description": "oakiBot",
     "main": "index.js",
     "scripts": {
-        "start:prod:win": "SET STEAMID_ENV=production&&node index.js",
+        "start": "node index.js",
         "start:dev:win": "SET STEAMID_ENV=development&&node index.js",
         "start:local:win": "SET STEAMID_ENV=local&&nodemon index.js",
         "start:prod": "STEAMID_ENV=production node index.js",

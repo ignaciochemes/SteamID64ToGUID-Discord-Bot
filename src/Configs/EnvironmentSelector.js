@@ -24,7 +24,7 @@ const getEnvironment = () => {
             console.log('Environment: Local');
             break
         default:
-            envData = dotenv.config().parsed;
+            envData = dotenv.config({ path: path.resolve(__dirname, '../../.env') }).parsed;
     }
 }
 
