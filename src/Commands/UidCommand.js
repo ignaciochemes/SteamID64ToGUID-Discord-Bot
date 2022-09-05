@@ -15,6 +15,7 @@ module.exports = {
                 .setRequired(true)
         ),
     async execute(interaction) {
+        console.log(interaction)
         let aggregate = await UidDao.agregate();
         aggregate[0] ? aggregate = aggregate[0].Total : aggregate = 1;
         await GeneralDao.generalAlmacenamientoDao(interaction.commandName, interaction.user.id, GeneralConstants.COMANDOS);
@@ -35,6 +36,7 @@ module.exports = {
             embed.setColor(GeneralConstants.DEFAULT_COLOR);
             embed.setFooter({ text: GeneralConstants.DEFAULT_FOOTER });
         } catch (error) {
+            console.log(error);
             embed.setTitle('Error converting');
             embed.setDescription(`Are you sure you entered a correct number? \nExecute /steam and enter your Steam Link. Like this: \`/steam 765611....\` \nYou have to find your SteamId64 765611 .... and then, use it with the command \`/uid 765611.....\` to return the hash.`)
             embed.setColor("#A62019");

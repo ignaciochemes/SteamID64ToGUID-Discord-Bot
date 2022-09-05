@@ -16,12 +16,12 @@ class GeneralDao {
         return count;
     };
 
-    static async uidAlmacenamientoDao(uid, message, res) {
+    static async uidAlmacenamientoDao(uid, userId, aggregate) {
         let newData = new uidAlmacenamientoSchema({
             uid: uid,
-            user: message.author.id,
+            user: userId,
             name: "uid",
-            numero: res,
+            numero: aggregate,
         });
         await newData.save();
     }
