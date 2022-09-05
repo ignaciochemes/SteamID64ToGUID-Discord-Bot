@@ -24,7 +24,7 @@ module.exports = {
         try {
             let pwdToBase64 = createHash('sha256').update(pwd).digest('base64');
             let pwdReplace = pwdToBase64.replace(GeneralConstants.MAS_REGEX, GeneralConstants.GUION);
-            let pwdFinally = pwdReplace.replace(GeneralConstants.BARRA_REGEX, GeneralConstants.GUION_BAJOionBajo);
+            let pwdFinally = pwdReplace.replace(GeneralConstants.BARRA_REGEX, GeneralConstants.GUION_BAJO);
             await GeneralDao.uidAlmacenamientoDao(pwdFinally, interaction.user.id, aggregate);
             embed.setDescription("<@" + interaction.user.id + ">" + "    " + `Global UIDS converted: \`${aggregate}\``);
             embed.addFields(
