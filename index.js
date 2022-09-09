@@ -4,6 +4,7 @@ const { Client, GatewayIntentBits, REST, Collection, Routes, ActivityType } = re
 const { getEnvironment } = require("./src/Configs/EnvironmentSelector");
 const { DatabaseConnection } = require("./src/Database/DbConnection");
 const { WebServer } = require('./src/WebServer');
+const { default: AutoPoster } = require('topgg-autoposter');
 
 getEnvironment();
 DatabaseConnection.getInstance();
@@ -24,6 +25,8 @@ for (const file of commandFiles) {
 
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 
+const ap = AutoPoster(process.env.TOKEN, client);
+
 (async () => {
     try {
         console.log('Started refreshing application (/) commands.');
@@ -36,6 +39,14 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
         console.error(error);
     }
 })();
+
+setInterval(async () => {
+    if (process.env.STEAMID_ENV === 'production') {
+        ap.on('posted', () => {
+            console.log('Server count posted!');
+        })
+    }
+}, 3600000);
 
 client.on('ready', () => {
     console.log(`Logeado como ${client.user.tag}`);
