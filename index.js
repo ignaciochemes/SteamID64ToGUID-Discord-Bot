@@ -41,9 +41,11 @@ const ap = AutoPoster(process.env.TOKEN, client);
 })();
 
 setInterval(async () => {
-    ap.on('posted', () => {
-        console.log('Server count posted!');
-    })
+    if (process.env.STEAMID_ENV === 'production') {
+        ap.on('posted', () => {
+            console.log('Server count posted!');
+        })
+    }
 }, 3600000);
 
 client.on('ready', () => {
