@@ -25,7 +25,7 @@ for (const file of commandFiles) {
 
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 
-const ap = AutoPoster(process.env.TOKEN, client);
+const ap = AutoPoster(process.env.DBL_TOKEN, client);
 
 (async () => {
     try {
