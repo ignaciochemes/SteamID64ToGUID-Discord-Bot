@@ -5,6 +5,7 @@ const { getEnvironment } = require("./src/Configs/EnvironmentSelector");
 const { DatabaseConnection } = require("./src/Database/DbConnection");
 const { WebServer } = require('./src/WebServer');
 const { default: AutoPoster } = require('topgg-autoposter');
+const { EnvironmentConstants } = require('./src/Constants/EnvironmentConstants');
 
 getEnvironment();
 DatabaseConnection.getInstance();
@@ -25,7 +26,14 @@ for (const file of commandFiles) {
 
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 
-const ap = AutoPoster(process.env.DBL_TOKEN, client);
+setInterval(async () => {
+    if (process.env.STEAMID_ENV === EnvironmentConstants.PROD) {
+        const ap = AutoPoster(process.env.DBL_TOKEN, client);
+        ap.on('posted', () => {
+            console.log('Server count posted!');
+        })
+    }
+}, 3600000);
 
 (async () => {
     try {
@@ -39,14 +47,6 @@ const ap = AutoPoster(process.env.DBL_TOKEN, client);
         console.error(error);
     }
 })();
-
-setInterval(async () => {
-    if (process.env.STEAMID_ENV === 'production') {
-        ap.on('posted', () => {
-            console.log('Server count posted!');
-        })
-    }
-}, 3600000);
 
 client.on('ready', () => {
     console.log(`Logeado como ${client.user.tag}`);
