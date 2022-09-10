@@ -1,9 +1,9 @@
 const armaSchema = require('../database/models/setArmaServer');
 
 class ArmaDao {
-    constructor(){}
-    static async armaDao(message, ip, puerto) {
-        let newData = new armaSchema({
+
+    static async save(message, ip, puerto) {
+        const newData = new armaSchema({
             Arma3Ip: ip,
             ArmaPort: puerto,
             GuildID: message.author.id,
@@ -11,13 +11,13 @@ class ArmaDao {
         await newData.save();
     };
 
-    static async setArmaDao(message) {
+    static async setServer(message) {
         return await armaSchema.findOneAndRemove({ GuildID: message.author.id });
     };
 
-    static async getArmaDao(message) {
-        let res = await armaSchema.findOne({ GuildID: message.author.id });
-        return res;
+    static async getServer(message) {
+        const query = await armaSchema.findOne({ GuildID: message.author.id });
+        return query;
     };
 }
 

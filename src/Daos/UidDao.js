@@ -1,6 +1,7 @@
-const uidalmacenamiento = require("../Database/models/uidalmacenamiento");
+const uidalmacenamiento = require("../Database/Models/UidStore");
 
 class UidDao {
+
     static async agregate() {
         return await uidalmacenamiento.aggregate([
             {

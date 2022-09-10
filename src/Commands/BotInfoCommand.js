@@ -2,14 +2,14 @@ const OS = require('os');
 const os = require('os');
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { GeneralConstants } = require("../Constants/GeneralConstants");
-const { GeneralDao } = require("../daos/commands.dao");
+const { GeneralDao } = require("../Daos/CommandsDao");
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("bot-info")
         .setDescription("Shows server info"),
     async execute(interaction) {
-        let aggregate = await GeneralDao.generalAlmacenamientoDao(interaction.commandName, interaction.user.id, GeneralConstants.COMANDOS);
+        let aggregate = await GeneralDao.generalStoreDao(interaction.commandName, interaction.user.id, GeneralConstants.COMANDOS);
         aggregate[0] ? aggregate = aggregate[0].Total : aggregate = 1;
         let embed = new EmbedBuilder();
         embed.setTitle(`Bot Information`);

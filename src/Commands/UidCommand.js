@@ -2,8 +2,8 @@ const { createHash } = require("crypto");
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { GeneralConstants } = require("../Constants/GeneralConstants");
 const { TextConstants } = require("../Constants/TextConstants");
-const { GeneralDao } = require("../daos/commands.dao");
-const { UidDao } = require("../daos/UidDao");
+const { GeneralDao } = require("../Daos/CommandsDao");
+const { UidDao } = require("../Daos/UidDao");
 
 module.exports = {
     data: new SlashCommandBuilder()

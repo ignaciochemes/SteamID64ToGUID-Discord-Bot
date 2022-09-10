@@ -1,4 +1,5 @@
 const { createHash } = require('crypto');
+const { HttpConstants } = require('../Constants/HttpConstants');
 const { GeneralConstants } = require('../Constants/GeneralConstants');
 const { ErrorResponse } = require('../Models/Response/ErrorResponse');
 const { ObtainGuidResponse } = require('../Models/Response/ObtainGuidResponse');
@@ -7,8 +8,8 @@ const { ObtainUidResponse } = require('../Models/Response/ObtainUidResponse');
 class ApiService {
 
     static async obtainGuid(req) {
-        if (!req.query.steam) return new ErrorResponse(400, "Enter the query parameters", "/api/guid?steam=your-steam-id-64-here");
-        if (req.query.steam.length != 17) return new ErrorResponse(400, "Argument must be 17 characters");
+        if (!req.query.steam) return new ErrorResponse(HttpConstants.BAD_REQUEST, "Enter the query parameters", "/api/guid?steam=your-steam-id-64-here");
+        if (req.query.steam.length != 17) return new ErrorResponse(HttpConstants.BAD_REQUEST, "Argument must be 17 characters");
         let bytes = [];
         try {
             for (let i = 0; i < 8; i++) {
@@ -19,13 +20,13 @@ class ApiService {
             const response = new ObtainGuidResponse(guid, req.query.steam);
             return response;
         } catch (e) {
-            return new ErrorResponse(500, "Fatal Error");
+            return new ErrorResponse(HttpConstants.INTERNAL_SERVER_ERROR, "Fatal Error");
         }
     }
 
     static uidService(req) {
-        if (!req.query.steam) return new ErrorResponse(400, "Enter the query parameters", "/api/uid?steam=your-steam-id-64-here");
-        if (req.query.steam.length != 17) return new ErrorResponse(400, "Argument must be 17 characters");
+        if (!req.query.steam) return new ErrorResponse(HttpConstants.BAD_REQUEST, "Enter the query parameters", "/api/uid?steam=your-steam-id-64-here");
+        if (req.query.steam.length != 17) return new ErrorResponse(HttpConstants.BAD_REQUEST, "Argument must be 17 characters");
         try {
             let pwdToBase64 = createHash('sha256').update(req.query.steam).digest('base64');
             let pwdReplace = pwdToBase64.replace(GeneralConstants.MAS_REGEX, GeneralConstants.GUION);
@@ -33,7 +34,7 @@ class ApiService {
             const response = new ObtainUidResponse(pwdFinally, pwdToBase64, req.query.steam);
             return response;
         } catch (e) {
-            return new ErrorResponse(500, "Fatal Error");
+            return new ErrorResponse(HttpConstants.INTERNAL_SERVER_ERROR, "Fatal Error");
         }
     }
 }
