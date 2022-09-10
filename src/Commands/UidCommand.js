@@ -2,8 +2,8 @@ const { createHash } = require("crypto");
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { GeneralConstants } = require("../Constants/GeneralConstants");
 const { TextConstants } = require("../Constants/TextConstants");
-const { GeneralDao } = require("../daos/commands.dao");
-const { UidDao } = require("../daos/UidDao");
+const { GeneralDao } = require("../Daos/CommandsDao");
+const { UidDao } = require("../Daos/UidDao");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -17,7 +17,7 @@ module.exports = {
     async execute(interaction) {
         let aggregate = await UidDao.agregate();
         aggregate[0] ? aggregate = aggregate[0].Total : aggregate = 1;
-        await GeneralDao.generalAlmacenamientoDao(interaction.commandName, interaction.user.id, GeneralConstants.COMANDOS);
+        await GeneralDao.generalStoreDao(interaction.commandName, interaction.user.id, GeneralConstants.COMANDOS);
         const pwd = interaction.options._hoistedOptions[0].value;
         if (pwd.length != 17) return interaction.reply({ content: TextConstants.UID_MENOR_ARGS, ephemeral: true });
         let embed = new EmbedBuilder();
@@ -25,7 +25,7 @@ module.exports = {
             let pwdToBase64 = createHash('sha256').update(pwd).digest('base64');
             let pwdReplace = pwdToBase64.replace(GeneralConstants.MAS_REGEX, GeneralConstants.GUION);
             let pwdFinally = pwdReplace.replace(GeneralConstants.BARRA_REGEX, GeneralConstants.GUION_BAJO);
-            await GeneralDao.uidAlmacenamientoDao(pwdFinally, interaction.user.id, aggregate);
+            await GeneralDao.uidStoreDao(pwdFinally, interaction.user.id, aggregate);
             embed.setDescription("<@" + interaction.user.id + ">" + "    " + `Global UIDS converted: \`${aggregate}\``);
             embed.addFields(
                 { name: 'SteamId64', value: `\`${pwd}\``, inline: true },

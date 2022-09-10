@@ -1,8 +1,8 @@
-const guidalmacenamiento = require("../Database/models/guidalmacenamiento");
+const guidStoreSchema = require("../Database/Models/GuidStore");
 
 class GuidDao {
     static async agregate() {
-        return await guidalmacenamiento.aggregate([
+        return await guidStoreSchema.aggregate([
             {
                 $group: {
                     _id: "$name",
