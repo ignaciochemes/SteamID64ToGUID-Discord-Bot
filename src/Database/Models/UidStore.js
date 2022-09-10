@@ -1,10 +1,10 @@
 const { model, Schema } = require('mongoose');
 
-const uidAlmacenamientoSchema = new Schema({
+const uidStoreSchema = new Schema({
     uid: { type: String },
     user: { type: String },
     name: { type: String },
     numero: { type: Number },
 });
 
-module.exports = model('uidAlmacenamiento', uidAlmacenamientoSchema);
+module.exports = model('uidAlmacenamiento', uidStoreSchema);

@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const SteamAPI = require("steamapi");
 const { GeneralConstants } = require("../Constants/GeneralConstants");
-const { GeneralDao } = require("../daos/commands.dao");
+const { GeneralDao } = require("../Daos/CommandsDao");
 
 const steam = new SteamAPI(process.env.STEAM_API);
 let id64Resolve = [];
@@ -16,7 +16,7 @@ module.exports = {
                 .setRequired(true)
         ),
     async execute(interaction) {
-        await GeneralDao.generalAlmacenamientoDao(interaction.commandName, interaction.user.id, GeneralConstants.COMANDOS);
+        await GeneralDao.generalStoreDao(interaction.commandName, interaction.user.id, GeneralConstants.COMANDOS);
         const pwd = interaction.options._hoistedOptions[0].value;
         let embed = new EmbedBuilder();
         try {

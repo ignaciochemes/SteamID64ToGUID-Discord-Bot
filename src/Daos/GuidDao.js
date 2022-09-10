@@ -1,4 +1,4 @@
-const guidalmacenamiento = require("../Database/models/guidalmacenamiento");
+const guidalmacenamiento = require("../Database/Models/GuidStore");
 
 class GuidDao {
     static async agregate() {
