@@ -30,7 +30,7 @@ module.exports = {
             }
             guid = createHash('md5').update(Buffer.from([0x42, 0x45, ...bytes])).digest('hex');
             bytes = [];
-            await GeneralDao.guidAlmacenamientoDao(guid, interaction.user.id, aggregate)
+            await GeneralDao.guidStoreDao(guid, interaction.user.id, aggregate)
             embed.setDescription("<@" + interaction.user.id + ">" + "    " + `Global GUID converted: \`${aggregate}\``);
             embed.addFields(
                 { name: 'SteamId64', value: `\`${pwd}\``, inline: true },

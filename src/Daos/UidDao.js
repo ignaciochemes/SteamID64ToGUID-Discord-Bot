@@ -1,9 +1,9 @@
-const uidalmacenamiento = require("../Database/Models/UidStore");
+const uidStoreSchema = require("../Database/Models/UidStore");
 
 class UidDao {
 
     static async agregate() {
-        return await uidalmacenamiento.aggregate([
+        return await uidStoreSchema.aggregate([
             {
                 $group: {
                     _id: "$name",
