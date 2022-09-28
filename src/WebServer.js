@@ -1,6 +1,8 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const logger = require('./Middlewares/LoggerMiddleware');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../swagger.json');
 
 class WebServer {
     constructor() {
@@ -19,6 +21,7 @@ class WebServer {
 
     routes() {
         this.app.use(this.prefix, require('./Routes/ApiRouter'));
+        this.app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
     }
 
     listen() {

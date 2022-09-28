@@ -1,0 +1,101 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "SteamId64ToGuid - Public API",
+        "version": 20220928
+    },
+    "servers": [
+        {
+            "url": "https://apidev.steamid64toguid.cf/api/v1"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Convert"
+        }
+    ],
+    "paths": {
+        "/guid": {
+            "get": {
+                "tags": [
+                    "Convert"
+                ],
+                "summary": "Convert Steam ID 64 to GUID",
+                "parameters": [
+                    {
+                        "name": "steam",
+                        "in": "query",
+                        "description": "User Steam ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response -",
+                        "examples": {
+                            "application/json": {
+                                "result": {
+                                    "guid": "string",
+                                    "steamId": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request -",
+                        "examples": {
+                            "application/json": {
+                                "result": {
+                                    "statusCode": 400,
+                                    "error": "Enter the query parameters",
+                                    "message": "/api/guid?steam=your-steam-id-64-here"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/uid": {
+            "get": {
+                "tags": [
+                    "Convert"
+                ],
+                "summary": "Convert Steam ID 64 to UID",
+                "parameters": [
+                    {
+                        "name": "steam",
+                        "in": "query",
+                        "description": "User Steam ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response -",
+                        "examples": {
+                            "application/json": {
+                                "result": {
+                                    "uid": "string",
+                                    "steamId": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request -",
+                        "examples": {
+                            "application/json": {
+                                "result": {
+                                    "statusCode": 400,
+                                    "error": "Enter the query parameters",
+                                    "message": "/api/uid?steam=your-steam-id-64-here"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

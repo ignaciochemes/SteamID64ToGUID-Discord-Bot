@@ -5,11 +5,15 @@ const { getEnvironment } = require("./src/Configs/EnvironmentSelector");
 const { DatabaseConnection } = require("./src/Database/DbConnection");
 const { WebServer } = require('./src/WebServer');
 const { default: AutoPoster } = require('topgg-autoposter');
-const { EnvironmentConstants } = require('./src/Constants/EnvironmentConstants');
+const config = require('./config.json');
 
 getEnvironment();
-DatabaseConnection.getInstance();
-new WebServer().listen();
+if (config.database.active === true) {
+    DatabaseConnection.getInstance();
+}
+if (config.api.active === true) {
+    new WebServer().listen();
+}
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
 client.commands = new Collection();
@@ -27,7 +31,7 @@ for (const file of commandFiles) {
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 
 setInterval(async () => {
-    if (process.env.STEAMID_ENV === EnvironmentConstants.PROD) {
+    if (config.topgg.active === true) {
         const ap = AutoPoster(process.env.DBL_TOKEN, client);
         ap.on('posted', () => {
             console.log('Server count posted!');
