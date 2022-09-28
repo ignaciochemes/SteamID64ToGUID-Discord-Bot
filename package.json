@@ -31,6 +31,7 @@
         "os-utils": "0.0.14",
         "ping": "^0.4.2",
         "steamapi": "^2.2.0",
+        "swagger-ui-express": "^4.5.0",
         "topgg-autoposter": "^2.0.1",
         "winston": "^3.8.1"
     }
