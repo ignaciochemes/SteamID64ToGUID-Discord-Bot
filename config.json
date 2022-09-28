@@ -1,0 +1,11 @@
+{
+    "database": {
+        "active": true
+    },
+    "api": {
+        "active": true
+    },
+    "topgg": {
+        "active": true
+    }
+}
