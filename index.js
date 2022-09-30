@@ -31,7 +31,7 @@ for (const file of commandFiles) {
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 
 setInterval(async () => {
-    if (config.topgg.active === true) {
+    if (process.env.STEAMID_ENV === 'production') {
         const ap = AutoPoster(process.env.DBL_TOKEN, client);
         ap.on('posted', () => {
             console.log('Server count posted!');
