@@ -164,9 +164,9 @@
                         }
                     },
                     {
-                        "name": "ip",
+                        "name": "host",
                         "in": "query",
-                        "description": "Game server ip",
+                        "description": "Game server host (ip)",
                         "required": true,
                         "schema": {
                             "type": "string",
