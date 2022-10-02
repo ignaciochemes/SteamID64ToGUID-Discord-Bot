@@ -2,7 +2,7 @@
     "openapi": "3.0.3",
     "info": {
         "title": "SteamId64ToGuid - Public API",
-        "version": 20220928
+        "version": "20220928"
     },
     "servers": [
         {
@@ -12,6 +12,9 @@
     "tags": [
         {
             "name": "Convert"
+        },
+        {
+            "name": "Servers"
         }
     ],
     "paths": {
@@ -26,29 +29,52 @@
                         "name": "steam",
                         "in": "query",
                         "description": "User Steam ID",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": 76561199088563020
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "Successful response -",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "result": {
-                                    "guid": "string",
-                                    "steamId": "string"
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/components/schemas/GuidSchemaResponse"
+                                        }
+                                    }
                                 }
                             }
                         }
                     },
                     "400": {
                         "description": "Bad Request -",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "result": {
-                                    "statusCode": 400,
-                                    "error": "Enter the query parameters",
-                                    "message": "/api/guid?steam=your-steam-id-64-here"
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "statusCode": {
+                                            "type": "number",
+                                            "format": "number",
+                                            "example": 400
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "format": "string",
+                                            "example": "Enter the query parameters"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "format": "string",
+                                            "example": "/api/guid?steam=your-steam-id-64-here"
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -61,37 +87,270 @@
                 "tags": [
                     "Convert"
                 ],
-                "summary": "Convert Steam ID 64 to UID",
+                "summary": "Convert Steam ID 64 to GUID",
                 "parameters": [
                     {
                         "name": "steam",
                         "in": "query",
                         "description": "User Steam ID",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": 76561199088563020
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "Successful response -",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "result": {
-                                    "uid": "string",
-                                    "steamId": "string"
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/components/schemas/UidSchemaResponse"
+                                        }
+                                    }
                                 }
                             }
                         }
                     },
                     "400": {
                         "description": "Bad Request -",
-                        "examples": {
+                        "content": {
                             "application/json": {
-                                "result": {
-                                    "statusCode": 400,
-                                    "error": "Enter the query parameters",
-                                    "message": "/api/uid?steam=your-steam-id-64-here"
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "statusCode": {
+                                            "type": "number",
+                                            "format": "number",
+                                            "example": 400
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "format": "string",
+                                            "example": "Enter the query parameters"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "format": "string",
+                                            "example": "/api/uid?steam=your-steam-id-64-here"
+                                        }
+                                    }
                                 }
                             }
+                        }
+                    }
+                }
+            }
+        },
+        "/servers": {
+            "get": {
+                "tags": [
+                    "Servers"
+                ],
+                "summary": "Get remote game server information",
+                "parameters": [
+                    {
+                        "name": "game",
+                        "in": "query",
+                        "description": "Game name",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "arma3"
+                        }
+                    },
+                    {
+                        "name": "host",
+                        "in": "query",
+                        "description": "Game server host (ip)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "127.0.0.1"
+                        }
+                    },
+                    {
+                        "name": "port",
+                        "in": "query",
+                        "description": "Game port",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": 2302
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response -",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/components/schemas/GameServerResponse"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request -",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "statusCode": {
+                                            "type": "number",
+                                            "format": "number",
+                                            "example": 400
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "format": "string",
+                                            "example": "Enter game query parameter"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "format": "string",
+                                            "example": "/api/servers?game=arma3"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/servers/games/list": {
+            "get": {
+                "tags": [
+                    "Servers"
+                ],
+                "summary": "Get game list",
+                "responses": {
+                    "200": {
+                        "description": "Successful response -",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/components/schemas/GameListResponse"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "GuidSchemaResponse": {
+                "type": "object",
+                "properties": {
+                    "guid": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "bcf8c798fe19eb44a9dbbcd8b831fd85"
+                    },
+                    "steamId": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "76561199088563030"
+                    }
+                }
+            },
+            "UidSchemaResponse": {
+                "type": "object",
+                "properties": {
+                    "cfToolsUid": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "8r8LJKISEFtFODaYtkrBupF6kf_ebhPnI2U6R0IeftQ="
+                    },
+                    "bohemiaUid": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "8r8LJKISEFtFODaYtkrBupF6kf/ebhPnI2U6R0IeftQ="
+                    },
+                    "steamId": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "76561199088563030"
+                    }
+                }
+            },
+            "GameServerResponse": {
+                "type": "object",
+                "properties": {
+                    "hugeGameServerInformation": {
+                        "type": "object",
+                        "format": "object"
+                    }
+                }
+            },
+            "GameListResponse": {
+                "type": "object",
+                "properties": {
+                    "games": {
+                        "type": "object",
+                        "format": "object",
+                        "example": {
+                            "arma3": "Arma 3",
+                            "arma2": "Arma 2",
+                            "dayz": "Dayz Standalone",
+                            "dayzmod": "Dayz Mod 2013",
+                            "csgo": "Counter-Strike: Global Offensive",
+                            "cs16": "Counter-Strike 1.6",
+                            "fivem": "FiveM",
+                            "samp": "San Andreas Multiplayer",
+                            "mtasa": "MTA San Andreas",
+                            "mtavc": "MTA Vice City",
+                            "minecraft": "Minecraft",
+                            "minecraftpe": "Minecraft: Pocket Edition",
+                            "ps": "Post Scriptum",
+                            "przomboid": "Project Zomboid",
+                            "rust": "Rust",
+                            "rfactor": "rFactor",
+                            "squad": "Squad",
+                            "valheim": "Valheim",
+                            "7d2d": "7 Days to Die",
+                            "aoe2": "Age of Empires 2",
+                            "arkse": "Ark Survival Evolved",
+                            "assettocorsa": "Assetto Corsa",
+                            "conanexiles": "Conan Exiles",
+                            "garrysmod": "Garrys Mod",
+                            "hll": "Hell Let Loose",
+                            "insurgency": "Insurgency",
+                            "insurgencysandstorm": "Insurgency: Sandstorm",
+                            "killingfloor": "Killing Floor",
+                            "killingfloor2": "Killing Floor 2",
+                            "left4dead": "Left 4 Dead",
+                            "left4dead2": "Left 4 Dead 2",
+                            "openttd": "OpenTTD"
+                        }
+                    },
+                    "services": {
+                        "type": "object",
+                        "format": "object",
+                        "example": {
+                            "teamspeak3": "TeamSpeak 3",
+                            "teamspeak2": "TeamSpeak 2",
+                            "ventrilo": "Ventrilo",
+                            "discord": "Discord"
                         }
                     }
                 }
