@@ -18,7 +18,7 @@ class DatabaseConnection {
             useUnifiedTopology: true,
         })
             .then(() => { console.log('Base de datos conectada!') })
-            .catch(() => { console.log('Error al conectar con la base de datos!') })
+            .catch((e) => { console.log('Error al conectar con la base de datos!', e) })
     };
 }
 

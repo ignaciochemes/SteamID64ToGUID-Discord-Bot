@@ -4,7 +4,6 @@ const { GeneralConstants } = require("../Constants/GeneralConstants");
 const { TextConstants } = require("../Constants/TextConstants");
 const { GeneralDao } = require("../Daos/CommandsDao");
 const { GuidDao } = require("../Daos/GuidDao");
-const { MessageEventService } = require("../services/messageEvent.services");
 
 module.exports = {
     data: new SlashCommandBuilder()
