@@ -33,4 +33,4 @@ jobs:
           file: ./Dockerfile
           build-args: APP=dev
           platforms: linux/arm/v7
-          tags: ${{ secrets.REGISTRY_URL }}/steamid64toguid-bot-dev:v2.0.1
+          tags: ${{ secrets.REGISTRY_URL }}/steamid64toguid-bot-dev:v2.1.3

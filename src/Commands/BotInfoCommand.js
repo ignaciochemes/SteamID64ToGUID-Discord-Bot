@@ -3,6 +3,7 @@ const os = require('os');
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { GeneralConstants } = require("../Constants/GeneralConstants");
 const { GeneralDao } = require("../Daos/CommandsDao");
+const { formatUptime } = require('../Helpers/GenericFunctions');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -50,11 +51,11 @@ module.exports = {
             },
             {
                 name: "Uptime:",
-                value: `DD: \`${Math.floor(os.uptime() / 86400)}\` HH: \`${Math.floor(os.uptime() / 3600)}\` MM: \`${Math.floor(os.uptime() / 60)}\``,
+                value: `\`${formatUptime(os.uptime())}\``,
                 inline: true
             }
         );
-        embed.setThumbnail(`${interaction.client.user.avatarURL()}`);
+        embed.setThumbnail(`${interaction.client.user.displayAvatarURL()}`);
         embed.setFooter({ text: GeneralConstants.DEFAULT_FOOTER });
         await interaction.reply({ embeds: [embed] });
     }
