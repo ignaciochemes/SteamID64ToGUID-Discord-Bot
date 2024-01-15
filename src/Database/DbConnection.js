@@ -13,10 +13,7 @@ class DatabaseConnection {
     }
 
     async dbConnection() {
-        await connect(`${process.env.DB_URI}`, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        })
+        await connect(`${process.env.DB_URI}`)
             .then(() => { console.log('Base de datos conectada!') })
             .catch((e) => { console.log('Error al conectar con la base de datos!', e) })
     };
