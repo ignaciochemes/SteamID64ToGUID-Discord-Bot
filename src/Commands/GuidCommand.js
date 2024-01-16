@@ -18,21 +18,20 @@ module.exports = {
         let aggregate = await GuidDao.agregate();
         aggregate[0] ? aggregate = aggregate[0].Total : aggregate = 1;
         await GeneralDao.generalStoreDao(interaction.commandName, interaction.user.id, GeneralConstants.COMANDOS);
-        const pwd = interaction.options._hoistedOptions[0].value;
-        if (pwd.length != 17) return interaction.reply({ content: TextConstants.GUID_MENOR_ARGS, ephemeral: true });
+        const steamId64 = interaction.options.getString('steamid64');
+        if (!/^\d{17}$/.test(steamId64)) {
+            return interaction.reply({ content: TextConstants.GUID_MENOR_ARGS, ephemeral: true });
+        };
         let embed = new EmbedBuilder();
-        let bytes = [];
         let guid;
         try {
-            for (let i = 0; i < 8; i++) {
-                bytes.push(Number((BigInt(pwd) >> (8n * BigInt(i))) & 0xFFn));
-            }
-            guid = createHash('md5').update(Buffer.from([0x42, 0x45, ...bytes])).digest('hex');
-            bytes = [];
+            const buffer = Buffer.alloc(10);
+            buffer.writeBigUInt64LE(BigInt(steamId64));
+            guid = createHash('md5').update(Buffer.concat([Buffer.from([0x42, 0x45]), buffer.subarray(0, 8)])).digest('hex');
             await GeneralDao.guidStoreDao(guid, interaction.user.id, aggregate)
             embed.setDescription("<@" + interaction.user.id + ">" + "    " + `Global GUID converted: \`${aggregate}\``);
             embed.addFields(
-                { name: 'SteamId64', value: `\`${pwd}\``, inline: true },
+                { name: 'SteamId64', value: `\`${steamId64}\``, inline: true },
                 { name: 'GUID', value: `\`${guid}\``, inline: true }
             );
             embed.setColor(GeneralConstants.DEFAULT_COLOR);

@@ -18,17 +18,19 @@ module.exports = {
         let aggregate = await UidDao.agregate();
         aggregate[0] ? aggregate = aggregate[0].Total : aggregate = 1;
         await GeneralDao.generalStoreDao(interaction.commandName, interaction.user.id, GeneralConstants.COMANDOS);
-        const pwd = interaction.options._hoistedOptions[0].value;
-        if (pwd.length != 17) return interaction.reply({ content: TextConstants.UID_MENOR_ARGS, ephemeral: true });
+        const steamId64 = interaction.options.getString('steamid64');
+        if (!/^\d{17}$/.test(steamId64)) {
+            return interaction.reply({ content: TextConstants.UID_MENOR_ARGS, ephemeral: true });
+        };
         let embed = new EmbedBuilder();
         try {
-            let pwdToBase64 = createHash('sha256').update(pwd).digest('base64');
+            let pwdToBase64 = createHash('sha256').update(steamId64).digest('base64');
             let pwdReplace = pwdToBase64.replace(GeneralConstants.MAS_REGEX, GeneralConstants.GUION);
             let pwdFinally = pwdReplace.replace(GeneralConstants.BARRA_REGEX, GeneralConstants.GUION_BAJO);
             await GeneralDao.uidStoreDao(pwdFinally, interaction.user.id, aggregate);
             embed.setDescription("<@" + interaction.user.id + ">" + "    " + `Global UIDS converted: \`${aggregate}\``);
             embed.addFields(
-                { name: 'SteamId64', value: `\`${pwd}\``, inline: true },
+                { name: 'SteamId64', value: `\`${steamId64}\``, inline: true },
                 { name: '✅ Works UID', value: `\`${pwdFinally}\`` },
                 { name: '❌ Test UID', value: `\`${pwdToBase64}\`` }
             );
