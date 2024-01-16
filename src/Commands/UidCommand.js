@@ -8,7 +8,7 @@ const { UidDao } = require("../Daos/UidDao");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('uid')
-        .setDescription('Convert GUID to SteamId64')
+        .setDescription('Convert SteamId64 to UID')
         .addStringOption(option =>
             option.setName('steamid64')
                 .setDescription('Enter your SteamId64')
