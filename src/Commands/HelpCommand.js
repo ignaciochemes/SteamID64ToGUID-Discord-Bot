@@ -1,8 +1,8 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const { GeneralConstants } = require("../Constants/GeneralConstants");
-const { GeneralDao } = require("../Daos/CommandsDao");
+import { SlashCommandBuilder, EmbedBuilder } from "discord.js";
+import { GeneralConstants } from "../Constants/GeneralConstants.js";
+import { GeneralDao } from "../Daos/CommandsDao.js";
 
-module.exports = {
+export default {
     data: new SlashCommandBuilder()
         .setName("help")
         .setDescription("Shows all commands"),

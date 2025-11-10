@@ -1,11 +1,11 @@
-const OS = require('os');
-const os = require('os');
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const { GeneralConstants } = require("../Constants/GeneralConstants");
-const { GeneralDao } = require("../Daos/CommandsDao");
-const { formatUptime } = require('../Helpers/GenericFunctions');
+import OS from 'os';
+import os from 'os';
+import { SlashCommandBuilder, EmbedBuilder } from "discord.js";
+import { GeneralConstants } from "../Constants/GeneralConstants.js";
+import { GeneralDao } from "../Daos/CommandsDao.js";
+import { formatUptime } from '../Helpers/GenericFunctions.js';
 
-module.exports = {
+export default {
     data: new SlashCommandBuilder()
         .setName("bot-info")
         .setDescription("Shows server info"),

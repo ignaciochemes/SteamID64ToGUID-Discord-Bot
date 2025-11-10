@@ -1,5 +1,5 @@
-const winston = require('winston');
-const expressWinston = require('express-winston');
+import winston from 'winston';
+import expressWinston from 'express-winston';
 
 const logger = expressWinston.logger({
     transports: [
@@ -16,4 +16,4 @@ const logger = expressWinston.logger({
     ignoreRoute: function (req, res) { return false; }
 });
 
-module.exports = logger;
+export default logger;

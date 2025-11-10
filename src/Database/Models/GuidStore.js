@@ -1,4 +1,4 @@
-const { model, Schema } = require('mongoose');
+import { model, Schema } from 'mongoose';
 
 const guidStoreSchema = new Schema({
     guid: { type: String },
@@ -7,4 +7,4 @@ const guidStoreSchema = new Schema({
     numero: { type: Number }
 });
 
-module.exports = model('guidAlmacenamiento', guidStoreSchema);
+export default model('guidAlmacenamiento', guidStoreSchema);

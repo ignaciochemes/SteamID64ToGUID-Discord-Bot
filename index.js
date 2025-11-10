@@ -1,18 +1,25 @@
-const fs = require('node:fs');
-const path = require('node:path');
-const { Client, GatewayIntentBits, REST, Collection, Routes, ActivityType } = require("discord.js");
-const { getEnvironment } = require("./src/Configs/EnvironmentSelector");
-const { DatabaseConnection } = require("./src/Database/DbConnection");
-const { WebServer } = require('./src/WebServer');
-const { default: AutoPoster } = require('topgg-autoposter');
-const config = require('./config.json');
+import fs from 'node:fs';
+import path from 'node:path';
+import { Client, GatewayIntentBits, REST, Collection, Routes, ActivityType } from "discord.js";
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import getEnvironment from "./src/Configs/EnvironmentSelector.js";
+// import { DatabaseConnection } from "./src/Database/DbConnection";
+import WebServerModule from './src/WebServer.js';
+// import { default as AutoPoster } from 'topgg-autoposter';
+// import raw from './config.json' assert { type: 'json' };
+// const config = raw;
+
+// Resuelve __dirname en ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 getEnvironment();
-if (config.database.active === true) {
-    DatabaseConnection.getInstance();
-}
-if (config.api.active === true) {
-    new WebServer().listen();
+// if (config.database.active === true) {
+//     DatabaseConnection.getInstance();
+// }
+// Arranque opcional del servidor HTTP según variable de entorno.
+if (process.env.API_ACTIVE === 'true') {
+    new WebServerModule.WebServer().listen();
 }
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
@@ -21,26 +28,34 @@ const commandsPath = path.join(__dirname, './src/Commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 const commands = [];
 
-for (const file of commandFiles) {
-    const filePath = path.join(commandsPath, file);
-    const command = require(filePath);
-    client.commands.set(command.data.name, command);
-    commands.push(command.data.toJSON());
+/**
+ * Carga dinámicamente los comandos desde la carpeta ./src/Commands en ESM.
+ */
+async function loadCommands() {
+    for (const file of commandFiles) {
+        const filePath = path.join(commandsPath, file);
+        const module = await import(pathToFileURL(filePath).href);
+        const command = module.default;
+        client.commands.set(command.data.name, command);
+        commands.push(command.data.toJSON());
+    }
 }
 
-const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
+// Registro de comandos vía REST (ejecuta tras cargar comandos)
 
-setInterval(async () => {
-    if (process.env.STEAMID_ENV === 'production') {
-        const ap = AutoPoster(process.env.DBL_TOKEN, client);
-        ap.on('posted', () => {
-            console.log('Server count posted!');
-        })
-    }
-}, 3600000);
+// setInterval(async () => {
+//     if (process.env.STEAMID_ENV === 'production') {
+//         const ap = AutoPoster(process.env.DBL_TOKEN, client);
+//         ap.on('posted', () => {
+//             console.log('Server count posted!');
+//         })
+//     }
+// }, 3600000);
 
 (async () => {
     try {
+        await loadCommands();
+        const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
         console.log('Started refreshing application (/) commands.');
         await rest.put(
             Routes.applicationCommands(process.env.CLIENT_ID),
@@ -59,6 +74,14 @@ client.on('ready', () => {
 });
 
 client.on('interactionCreate', async interaction => {
+    /**
+     * Maneja interacciones de comandos (slash) de Discord.
+     * Si ocurre un error, responde de forma segura usando `reply` o `followUp`
+     * según si la interacción ya fue reconocida (deferred/replied) para evitar
+     * el error "Interaction has already been acknowledged".
+     * Usa `flags: 64` para respuestas efímeras (deprecado `ephemeral`).
+     * @param {import('discord.js').Interaction} interaction - Interacción entrante.
+     */
     if (!interaction.isChatInputCommand()) return;
     const command = client.commands.get(interaction.commandName);
     if (!command) return;
@@ -67,7 +90,17 @@ client.on('interactionCreate', async interaction => {
         await command.execute(interaction);
     } catch (error) {
         console.error(error);
-        await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+        const errorPayload = { content: 'There was an error while executing this command!', flags: 64 };
+        try {
+            if (interaction.deferred || interaction.replied) {
+                await interaction.followUp(errorPayload);
+            } else {
+                await interaction.reply(errorPayload);
+            }
+        } catch (e) {
+            // Evita que el proceso se caiga si no puede responder
+            console.error('Failed to send error response for interaction:', e);
+        }
     }
 });
 

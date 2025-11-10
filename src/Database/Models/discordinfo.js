@@ -1,4 +1,4 @@
-const { model, Schema } = require('mongoose');
+import { model, Schema } from 'mongoose';
 
 const discordInfoSchema = new Schema({
     Servers: { type: String },
@@ -6,4 +6,4 @@ const discordInfoSchema = new Schema({
     Channels: { type: String }
 });
 
-module.exports = model('discordinfo', discordInfoSchema);
+export default model('discordinfo', discordInfoSchema);

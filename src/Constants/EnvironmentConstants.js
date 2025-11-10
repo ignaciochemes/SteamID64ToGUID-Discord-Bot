@@ -4,4 +4,4 @@ class EnvironmentConstants {
     static DEV = 'development'
 }
 
-module.exports = { EnvironmentConstants };
+export default EnvironmentConstants;

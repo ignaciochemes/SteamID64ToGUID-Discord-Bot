@@ -1,4 +1,4 @@
-const GameList = {
+export const GameList = {
     games: {
         'arma3': 'Arma 3',
         'arma2': 'Arma 2',
@@ -40,5 +40,3 @@ const GameList = {
         'discord': 'Discord',
     }
 };
-
-module.exports = { GameList };

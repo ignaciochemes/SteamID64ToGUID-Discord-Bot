@@ -1,24 +1,38 @@
-const armaSchema = require('../database/models/setArmaServer');
+import { upsertUserServerByDiscordId, getUserServerByDiscordId, deleteUserServerByDiscordId } from '../Database/UserServersRepository.js';
 
 class ArmaDao {
 
+    /**
+     * Guarda o actualiza el servidor de Arma3 para el usuario (Discord).
+     * @param {import('discord.js').Message} message - Mensaje de Discord.
+     * @param {string} ip - IP/host del servidor.
+     * @param {number|string} puerto - Puerto de consulta.
+     * @returns {Promise<{id:number, host:string, query_port:number, game_key:string}>} Fila persistida.
+     */
     static async save(message, ip, puerto) {
-        const newData = new armaSchema({
-            Arma3Ip: ip,
-            ArmaPort: puerto,
-            GuildID: message.author.id,
-        })
-        await newData.save();
+        const discordId = message.author.id;
+        return await upsertUserServerByDiscordId(discordId, 'arma3', ip, Number(puerto));
     };
 
+    /**
+     * Elimina el servidor configurado de Arma3 para el usuario.
+     * @param {import('discord.js').Message} message - Mensaje de Discord.
+     * @returns {Promise<number>} Cantidad de filas eliminadas.
+     */
     static async setServer(message) {
-        return await armaSchema.findOneAndRemove({ GuildID: message.author.id });
+        const discordId = message.author.id;
+        return await deleteUserServerByDiscordId(discordId, 'arma3');
     };
 
+    /**
+     * Obtiene el servidor configurado de Arma3 para el usuario.
+     * @param {import('discord.js').Message} message - Mensaje de Discord.
+     * @returns {Promise<{id:number, host:string, query_port:number, game_key:string} | null>} Fila encontrada o null.
+     */
     static async getServer(message) {
-        const query = await armaSchema.findOne({ GuildID: message.author.id });
-        return query;
+        const discordId = message.author.id;
+        return await getUserServerByDiscordId(discordId, 'arma3');
     };
 }
 
-module.exports = { ArmaDao };
+export default ArmaDao;

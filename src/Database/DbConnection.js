@@ -1,22 +1,22 @@
-const { connect } = require('mongoose');
+import { Sequelize } from 'sequelize';
 
 class DatabaseConnection {
-    static _instancia;
+    static _instance;
     constructor() {
         this.dbConnection();
     }
 
     static getInstance() {
-        if (DatabaseConnection._instancia) throw new Error('Ya existe una instancia de DatabaseConnection');
-        DatabaseConnection._instancia = new DatabaseConnection();
-        return DatabaseConnection._instancia;
+        if (DatabaseConnection._instance) throw new Error('Ya existe una instancia de DatabaseConnection');
+        DatabaseConnection._instance = new DatabaseConnection();
+        return DatabaseConnection._instance;
     }
 
     async dbConnection() {
-        await connect(`${process.env.DB_URI}`)
-            .then(() => { console.log('Base de datos conectada!') })
-            .catch((e) => { console.log('Error al conectar con la base de datos!', e) })
+        const sequelize = new Sequelize(process.env.DATABASE_URL);
+        await sequelize.authenticate();
+        console.log('Base de datos conectada!');
     };
 }
 
-module.exports = { DatabaseConnection };
+export default DatabaseConnection;

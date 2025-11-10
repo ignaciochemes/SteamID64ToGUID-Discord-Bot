@@ -6,4 +6,4 @@ class FormaterResponse {
     }
 }
 
-module.exports = { FormaterResponse };
+export default FormaterResponse;

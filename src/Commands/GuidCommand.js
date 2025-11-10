@@ -1,11 +1,11 @@
-const { createHash } = require("crypto");
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const { GeneralConstants } = require("../Constants/GeneralConstants");
-const { TextConstants } = require("../Constants/TextConstants");
-const { GeneralDao } = require("../Daos/CommandsDao");
-const { GuidDao } = require("../Daos/GuidDao");
+import { createHash } from "crypto";
+import { SlashCommandBuilder, EmbedBuilder } from "discord.js";
+import { GeneralConstants } from "../Constants/GeneralConstants.js";
+import { TextConstants } from "../Constants/TextConstants.js";
+import { GeneralDao } from "../Daos/CommandsDao.js";
+import { GuidDao } from "../Daos/GuidDao.js";
 
-module.exports = {
+export default {
     data: new SlashCommandBuilder()
         .setName('guid')
         .setDescription('Convert SteamId64 to GUID')
@@ -28,7 +28,7 @@ module.exports = {
             const buffer = Buffer.alloc(10);
             buffer.writeBigUInt64LE(BigInt(steamId64));
             guid = createHash('md5').update(Buffer.concat([Buffer.from([0x42, 0x45]), buffer.subarray(0, 8)])).digest('hex');
-            await GeneralDao.guidStoreDao(guid, interaction.user.id, aggregate)
+            await GeneralDao.guidStoreDao(guid, interaction.user.id, aggregate, steamId64)
             embed.setDescription("<@" + interaction.user.id + ">" + "    " + `Global GUID converted: \`${aggregate}\``);
             embed.addFields(
                 { name: 'SteamId64', value: `\`${steamId64}\``, inline: true },
@@ -37,6 +37,7 @@ module.exports = {
             embed.setColor(GeneralConstants.DEFAULT_COLOR);
             embed.setFooter({ text: GeneralConstants.DEFAULT_FOOTER });
         } catch (error) {
+            console.log(error);
             embed.setTitle('Error converting');
             embed.setDescription(`Are you sure you entered a correct number? \nExecute /steam and enter your Steam Link. Like this: \`/steam 765611....\` \nYou have to find your SteamId64 765611 .... and then, use it with the command \`/guid 765611.....\` to return the hash.`)
             embed.setColor("#A62019");
