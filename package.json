@@ -12,7 +12,13 @@
         "start:local": "STEAMID_ENV=local nodemon index.js",
         "db:migrate": "node ./src/Database/Migrate.js",
         "db:seed:games": "node ./src/Database/SeedGames.js",
-        "db:setup": "npm run db:migrate && npm run db:seed:games"
+        "db:setup": "npm run db:migrate && npm run db:seed:games",
+        "pm2:start": "pm2 start ecosystem.config.cjs --env production",
+        "pm2:restart": "pm2 restart steamid-guid-bot",
+        "pm2:stop": "pm2 stop steamid-guid-bot && pm2 delete steamid-guid-bot",
+        "pm2:logs": "pm2 logs steamid-guid-bot --lines 100",
+        "pm2:list": "pm2 ls",
+        "pm2:save": "pm2 save"
     },
     "keywords": [
         "-"
