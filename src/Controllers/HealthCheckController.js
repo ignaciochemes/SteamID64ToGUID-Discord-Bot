@@ -1,6 +1,9 @@
-const { FormaterResponse } = require("../Models/Response/FormaterResponse");
+import FormaterResponse from "../Models/Response/FormaterResponse.js";
 
-class HealthCheckController {
+/**
+ * Controlador de Health Check.
+ */
+export class HealthCheckController {
 
     static async healthCheck(req, res) {
         const response = { status: "OK", message: "Server is running" };
@@ -8,5 +11,3 @@ class HealthCheckController {
     }
 
 }
-
-module.exports = { HealthCheckController };

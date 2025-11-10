@@ -1,12 +1,19 @@
-const { createHash } = require('crypto');
-const { HttpConstants } = require('../Constants/HttpConstants');
-const { GeneralConstants } = require('../Constants/GeneralConstants');
-const { ErrorResponse } = require('../Models/Response/ErrorResponse');
-const { ObtainGuidResponse } = require('../Models/Response/ObtainGuidResponse');
-const { ObtainUidResponse } = require('../Models/Response/ObtainUidResponse');
+import { createHash } from 'crypto';
+import { HttpConstants } from '../Constants/HttpConstants.js';
+import { GeneralConstants } from '../Constants/GeneralConstants.js';
+import ErrorResponse from '../Models/Response/ErrorResponse.js';
+import ObtainGuidResponse from '../Models/Response/ObtainGuidResponse.js';
+import ObtainUidResponse from '../Models/Response/ObtainUidResponse.js';
 
+/**
+ * Servicio de API: lógica para convertir SteamId64 a GUID y UIDs.
+ */
 class ApiService {
 
+    /**
+     * Genera GUID a partir de `steam` (SteamId64) recibido por query.
+     * Devuelve `ObtainGuidResponse` o `ErrorResponse`.
+     */
     static async obtainGuid(req) {
         if (!req.query.steam) return new ErrorResponse(HttpConstants.BAD_REQUEST, "Enter the query parameters", "/api/guid?steam=your-steam-id-64-here");
         if (req.query.steam.length != 17) return new ErrorResponse(HttpConstants.BAD_REQUEST, "Argument must be 17 characters");
@@ -24,6 +31,10 @@ class ApiService {
         }
     }
 
+    /**
+     * Genera UIDs (cfTools y Bohemia) a partir de `steam` (SteamId64).
+     * Devuelve `ObtainUidResponse` o `ErrorResponse`.
+     */
     static uidService(req) {
         if (!req.query.steam) return new ErrorResponse(HttpConstants.BAD_REQUEST, "Enter the query parameters", "/api/uid?steam=your-steam-id-64-here");
         if (req.query.steam.length != 17) return new ErrorResponse(HttpConstants.BAD_REQUEST, "Argument must be 17 characters");
@@ -39,4 +50,4 @@ class ApiService {
     }
 }
 
-module.exports = { ApiService }
+export { ApiService };

@@ -1,4 +1,4 @@
-const { model, Schema } = require('mongoose');
+import { model, Schema } from 'mongoose';
 
 const generalStoreSchema = new Schema({
     comando: { type: String },
@@ -6,4 +6,4 @@ const generalStoreSchema = new Schema({
     name: { type: String },
 });
 
-module.exports = model('generalAlmacenamiento', generalStoreSchema);
+export default model('generalAlmacenamiento', generalStoreSchema);

@@ -1,16 +1,13 @@
-const guidStoreSchema = require("../Database/Models/GuidStore");
+import { query } from "../Database/PgPool.js";
 
-class GuidDao {
+export class GuidDao {
+    /**
+     * Retorna el total de conversiones GUID en formato similar a Mongoose aggregate.
+     * @returns {Promise<Array<{_id: string, Total: number}>>} Lista con un único agregado.
+     */
     static async agregate() {
-        return await guidStoreSchema.aggregate([
-            {
-                $group: {
-                    _id: "$name",
-                    Total: { $sum: 1 }
-                }
-            }
-        ])
+        const res = await query('SELECT COUNT(*) AS total FROM guid_conversions');
+        const total = Number(res.rows[0].total);
+        return [{ _id: "guid", Total: total }];
     }
 }
-
-module.exports = { GuidDao };

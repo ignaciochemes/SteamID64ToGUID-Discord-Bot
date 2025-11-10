@@ -1,7 +1,10 @@
-const { FormaterResponse } = require("../Models/Response/FormaterResponse");
-const { ApiService } = require("../services/ApiService");
+import FormaterResponse from "../Models/Response/FormaterResponse.js";
+import { ApiService } from "../services/ApiService.js";
 
-class ApiController {
+/**
+ * Controlador de API: maneja endpoints GUID y UID.
+ */
+export class ApiController {
 
     static async guidController(req, res) {
         const response = await ApiService.obtainGuid(req);
@@ -14,5 +17,3 @@ class ApiController {
     }
 
 }
-
-module.exports = { ApiController };

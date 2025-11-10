@@ -1,4 +1,4 @@
-const { model, Schema } = require('mongoose');
+import { model, Schema } from 'mongoose';
 
 const uidStoreSchema = new Schema({
     uid: { type: String },
@@ -7,4 +7,4 @@ const uidStoreSchema = new Schema({
     numero: { type: Number },
 });
 
-module.exports = model('uidAlmacenamiento', uidStoreSchema);
+export default model('uidAlmacenamiento', uidStoreSchema);

@@ -10,4 +10,4 @@ class ObtainUidResponse {
     }
 }
 
-module.exports = { ObtainUidResponse };
+export default ObtainUidResponse;

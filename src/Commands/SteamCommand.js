@@ -1,12 +1,12 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const SteamAPI = require("steamapi");
-const { GeneralConstants } = require("../Constants/GeneralConstants");
-const { GeneralDao } = require("../Daos/CommandsDao");
+import { SlashCommandBuilder, EmbedBuilder } from "discord.js";
+import SteamAPI from "steamapi";
+import { GeneralConstants } from "../Constants/GeneralConstants.js";
+import { GeneralDao } from "../Daos/CommandsDao.js";
 
 const steam = new SteamAPI(process.env.STEAM_API);
 let id64Resolve = [];
 
-module.exports = {
+export default {
     data: new SlashCommandBuilder()
         .setName("steam")
         .setDescription("Convert Steam profile url to SteamId64")
@@ -16,7 +16,7 @@ module.exports = {
                 .setRequired(true)
         ),
     async execute(interaction) {
-        await GeneralDao.generalStoreDao(interaction.commandName, interaction.user.id, GeneralConstants.COMANDOS);
+        // await GeneralDao.generalStoreDao(interaction.commandName, interaction.user.id, GeneralConstants.COMANDOS);
         const pwd = interaction.options._hoistedOptions[0].value;
         let embed = new EmbedBuilder();
         try {

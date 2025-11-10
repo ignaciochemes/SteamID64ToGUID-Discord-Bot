@@ -1,8 +1,9 @@
-const bodyParser = require('body-parser');
-const express = require('express');
-const logger = require('./Middlewares/LoggerMiddleware');
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('../swagger.json');
+import bodyParser from 'body-parser';
+import express from 'express';
+import logger from './Middlewares/LoggerMiddleware.js';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from '../swagger.json' with { type: 'json' };
+import apiRouter from './Routes/ApiRouter.js';
 
 class WebServer {
     constructor() {
@@ -20,7 +21,8 @@ class WebServer {
     }
 
     routes() {
-        this.app.use(this.prefix, require('./Routes/ApiRouter'));
+        // Registra el router principal de la API usando import ESM
+        this.app.use(this.prefix, apiRouter);
         this.app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
     }
 
@@ -31,4 +33,4 @@ class WebServer {
     }
 }
 
-module.exports = { WebServer };
+export default { WebServer };

@@ -1,24 +1,38 @@
-const dayzSchema = require('../Database/Models/setDayzServer');
+import { upsertUserServerByDiscordId, getUserServerByDiscordId, deleteUserServerByDiscordId } from '../Database/UserServersRepository.js';
 
 class DayzDao {
 
+    /**
+     * Guarda o actualiza el servidor de DayZ para el usuario (Discord).
+     * @param {import('discord.js').Message} message - Mensaje de Discord.
+     * @param {string} ip - IP/host del servidor.
+     * @param {number|string} puerto - Puerto de consulta.
+     * @returns {Promise<{id:number, host:string, query_port:number, game_key:string}>} Fila persistida.
+     */
     static async save(message, ip, puerto) {
-        const newData = new dayzSchema({
-            DayzIp: ip,
-            DayzPort: puerto,
-            GuildID: message.author.id,
-        })
-        await newData.save();
+        const discordId = message.author.id;
+        return await upsertUserServerByDiscordId(discordId, 'dayz', ip, Number(puerto));
     };
 
+    /**
+     * Elimina el servidor configurado de DayZ para el usuario.
+     * @param {import('discord.js').Message} message - Mensaje de Discord.
+     * @returns {Promise<number>} Cantidad de filas eliminadas.
+     */
     static async setServer(message) {
-        await dayzSchema.findOneAndRemove({ GuildID: message.author.id });
+        const discordId = message.author.id;
+        return await deleteUserServerByDiscordId(discordId, 'dayz');
     };
 
+    /**
+     * Obtiene el servidor configurado de DayZ para el usuario.
+     * @param {import('discord.js').Message} message - Mensaje de Discord.
+     * @returns {Promise<{id:number, host:string, query_port:number, game_key:string} | null>} Fila encontrada o null.
+     */
     static async getServer(message) {
-        const query = await dayzSchema.findOne({ GuildID: message.author.id });
-        return query;
+        const discordId = message.author.id;
+        return await getUserServerByDiscordId(discordId, 'dayz');
     }
 }
 
-module.exports = { DayzDao };
+export default DayzDao;

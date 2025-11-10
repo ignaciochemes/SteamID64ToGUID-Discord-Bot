@@ -1,13 +1,22 @@
-const dotenv = require('dotenv');
-const path = require('path');
-const { EnvironmentConstants } = require('../Constants/EnvironmentConstants');
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import EnvironmentConstants from '../Constants/EnvironmentConstants.js';
 
 const PROD = EnvironmentConstants.PROD;
 const DEV = EnvironmentConstants.DEV;
 const LOCAL = EnvironmentConstants.LOCAL;
 
+// Resuelve __dirname en módulos ESM para acceder a archivos .env
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 let envData = {};
 
+/**
+ * Determina el entorno activo y carga el archivo .env correspondiente.
+ * Retorna nada; establece variables de entorno en process.env.
+ */
 const getEnvironment = () => {
     switch (process.env.STEAMID_ENV) {
         case PROD:
@@ -25,6 +34,6 @@ const getEnvironment = () => {
         default:
             envData = dotenv.config({ path: path.resolve(__dirname, '../../.env') }).parsed;
     }
-}
+};
 
-module.exports = { getEnvironment, envData }
+export default getEnvironment;

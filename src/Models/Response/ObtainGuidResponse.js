@@ -8,4 +8,4 @@ class ObtainGuidResponse {
     }
 }
 
-module.exports = { ObtainGuidResponse };
+export default ObtainGuidResponse;
